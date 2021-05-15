@@ -39,7 +39,7 @@ const EditProject = ({ token, userDetails }) => {
     };
 
     let { data } = await axios.put(
-      `http://localhost:5000/api/projects/${projectId}`, //making backend call to Edit a project
+      `/api/projects/${projectId}`, //making backend call to Edit a project
       project,
       config
     );
@@ -74,7 +74,7 @@ const EditProject = ({ token, userDetails }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

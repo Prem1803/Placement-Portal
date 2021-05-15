@@ -1,6 +1,6 @@
 //Making call to the backend to get all the alumni's
 export const getAllAlumni = () => {
-  return fetch(`http://localhost:5000/api/users/allAlumni`, {
+  return fetch(`/api/users/allAlumni`, {
     //call is made to backend using axios
     method: "GET",
     headers: {

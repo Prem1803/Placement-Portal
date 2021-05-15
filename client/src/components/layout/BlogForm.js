@@ -20,7 +20,7 @@ export const BlogForm = ({ user, userDetails, token }) => {
     };
 
     let { data } = await axios.post(
-      `http://localhost:5000/api/blogs/`, //making backend call to add a blog
+      `/api/blogs/`, //making backend call to add a blog
       blog,
       config
     );
@@ -53,7 +53,7 @@ export const BlogForm = ({ user, userDetails, token }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

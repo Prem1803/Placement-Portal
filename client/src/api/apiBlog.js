@@ -1,6 +1,6 @@
 //Making call to the backend to get all the blogs
 export const getAllBlogs = () => {
-  return fetch(`http://localhost:5000/api/blogs/`, {
+  return fetch(`/api/blogs/`, {
     //call is made to backend using axios
     method: "GET",
     headers: {
@@ -15,7 +15,7 @@ export const getAllBlogs = () => {
 };
 //Making call to the backend to get a particular blog
 export const getBlogById = (id) => {
-  return fetch(`http://localhost:5000/api/blogs/${id}`, {
+  return fetch(`/api/blogs/${id}`, {
     //call is made to backend using axios
     method: "GET",
     headers: {
@@ -31,7 +31,7 @@ export const getBlogById = (id) => {
 //Making call to the backend to delete an blog
 export const deleteBlogById = (id, token) => {
   console.log(id);
-  return fetch(`http://localhost:5000/api/blogs/${id}`, {
+  return fetch(`/api/blogs/${id}`, {
     //call is made to backend using axios
     method: "DELETE",
     headers: {
@@ -47,7 +47,7 @@ export const deleteBlogById = (id, token) => {
 };
 //Making call to the backend to get all the blogs of a user
 export const getAllUserBlogs = (userid) => {
-  return fetch(`http://localhost:5000/api/blogs/userBlogs/${userid}`, {
+  return fetch(`/api/blogs/userBlogs/${userid}`, {
     //call is made to backend using axios
     method: "GET",
     headers: {

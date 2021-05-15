@@ -21,7 +21,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
     };
 
     let { data } = await axios.post(
-      `http://localhost:5000/api/announcements/`, //making backend call to add an announcement
+      `/api/announcements/`, //making backend call to add an announcement
       announcement,
       config
     );
@@ -52,7 +52,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

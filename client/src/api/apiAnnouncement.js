@@ -1,6 +1,6 @@
 //Making call to the backend to get all the announcements
 export const getAllAnnouncements = () => {
-  return fetch(`http://localhost:5000/api/announcements/`, {
+  return fetch(`/api/announcements/`, {
     //call is made to backend using axios
     method: "GET",
     headers: {
@@ -16,7 +16,7 @@ export const getAllAnnouncements = () => {
 
 //Making call to the backend to get a particular announcement
 export const getAnnouncementById = (id) => {
-  return fetch(`http://localhost:5000/api/announcements/${id}`, {
+  return fetch(`/api/announcements/${id}`, {
     //call is made to backend using axios
     method: "GET",
     headers: {
@@ -33,7 +33,7 @@ export const getAnnouncementById = (id) => {
 //Making call to the backend to delete an announcement
 export const deleteAnnouncementById = (id, token) => {
   console.log(id);
-  return fetch(`http://localhost:5000/api/announcements/${id}`, {
+  return fetch(`/api/announcements/${id}`, {
     //call is made to backend using axios
     method: "DELETE",
     headers: {

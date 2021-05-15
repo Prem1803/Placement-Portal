@@ -47,7 +47,7 @@ function App() {
         };
 
         let { data } = await axios.get(
-          "http://localhost:5000/api/users/getLoggedInUser", //making call to the backend to get the logged in user
+          "/api/users/getLoggedInUser", //making call to the backend to get the logged in user
           config
         );
 
@@ -57,7 +57,7 @@ function App() {
           try {
             let userdata;
             userdata = await axios
-              .get(`http://localhost:5000/api/users/${user.sid}`, config) //making call to the backend to get the user details of the logged in user
+              .get(`/api/users/${user.sid}`, config) //making call to the backend to get the user details of the logged in user
               .then((response) => {
                 userdata = JSON.parse(JSON.stringify(response.data));
                 setUserDetails(userdata); //storing the response into the user details

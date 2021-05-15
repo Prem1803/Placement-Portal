@@ -22,7 +22,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     let { data } = await axios.post(
-      "http://localhost:5000/api/users/login", //call is made to backend using axios
+      "/api/users/login", //call is made to backend using axios
       { email, password },
       config
     );
@@ -71,7 +71,7 @@ export const Adminlogin = (email, password) => async (dispatch) => {
     };
 
     let { data } = await axios.post(
-      "http://localhost:5000/api/users/adminlogin", //call is made to backend using axios
+      "/api/users/adminlogin", //call is made to backend using axios
       { email, password },
       config
     );
@@ -119,7 +119,7 @@ export const register = (student) => async (dispatch) => {
     };
 
     let { data } = await axios.post(
-      "http://localhost:5000/api/users/student", //call is made to backend using axios
+      "/api/users/student", //call is made to backend using axios
       student,
       config
     );

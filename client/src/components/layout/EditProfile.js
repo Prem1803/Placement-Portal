@@ -40,7 +40,7 @@ export const EditProfile = ({ userDetails }) => {
     };
 
     let { data } = await axios.put(
-      `http://localhost:5000/api/users/${user._id}`, //making backend call to Edit Profile
+      `/api/users/${user._id}`, //making backend call to Edit Profile
       user,
       config
     );
@@ -68,7 +68,7 @@ export const EditProfile = ({ userDetails }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

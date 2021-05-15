@@ -20,7 +20,7 @@ export const ProjectForm = ({ user, token, userDetails }) => {
     };
 
     let { data } = await axios.post(
-      `http://localhost:5000/api/projects/`, //making backend call to add a project
+      `/api/projects/`, //making backend call to add a project
       project,
       config
     );
@@ -53,7 +53,7 @@ export const ProjectForm = ({ user, token, userDetails }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

@@ -38,7 +38,7 @@ const EditAnnouncement = ({ token, user }) => {
     };
 
     let { data } = await axios.put(
-      `http://localhost:5000/api/announcements/${announcementId}`, //making backend call to Edit a announcement
+      `/api/announcements/${announcementId}`, //making backend call to Edit a announcement
       announcement,
       config
     );
@@ -73,7 +73,7 @@ const EditAnnouncement = ({ token, user }) => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload", //making backend call to upload the image
+        "/api/upload", //making backend call to upload the image
         formData,
         config
       );

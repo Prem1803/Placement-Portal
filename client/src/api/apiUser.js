@@ -1,6 +1,6 @@
 //Making call to the backend to get a particular user
 export const getUser = (id) => {
-  return fetch(`http://localhost:5000/api/users/${id}`, {
+  return fetch(`/api/users/${id}`, {
     //call is made to backend using axios
     method: "GET",
     headers: {
