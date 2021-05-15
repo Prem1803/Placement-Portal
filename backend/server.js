@@ -26,7 +26,7 @@ app.use("/api/upload", uploadRoutes);
 const _dirname = path.resolve();
 app.use("/uploads", express.static(path.join(_dirname, "/uploads")));
 
-if (process.env.NODE.ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
