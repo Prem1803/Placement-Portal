@@ -116,6 +116,11 @@ const UserProfile = () => {
                       <td>{userDetails.batch ? userDetails.batch : ""}</td>
                     </tr>
                     <tr>
+                      <td>Year</td>
+                      <td>:</td>
+                      <td>{userDetails.year ? userDetails.year : ""}</td>
+                    </tr>
+                    <tr>
                       <td>Description</td>
                       <td>:</td>
                       <td>

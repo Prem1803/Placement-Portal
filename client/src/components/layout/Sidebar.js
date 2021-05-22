@@ -174,6 +174,7 @@ const Sidebar = ({ children, user, userDetails, token }) => {
                 paddingLeft: "1rem",
                 paddingRight: "0",
                 marginRight: "0",
+                zIndex: "1",
               }}
               onClick={handleToggle}
             ></i>

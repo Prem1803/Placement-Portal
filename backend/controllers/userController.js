@@ -65,7 +65,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         }
       });
     });
-    const { name, rollNo, branch, batch } = req.body; //extracting student details from the request
+    const { name, rollNo, branch, batch, year } = req.body; //extracting student details from the request
     try {
       const newStudent = new Student({
         userid: user._id,
@@ -73,6 +73,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         rollNo,
         branch,
         batch,
+        year,
       }); //creating new student
       await newStudent.save();
 
@@ -259,9 +260,9 @@ const getAllStudents = asyncHandler(async (req, res) => {
     let students = [];
     users.forEach((user) => {
       let d1 = new Date().getFullYear();
-      let d2 = Number(user.batch);
+      let d2 = Number(user.year);
 
-      if (new Date().getFullYear() - Number(user.batch) <= 4) {
+      if (new Date().getFullYear() - Number(user.year) <= 4) {
         //checking if the user is the current student or not
         students.push(user);
       }
@@ -279,9 +280,9 @@ const getAllAlumni = asyncHandler(async (req, res) => {
     let alumni = [];
     users.forEach((user) => {
       let d1 = new Date().getFullYear();
-      let d2 = Number(user.batch);
+      let d2 = Number(user.year);
 
-      if (new Date().getFullYear() - Number(user.batch) > 4) {
+      if (new Date().getFullYear() - Number(user.year) > 4) {
         //checking if the student is an alumni or not
         alumni.push(user);
       }

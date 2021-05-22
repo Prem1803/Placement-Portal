@@ -82,6 +82,7 @@ export const EditProfile = ({ userDetails }) => {
     branch,
     imgUrl,
     batch,
+    year,
     rollNo,
     description,
     bio,
@@ -114,7 +115,13 @@ export const EditProfile = ({ userDetails }) => {
 
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" name="name" value={name} onChange={onChange} />
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={onChange}
+                readOnly
+              />
             </div>
             <div className="form-group">
               <label htmlFor="rollNo">Roll No</label>
@@ -123,6 +130,7 @@ export const EditProfile = ({ userDetails }) => {
                 name="rollNo"
                 value={rollNo}
                 onChange={onChange}
+                readOnly
               />
             </div>
             <div className="form-group">
@@ -132,6 +140,7 @@ export const EditProfile = ({ userDetails }) => {
                 name="branch"
                 value={branch}
                 onChange={onChange}
+                readOnly
               />
             </div>
 
@@ -142,6 +151,17 @@ export const EditProfile = ({ userDetails }) => {
                 name="batch"
                 value={batch}
                 onChange={onChange}
+                readOnly
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="year">Year</label>
+              <input
+                type="text"
+                name="year"
+                value={year}
+                onChange={onChange}
+                readOnly
               />
             </div>
             <div className="form-group">
@@ -181,7 +201,7 @@ export const EditProfile = ({ userDetails }) => {
                 onChange={onChange}
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="githubUrl">Github</label>
               <input
                 type="text"
@@ -189,7 +209,7 @@ export const EditProfile = ({ userDetails }) => {
                 value={githubUrl}
                 onChange={onChange}
               />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="linkedInUrl">LinkedIn</label>
               <input
@@ -199,7 +219,7 @@ export const EditProfile = ({ userDetails }) => {
                 onChange={onChange}
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label htmlFor="resumeUrl">Resume</label>
               <input
                 type="text"
@@ -207,7 +227,7 @@ export const EditProfile = ({ userDetails }) => {
                 value={resumeUrl}
                 onChange={onChange}
               />
-            </div>
+            </div> */}
             <div className="form-group">
               <label htmlFor="contactEmail">Contact Email</label>
               <input

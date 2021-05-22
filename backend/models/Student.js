@@ -24,7 +24,11 @@ const StudentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-
+  year: {
+    type: String,
+    required: true,
+  },
+  cgpa: { type: Number, required: false },
   description: {
     type: String,
     required: false,

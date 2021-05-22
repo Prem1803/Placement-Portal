@@ -616,6 +616,7 @@ table th {
   margin: 0;
   padding: 0;
   list-style: none;
+  height: 0vh;
 }
 
 .sidebar li {

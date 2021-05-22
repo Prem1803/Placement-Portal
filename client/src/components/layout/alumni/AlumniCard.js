@@ -9,6 +9,7 @@ const AlumniCard = ({
     description,
     branch,
     batch,
+    year,
     worksAt,
     skills,
     linkedInUrl,
@@ -33,7 +34,9 @@ const AlumniCard = ({
         <h4 style={{ margin: "0" }}>{name}</h4>
         <ul>
           <li className="tag tag-purple">{branch}</li>
-          <li className="tag tag-pink">{batch}</li>
+          <li className="tag tag-pink">
+            {batch} {year}
+          </li>
         </ul>
         <p>{description}</p>
         {worksAt && (
