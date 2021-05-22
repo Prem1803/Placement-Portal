@@ -262,7 +262,19 @@ const getAllStudents = asyncHandler(async (req, res) => {
       let d1 = new Date().getFullYear();
       let d2 = Number(user.year);
 
-      if (new Date().getFullYear() - Number(user.year) <= 4) {
+      if (
+        new Date().getFullYear() - Number(user.year) <= 4 &&
+        user.batch === "Btech"
+      ) {
+        //checking if the user is the current student or not
+        students.push(user);
+      } else if (
+        new Date().getFullYear() - Number(user.year) <= 2 &&
+        user.batch === "Mtech"
+      ) {
+        //checking if the user is the current student or not
+        students.push(user);
+      } else if (user.batch === "Phd") {
         //checking if the user is the current student or not
         students.push(user);
       }
@@ -283,6 +295,15 @@ const getAllAlumni = asyncHandler(async (req, res) => {
       let d2 = Number(user.year);
 
       if (new Date().getFullYear() - Number(user.year) > 4) {
+        //checking if the student is an alumni or not
+        alumni.push(user);
+      } else if (
+        new Date().getFullYear() - Number(user.year) > 2 &&
+        user.batch === "Mtech"
+      ) {
+        //checking if the student is an alumni or not
+        alumni.push(user);
+      } else if (user.batch === "Phd") {
         //checking if the student is an alumni or not
         alumni.push(user);
       }

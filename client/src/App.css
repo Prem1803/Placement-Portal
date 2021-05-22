@@ -1472,7 +1472,7 @@ i.right {
   padding-left: 3rem;
   background: rgba(209, 209, 245, 0.644);
   border-radius: 20px;
-  width: 700px;
+  width: 40%;
   margin-left: 4rem;
   padding-top: 2rem;
   position: absolute;
@@ -1480,8 +1480,11 @@ i.right {
   font-weight: 700;
   color: #010716cc;
   font-size: 1.14rem;
+  height: auto;
 }
-
+.main-container {
+  width: 100%;
+}
 .main-banner {
   background-image: url(https://designforuminternational.com/wp-content/uploads/2018/08/Slider-2-21.jpg);
   background-position: 100%;
