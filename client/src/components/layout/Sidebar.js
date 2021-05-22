@@ -8,7 +8,7 @@ const Sidebar = ({ children, user, userDetails, token }) => {
     //handles the toggle of the side bar
     setActive(!isActive);
   };
-  if (!isActive) {
+  if (isActive) {
     if (user && user.type === 1)
       //is the user is an admin then admin dashboard link is shown
       return (
