@@ -574,7 +574,13 @@ table th {
 .navbar .welcome span {
   margin-right: 0.6rem;
 }
-
+.hamburger {
+  display: none;
+}
+#mobilenav {
+  visibility: hidden;
+  height: 0vh;
+}
 /*
     Sidebar
 */
@@ -652,7 +658,7 @@ table th {
 }
 
 /* Mobile Styles */
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   .hide-sm {
     display: none;
   }
@@ -674,6 +680,31 @@ table th {
 
   .lead {
     font-size: 1rem;
+  }
+  .hamburger {
+    display: inline-block;
+  }
+  .navbar ul {
+    display: none;
+  }
+  #mobilenav {
+    z-index: 1;
+    height: 100vh;
+    background-color: #333;
+    visibility: visible;
+    margin: 0 auto;
+    padding-top: 2rem;
+  }
+  #mobilenav li {
+    margin: 0 auto;
+    line-height: 3rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+  #mobilenav a {
+    color: rgb(248, 247, 247);
+    padding: 0.45rem;
+    margin: 0 0.25rem;
   }
 }
 

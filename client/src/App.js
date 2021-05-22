@@ -103,7 +103,17 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               {/*Renders the home page*/}
-              <Route exact path="/contact" component={Contact} />
+              <Route
+                exact
+                path="/contact"
+                render={() => (
+                  <Contact
+                    user={user}
+                    userDetails={userDetails}
+                    token={token}
+                  />
+                )}
+              />
               {/*Renders the contact page*/}
               <Route exact path="/register" component={Register} />
               {/*Renders the student register page*/}
@@ -117,7 +127,7 @@ function App() {
               {/*Renders the all students page*/}
               <Route exact path="/alumni" component={Alumni} />
               {/*Renders the all alumni's page*/}
-              <Route exact path="/projects" component={Projects} />
+              {/* <Route exact path="/projects" component={Projects} /> */}
               {/*Renders the all projects page*/}
               <Route exact path="/announcements" component={Announcements} />
               {/*Renders the all announcement page*/}
@@ -165,7 +175,7 @@ function App() {
                 )}
               />
               {/*Renders the user profile page*/}
-              <Route
+              {/* <Route
                 exact
                 path="/users/:id/projects/:pid/edit"
                 render={() => (
@@ -175,9 +185,9 @@ function App() {
                     user={user}
                   />
                 )}
-              />
+              /> */}
               {/*Renders the edit project page*/}
-              <Route
+              {/* <Route
                 exact
                 path="/users/:id/addProject"
                 render={() => (
@@ -187,7 +197,7 @@ function App() {
                     user={user}
                   />
                 )}
-              />
+              /> */}
               {/*Renders the add project page*/}
               <Route
                 exact

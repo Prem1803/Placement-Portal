@@ -17,10 +17,32 @@ const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { name, email, rollNo, branch, batch, password, password2 } = user; //destructuring the user object
-
+  const validateEmail = (email) => {
+    var re =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(email)) {
+      //Email valid. Procees to test if it's from the right domain (Second argument is to check that the string ENDS with this domain, and that it doesn't just contain it)
+      console.log("Validating Email...", email);
+      if (
+        email.indexOf(
+          "@nitdelhi.ac.in",
+          email.length - "@nitdelhi.ac.in".length
+        ) !== -1
+      ) {
+        //VALID
+        console.log("VALID");
+      } else {
+        console.log("In valid");
+      }
+    }
+  };
   const onChange = (e) => {
     //sets the user on change on the user details
     setUser({ ...user, [e.target.name]: e.target.value });
+    // console.log(email);
+    // if (e.target.name === "email") {
+    //   validateEmail(email);
+    // }
   };
   const { addToast } = useToasts();
 

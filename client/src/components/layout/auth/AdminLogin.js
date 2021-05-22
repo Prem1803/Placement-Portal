@@ -61,7 +61,6 @@ const AdminLogin = () => {
 
         <input type="submit" value="Login" className="btn btn-primary" />
       </form>
-      <Link to="/login">Login as a Student</Link>
     </div>
   );
 };

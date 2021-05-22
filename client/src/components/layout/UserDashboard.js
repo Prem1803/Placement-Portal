@@ -175,7 +175,7 @@ const UserDashboard = ({ user, token }) => {
                             : ""}
                         </td>
                       </tr>
-                      <tr>
+                      {/* <tr>
                         <td>Github</td>
                         <td>:</td>
                         <td>
@@ -189,6 +189,7 @@ const UserDashboard = ({ user, token }) => {
                           {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                         </td>
                       </tr>
+                       */}
                       <tr>
                         <td>Contact Email</td>
                         <td>:</td>
@@ -213,7 +214,7 @@ const UserDashboard = ({ user, token }) => {
               </ul>
             </h4>
           </div>
-          <div>
+          {/* <div>
             <h2
               style={{
                 textAlign: "left",
@@ -244,6 +245,7 @@ const UserDashboard = ({ user, token }) => {
                 })}
             </div>
           </div>
+           */}
           <div>
             <h2
               style={{

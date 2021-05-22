@@ -66,7 +66,6 @@ const Login = () => {
           Login
         </button>
       </form>
-      <Link to="/admin">Login as an Admin</Link>
     </div>
   );
 };

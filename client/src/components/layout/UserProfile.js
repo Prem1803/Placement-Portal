@@ -150,7 +150,7 @@ const UserProfile = () => {
                         {userDetails.linkedInUrl ? userDetails.linkedInUrl : ""}
                       </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td>Github</td>
                       <td>:</td>
                       <td>
@@ -163,7 +163,7 @@ const UserProfile = () => {
                       <td>
                         {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                       </td>
-                    </tr>
+                    </tr> */}
                     <tr>
                       <td>Contact Email</td>
                       <td>:</td>
@@ -188,7 +188,7 @@ const UserProfile = () => {
             </ul>
           </h4>
         </div>
-        <div>
+        {/* <div>
           <h2
             style={{
               textAlign: "left",
@@ -211,6 +211,7 @@ const UserProfile = () => {
               })}
           </div>
         </div>
+         */}
         <div>
           <h2
             style={{

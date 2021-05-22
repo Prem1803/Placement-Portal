@@ -19,42 +19,133 @@ const Navbar = ({ title, icon, user, userDetails }) => {
 
     window.location.reload();
   };
+
   const token = localStorage.getItem("userInfo");
   if (token === null || token === "null" || token === "")
     return (
       //if token is not present then shows register and login links
-      <nav className="navbar bg-dark">
-        <Link to="/">
-          {" "}
-          <h1>
-            <i className={icon} /> {title}
-          </h1>
-        </Link>
-        <ul>
-          <li>
+      <div>
+        <nav className="navbar bg-dark">
+          <Link to="/">
+            {" "}
+            <h1>
+              <i className={icon} /> {title}
+            </h1>
+          </Link>
+          <a
+            href="javascript:void(0);"
+            className="hamburger"
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              var y = document.getElementById("navicon");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+                y.classList.toggle("fas");
+                y.classList.toggle("fa-times");
+                y.classList.toggle("fa");
+                y.classList.toggle("fa-bars");
+              } else {
+                x.style.display = "block";
+                y.classList.toggle("fas");
+                y.classList.toggle("fa-times");
+                y.classList.toggle("fa");
+                y.classList.toggle("fa-bars");
+              }
+            }}
+          >
+            <i id="navicon" className="fa fa-bars" />
+          </a>
+          <ul>
+            <li>
+              <Link to="/">
+                <i className="fas fa-home"></i> Home
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/contact">
+                <i className="fas fa-phone"></i> Contact Us
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/register">
+                <i className="fas fa-user"></i> Register
+              </Link>
+            </li>
+            <li>
+              <Link to="/login">
+                <i className="fas fa-sign-in-alt"></i> Login
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        <ul id="mobilenav" style={{ display: "none" }}>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/">
               <i className="fas fa-home"></i> Home
             </Link>
           </li>
 
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/contact">
               <i className="fas fa-phone"></i> Contact Us
             </Link>
           </li>
 
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/register">
               <i className="fas fa-user"></i> Register
             </Link>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/login">
               <i className="fas fa-sign-in-alt"></i> Login
             </Link>
           </li>
         </ul>
-      </nav>
+      </div>
     );
   //otherwise dashboard link is shown
   else
@@ -82,12 +173,13 @@ const Navbar = ({ title, icon, user, userDetails }) => {
           <li>
             {user.type === 1 && (
               <Link to={`/admindashboard/${user.uid}`}>
-                <i className="fas fa-user"></i> Logged in as Admin
+                <i className="fas fa-user"></i> Admin
               </Link>
             )}
             {user.type === 0 && (
               <Link to={`/userdashboard/${user.sid}`}>
-                <i className="fas fa-user"></i> Logged in as {userDetails.name}
+                <i className="fas fa-user"></i>
+                {userDetails.name}
               </Link>
             )}
           </li>
@@ -113,7 +205,7 @@ Navbar.propTypes = {
   icon: PropTypes.string,
 };
 Navbar.defaultProps = {
-  title: "Placements, Nit Delhi",
+  title: "T&P Cell, Nit Delhi",
   icon: "fas fa-university",
 };
 

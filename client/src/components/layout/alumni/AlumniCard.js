@@ -69,17 +69,17 @@ const AlumniCard = ({
           <a href={"mailto:" + contactEmail} data-hover="Mail" target="blank">
             <i className="fas fa-envelope tt-info hover-tt-bottom"></i>
           </a>
-          <a href={githubUrl} data-hover="Github" target="blank">
+          {/* <a href={githubUrl} data-hover="Github" target="blank">
             <i className="fab fa-github tt-info hover-tt-bottom"></i>
-          </a>
+          </a> */}
         </div>
         <div className="developer-profile-action-buttons">
           <Link to={`/users/${_id}`} className="button">
             <i className="fas fa-user"></i> Profile{" "}
           </Link>
-          <a href={resumeUrl} className="button  " target="blank">
+          {/* <a href={resumeUrl} className="button  " target="blank">
             <i className="fas fa-file"></i> Resume
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

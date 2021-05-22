@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = ({ children, user, userDetails, token }) => {
@@ -8,7 +8,7 @@ const Sidebar = ({ children, user, userDetails, token }) => {
     //handles the toggle of the side bar
     setActive(!isActive);
   };
-  if (isActive) {
+  if (!isActive) {
     if (user && user.type === 1)
       //is the user is an admin then admin dashboard link is shown
       return (
@@ -139,11 +139,11 @@ const Sidebar = ({ children, user, userDetails, token }) => {
                     <i className="fab fa-blogger"></i> Blogs
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link className="sidebar_links" to={`/projects`}>
                     <i className="fas fa-project-diagram"></i> Projects
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link className="sidebar_links" to={`/students`}>
                     <i className="fas fa-users"></i> Students
