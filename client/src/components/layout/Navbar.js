@@ -144,9 +144,9 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               <i className="fas fa-sign-in-alt"></i> Login
             </Link>
           </li>
-        </ul>
-        <hr />
-        <ul>
+          <li>
+            <hr />
+          </li>
           <li>
             <Link className="sidebar_links" to={`/announcements`}>
               <i className="fas fa-bullhorn"></i> Announcements
