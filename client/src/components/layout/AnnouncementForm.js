@@ -3,15 +3,19 @@ import { useToasts } from "react-toast-notifications";
 import axios from "axios";
 import { useHistory, useParams } from "react-router";
 import Spinner from "./Spinner";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export const AnnouncementForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
   const userId = useParams().id; //getting user id
 
   const [announcement, setAnnouncement] = useState({}); //setting announcement as empty object
+  const [content, setContent] = useState("");
   const history = useHistory();
 
   const onSubmit = async (e) => {
+    announcement.content = content;
     e.preventDefault();
     const config = {
       headers: {
@@ -61,6 +65,40 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
       console.error(error);
     }
   };
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ color: [] }, { background: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ script: "sub" }, { script: "super" }],
+      [("link", "image")],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "font",
+    "size",
+    "color",
+  ];
   if (user) {
     if (user.type === 1 && user.uid === userId)
       return (
@@ -73,7 +111,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
               <input type="text" name="title" onChange={onChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Banner Image</label>
               <input
                 type="file"
                 name="image"
@@ -85,7 +123,12 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input type="text" name="description" onChange={onChange} />
+              <textarea
+                name="description"
+                rows={3}
+                onChange={onChange}
+                style={{ fontSize: "15px" }}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="tags">Tags</label>
@@ -93,11 +136,12 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
             </div>
             <div className="form-group">
               <label htmlFor="content">Content</label>
-              <textarea
-                name="content"
-                rows={15}
-                onChange={onChange}
-                style={{ fontSize: "1.4rem" }}
+
+              <ReactQuill
+                value={content}
+                onChange={setContent}
+                modules={modules}
+                formats={formats}
               />
             </div>
             <button type="submit" className="btn btn-primary">

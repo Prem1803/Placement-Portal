@@ -145,6 +145,34 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             </Link>
           </li>
         </ul>
+        <hr />
+        <ul>
+          <li>
+            <Link className="sidebar_links" to={`/announcements`}>
+              <i className="fas fa-bullhorn"></i> Announcements
+            </Link>
+          </li>
+          <li>
+            <Link className="sidebar_links" to={`/blogs`}>
+              <i className="fab fa-blogger"></i> Blogs
+            </Link>
+          </li>
+          {/* <li>
+                  <Link className="sidebar_links" to={`/projects`}>
+                    <i className="fas fa-project-diagram"></i> Projects
+                  </Link>
+                </li> */}
+          <li>
+            <Link className="sidebar_links" to={`/students`}>
+              <i className="fas fa-users"></i> Students
+            </Link>
+          </li>
+          <li>
+            <Link className="sidebar_links" to={`/alumni`}>
+              <i className="fas fa-user-graduate"></i> Alumni
+            </Link>
+          </li>
+        </ul>
       </div>
     );
   //otherwise dashboard link is shown

@@ -4,11 +4,14 @@ import { useHistory, useParams } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { getAnnouncementById } from "../../api/apiAnnouncement";
 import Spinner from "./Spinner";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const EditAnnouncement = ({ token, user }) => {
   const [announcement, setAnnouncement] = useState({}); //setting announcement as empty object
   const announcementId = useParams().bid; //getting announcement id
   const [tags, setTags] = useState(null); //setting tags as null
   const userId = useParams().id; //getting user id
+  const [content, setContent] = useState("");
 
   const loadAnnouncement = () => {
     //loading announcement
@@ -16,6 +19,7 @@ const EditAnnouncement = ({ token, user }) => {
       .then((data) => {
         setAnnouncement(data); //setting announcement with the response
         setTags(data.tags.join()); //setting tags
+        setContent(data.content);
       })
       .catch((err) => {
         console.log(err);
@@ -30,6 +34,7 @@ const EditAnnouncement = ({ token, user }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     announcement.tags = tags;
+    announcement.content = content;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -82,6 +87,40 @@ const EditAnnouncement = ({ token, user }) => {
       console.error(error);
     }
   };
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ color: [] }, { background: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ script: "sub" }, { script: "super" }],
+      [("link", "image")],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "font",
+    "size",
+    "color",
+  ];
   if (user.uid) {
     if (user.type === 1 && user.uid === userId)
       return (
@@ -99,7 +138,7 @@ const EditAnnouncement = ({ token, user }) => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Banner Image</label>
               <input
                 type="file"
                 name="image"
@@ -112,11 +151,12 @@ const EditAnnouncement = ({ token, user }) => {
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input
-                type="text"
+              <textarea
                 name="description"
-                value={announcement.description ? announcement.description : ""}
+                rows={3}
                 onChange={onChange}
+                style={{ fontSize: "15px" }}
+                value={announcement.description ? announcement.description : ""}
               />
             </div>
             <div className="form-group">
@@ -134,12 +174,11 @@ const EditAnnouncement = ({ token, user }) => {
             </div>
             <div className="form-group">
               <label htmlFor="content">Content</label>
-              <textarea
-                name="content"
-                rows={15}
-                onChange={onChange}
-                style={{ fontSize: "1.4rem" }}
-                value={announcement.content ? announcement.content : ""}
+              <ReactQuill
+                value={content}
+                onChange={setContent}
+                modules={modules}
+                formats={formats}
               />
             </div>
             <button type="submit" className="btn btn-primary">

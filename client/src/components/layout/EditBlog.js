@@ -4,11 +4,14 @@ import { useHistory, useParams } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { getBlogById } from "../../api/apiBlog";
 import Spinner from "./Spinner";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 const EditBlog = ({ token, userDetails }) => {
   const [blog, setBlog] = useState({}); //setting blog as empty object
   const blogId = useParams().bid; //getting blog id
   const userId = useParams().id; //getting user id
   const [tags, setTags] = useState(null); //setting tags as null
+  const [content, setContent] = useState("");
 
   const loadBlog = () => {
     //loading blog
@@ -16,6 +19,7 @@ const EditBlog = ({ token, userDetails }) => {
       .then((data) => {
         setBlog(data); //setting blog with the response
         setTags(data.tags.join()); //setting tags
+        setContent(data.content);
       })
       .catch((err) => {
         console.log(err);
@@ -30,6 +34,7 @@ const EditBlog = ({ token, userDetails }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     blog.tags = tags;
+    blog.content = content;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -83,6 +88,40 @@ const EditBlog = ({ token, userDetails }) => {
       console.error(error);
     }
   };
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      [{ font: [] }],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ color: [] }, { background: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      [{ script: "sub" }, { script: "super" }],
+      [("link", "image")],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "font",
+    "size",
+    "color",
+  ];
   if (blog.userid) {
     if (blog.userid === userId && blog.userid === userDetails._id)
       return (
@@ -100,7 +139,7 @@ const EditBlog = ({ token, userDetails }) => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">Banner Image</label>
               <input
                 type="file"
                 name="image"
@@ -114,11 +153,12 @@ const EditBlog = ({ token, userDetails }) => {
 
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input
-                type="text"
+              <textarea
                 name="description"
-                value={blog.description ? blog.description : ""}
+                rows={3}
                 onChange={onChange}
+                style={{ fontSize: "15px" }}
+                value={blog.description ? blog.description : ""}
               />
             </div>
             <div className="form-group">
@@ -132,12 +172,11 @@ const EditBlog = ({ token, userDetails }) => {
             </div>
             <div className="form-group">
               <label htmlFor="content">Content</label>
-              <textarea
-                name="content"
-                rows={15}
-                onChange={onChange}
-                style={{ fontSize: "1.4rem" }}
-                value={blog.content ? blog.content : ""}
+              <ReactQuill
+                value={content}
+                onChange={setContent}
+                modules={modules}
+                formats={formats}
               />
             </div>
             <button type="submit" className="btn btn-primary">
