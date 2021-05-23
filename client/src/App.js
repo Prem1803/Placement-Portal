@@ -27,8 +27,10 @@ import ProjectForm from "./components/layout/ProjectForm";
 import BlogForm from "./components/layout/BlogForm";
 import EditProfile from "./components/layout/EditProfile";
 import AnnouncementForm from "./components/layout/AnnouncementForm";
+import AdminAnnouncements from "./components/layout/AdminAnnouncements";
 import EditAnnouncement from "./components/layout/EditAnnouncement";
 import SingleAnnouncement from "./components/layout/announcements/SingleAnnouncement";
+import AdminBlogs from "./components/layout/AdminBlogs";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -163,6 +165,28 @@ function App() {
                 )}
               />
               {/*Renders the admin dashboard page*/}
+              <Route
+                exact
+                path="/admindashboard/:id/announcements"
+                render={() => (
+                  <AdminAnnouncements
+                    user={user}
+                    userDetails={userDetails}
+                    token={token}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/admindashboard/:id/blogs"
+                render={() => (
+                  <AdminBlogs
+                    user={user}
+                    userDetails={userDetails}
+                    token={token}
+                  />
+                )}
+              />
               <Route
                 exact
                 path="/users/:id"
