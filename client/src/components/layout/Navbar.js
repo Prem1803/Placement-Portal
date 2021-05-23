@@ -218,27 +218,99 @@ const Navbar = ({ title, icon, user, userDetails }) => {
   //otherwise dashboard link is shown
   else
     return (
-      <nav className="navbar bg-dark">
-        <Link to="/">
-          {" "}
-          <h1>
-            <i className={icon} /> {title}
-          </h1>
-        </Link>
-        <ul>
-          <li>
+      <div>
+        <nav className="navbar bg-dark">
+          <Link to="/">
+            {" "}
+            <h1>
+              <i className={icon} /> {title}
+            </h1>
+          </Link>
+          <ul>
+            <li>
+              <Link to="/">
+                <i className="fas fa-home"></i> Home
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/contact">
+                <i className="fas fa-phone"></i> Contact Us
+              </Link>
+            </li>
+
+            <li>
+              {user.type === 1 && (
+                <Link to={`/admindashboard/${user.uid}`}>
+                  <i className="fas fa-user"></i> Admin
+                </Link>
+              )}
+              {user.type === 0 && (
+                <Link to={`/userdashboard/${user.sid}`}>
+                  <i className="fas fa-user"></i>
+                  {userDetails.name}
+                </Link>
+              )}
+            </li>
+            <li>
+              <button
+                onClick={logoutUser}
+                style={{
+                  background: "none",
+                  color: "white",
+                  border: "none",
+                  outline: "none",
+                }}
+              >
+                <i className="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <ul id="mobilenav" style={{ display: "none" }}>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/">
               <i className="fas fa-home"></i> Home
             </Link>
           </li>
 
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link to="/contact">
               <i className="fas fa-phone"></i> Contact Us
             </Link>
           </li>
 
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             {user.type === 1 && (
               <Link to={`/admindashboard/${user.uid}`}>
                 <i className="fas fa-user"></i> Admin
@@ -251,7 +323,17 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               </Link>
             )}
           </li>
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <button
               onClick={logoutUser}
               style={{
@@ -264,8 +346,76 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               <i className="fas fa-sign-out-alt"></i> Logout
             </button>
           </li>
+          <li>
+            <hr />
+          </li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            <Link className="sidebar_links" to={`/announcements`}>
+              <i className="fas fa-bullhorn"></i> Announcements
+            </Link>
+          </li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            <Link className="sidebar_links" to={`/blogs`}>
+              <i className="fab fa-blogger"></i> Blogs
+            </Link>
+          </li>
+          {/* <li>
+                  <Link className="sidebar_links" to={`/projects`}>
+                    <i className="fas fa-project-diagram"></i> Projects
+                  </Link>
+                </li> */}
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            <Link className="sidebar_links" to={`/students`}>
+              <i className="fas fa-users"></i> Students
+            </Link>
+          </li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            <Link className="sidebar_links" to={`/alumni`}>
+              <i className="fas fa-user-graduate"></i> Alumni
+            </Link>
+          </li>
         </ul>
-      </nav>
+      </div>
     );
 };
 Navbar.propTypes = {
