@@ -147,12 +147,32 @@ const Navbar = ({ title, icon, user, userDetails }) => {
           <li>
             <hr />
           </li>
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link className="sidebar_links" to={`/announcements`}>
               <i className="fas fa-bullhorn"></i> Announcements
             </Link>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link className="sidebar_links" to={`/blogs`}>
               <i className="fab fa-blogger"></i> Blogs
             </Link>
@@ -162,12 +182,32 @@ const Navbar = ({ title, icon, user, userDetails }) => {
                     <i className="fas fa-project-diagram"></i> Projects
                   </Link>
                 </li> */}
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link className="sidebar_links" to={`/students`}>
               <i className="fas fa-users"></i> Students
             </Link>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
             <Link className="sidebar_links" to={`/alumni`}>
               <i className="fas fa-user-graduate"></i> Alumni
             </Link>
