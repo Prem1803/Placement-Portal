@@ -226,6 +226,30 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               <i className={icon} /> {title}
             </h1>
           </Link>
+          <a
+            href="javascript:void(0);"
+            className="hamburger"
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              var y = document.getElementById("navicon");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+                y.classList.toggle("fas");
+                y.classList.toggle("fa-times");
+                y.classList.toggle("fa");
+                y.classList.toggle("fa-bars");
+              } else {
+                x.style.display = "block";
+                y.classList.toggle("fas");
+                y.classList.toggle("fa-times");
+                y.classList.toggle("fa");
+                y.classList.toggle("fa-bars");
+              }
+            }}
+          >
+            <i id="navicon" className="fa fa-bars" />
+          </a>
+
           <ul>
             <li>
               <Link to="/">
