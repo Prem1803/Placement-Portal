@@ -710,6 +710,28 @@ table th {
   .sidebar {
     display: none;
   }
+  .main-container .main-banner .main-banner-content {
+    padding-left: 3rem;
+    background: rgba(209, 209, 245, 0.644);
+    border-radius: 20px;
+    width: 90%;
+    /* top: 8rem; */
+    left: 1rem;
+    /* margin-left: 4rem; */
+    padding-top: 2rem;
+    position: relative;
+    /* margin-top: 6rem; */
+    font-weight: 700;
+    color: #010716cc;
+    font-size: 1.14rem;
+    height: auto;
+  }
+  .table-content {
+    display: block;
+  }
+  .no-content {
+    display: none;
+  }
 }
 hr {
   border: none;
@@ -1518,11 +1540,13 @@ i.right {
   padding-left: 3rem;
   background: rgba(209, 209, 245, 0.644);
   border-radius: 20px;
-  width: 40%;
-  margin-left: 4rem;
+  width: 60%;
+  top: 8rem;
+  left: 16rem;
+  /* margin-left: 4rem; */
   padding-top: 2rem;
   position: absolute;
-  margin-top: 6rem;
+  /* margin-top: 6rem; */
   font-weight: 700;
   color: #010716cc;
   font-size: 1.14rem;
