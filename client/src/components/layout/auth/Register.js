@@ -173,13 +173,13 @@ const Register = () => {
           </div>
           <div className="col">
             <label htmlFor="batch">
-              Batch<span className="text-danger"> *</span>
+              Course<span className="text-danger"> *</span>
             </label>
 
             <select name="batch" value={batch} onChange={onChange}>
               <option value="BTech">BTech</option>
               <option value="MTech">MTech</option>
-              <option value="Phd">Phd</option>
+              <option value="PhD">PhD</option>
             </select>
           </div>
         </div>
@@ -198,7 +198,7 @@ const Register = () => {
           </div>
           <div className="col">
             <label htmlFor="year">
-              Year<span className="text-danger"> *</span>(For ex : 2019)
+              Passout Year<span className="text-danger"> *</span>(For ex : 2019)
             </label>
             <input type="text" name="year" value={year} onChange={onChange} />
           </div>

@@ -447,7 +447,7 @@ Navbar.propTypes = {
   icon: PropTypes.string,
 };
 Navbar.defaultProps = {
-  title: "T&P Cell, Nit Delhi",
+  title: "T&P Cell, NIT Delhi",
   icon: "fas fa-university",
 };
 

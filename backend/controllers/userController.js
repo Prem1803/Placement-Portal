@@ -274,7 +274,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
       ) {
         //checking if the user is the current student or not
         students.push(user);
-      } else if (user.batch === "Phd") {
+      } else if (user.batch === "PhD") {
         //checking if the user is the current student or not
         students.push(user);
       }
