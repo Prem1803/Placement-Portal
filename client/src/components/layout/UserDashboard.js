@@ -130,9 +130,19 @@ const UserDashboard = ({ user, token }) => {
                         <td>{userDetails.branch ? userDetails.branch : ""}</td>
                       </tr>
                       <tr>
-                        <td>Batch</td>
+                        <td>Course</td>
                         <td>:</td>
                         <td>{userDetails.batch ? userDetails.batch : ""}</td>
+                      </tr>
+                      <tr>
+                        <td>Passout Year</td>
+                        <td>:</td>
+                        <td>{userDetails.year ? userDetails.year : ""}</td>
+                      </tr>
+                      <tr>
+                        <td>CGPA</td>
+                        <td>:</td>
+                        <td>{userDetails.cgpa ? userDetails.cgpa : ""}</td>
                       </tr>
                       <tr>
                         <td>Description</td>
@@ -181,7 +191,7 @@ const UserDashboard = ({ user, token }) => {
                         <td>
                           {userDetails.githubUrl ? userDetails.githubUrl : ""}
                         </td>
-                      </tr>
+                      </tr> */}
                       <tr>
                         <td>Resume</td>
                         <td>:</td>
@@ -189,7 +199,7 @@ const UserDashboard = ({ user, token }) => {
                           {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                         </td>
                       </tr>
-                       */}
+
                       <tr>
                         <td>Contact Email</td>
                         <td>:</td>

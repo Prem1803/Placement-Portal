@@ -12,7 +12,18 @@ const AlumniFilter = ({ AllAlumni, loadFiltered }) => {
           alumni.batch
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
-          alumni.branch.toLowerCase().includes(text.current.value.toLowerCase())
+          alumni.branch
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase()) ||
+          alumni.year
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase()) ||
+          alumni.cgpa
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase()) ||
+          alumni.worksAt
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase())
         );
       });
       loadFiltered(filtered);

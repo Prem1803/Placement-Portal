@@ -13,7 +13,13 @@ const StudentFilter = ({ AllStudents, loadFiltered }) => {
           student.branch
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
-          student.batch.toLowerCase().includes(text.current.value.toLowerCase())
+          student.batch
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase()) ||
+          student.year
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase()) ||
+          student.cgpa.toLowerCase().includes(text.current.value.toLowerCase())
         );
       });
       loadFiltered(filtered);

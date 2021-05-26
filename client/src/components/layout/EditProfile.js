@@ -31,7 +31,7 @@ export const EditProfile = ({ userDetails }) => {
   const history = useHistory();
   const onSubmit = async (e) => {
     e.preventDefault();
-
+    if (Number(user.cgpa) > 10 || Number(user.cgpa) < 0) user.cgpa = "";
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -83,6 +83,7 @@ export const EditProfile = ({ userDetails }) => {
     imgUrl,
     batch,
     year,
+    cgpa,
     rollNo,
     description,
     bio,
@@ -155,11 +156,21 @@ export const EditProfile = ({ userDetails }) => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="year">Year</label>
+              <label htmlFor="year">Passout Year</label>
               <input
                 type="text"
                 name="year"
                 value={year}
+                onChange={onChange}
+                readOnly
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="cgpa">CGPA</label>
+              <input
+                type="text"
+                name="cgpa"
+                value={cgpa}
                 onChange={onChange}
                 readOnly
               />
@@ -219,7 +230,7 @@ export const EditProfile = ({ userDetails }) => {
                 onChange={onChange}
               />
             </div>
-            {/* <div className="form-group">
+            <div className="form-group">
               <label htmlFor="resumeUrl">Resume</label>
               <input
                 type="text"
@@ -227,7 +238,7 @@ export const EditProfile = ({ userDetails }) => {
                 value={resumeUrl}
                 onChange={onChange}
               />
-            </div> */}
+            </div>
             <div className="form-group">
               <label htmlFor="contactEmail">Contact Email</label>
               <input

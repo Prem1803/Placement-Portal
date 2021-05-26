@@ -9,6 +9,7 @@ const AlumniCard = ({
     description,
     branch,
     batch,
+
     year,
     worksAt,
     skills,

@@ -117,18 +117,23 @@ const UserProfile = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Batch</td>
+                      <td className="table-content">Course</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
                         {userDetails.batch ? userDetails.batch : ""}
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Year</td>
+                      <td className="table-content">Passout Year</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
                         {userDetails.year ? userDetails.year : ""}
                       </td>
+                    </tr>
+                    <tr>
+                      <td>CGPA</td>
+                      <td>:</td>
+                      <td>{userDetails.cgpa ? userDetails.cgpa : ""}</td>
                     </tr>
                     <tr>
                       <td className="table-content">Description</td>
@@ -175,8 +180,8 @@ const UserProfile = () => {
                       <td>
                         {userDetails.githubUrl ? userDetails.githubUrl : ""}
                       </td>
-                    </tr>
-                    <tr>
+                    </tr> */}
+                    {/* <tr>
                       <td>Resume</td>
                       <td>:</td>
                       <td>

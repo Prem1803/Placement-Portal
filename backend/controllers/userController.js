@@ -262,23 +262,28 @@ const getAllStudents = asyncHandler(async (req, res) => {
       let d1 = new Date().getFullYear();
       let d2 = Number(user.year);
 
-      if (
-        new Date().getFullYear() - Number(user.year) <= 4 &&
-        user.batch === "Btech"
-      ) {
-        //checking if the user is the current student or not
-        students.push(user);
-      } else if (
-        new Date().getFullYear() - Number(user.year) <= 2 &&
-        user.batch === "Mtech"
-      ) {
-        //checking if the user is the current student or not
-        students.push(user);
-      } else if (user.batch === "PhD") {
+      // if (
+      //   new Date().getFullYear() - Number(user.year) <= 4 &&
+      //   user.batch === "Btech"
+      // ) {
+      //   //checking if the user is the current student or not
+      //   students.push(user);
+      // } else if (
+      //   new Date().getFullYear() - Number(user.year) <= 2 &&
+      //   user.batch === "Mtech"
+      // ) {
+      //   //checking if the user is the current student or not
+      //   students.push(user);
+      // } else if (user.batch === "PhD") {
+      //   //checking if the user is the current student or not
+      //   students.push(user);
+      // }
+      if (Number(user.year) - new Date().getFullYear() >= 0) {
         //checking if the user is the current student or not
         students.push(user);
       }
     });
+    students.sort((a, b) => a.year - b.year);
     res.json({ students }); //all the current 1st to 4th year students are returned as the response
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -294,20 +299,25 @@ const getAllAlumni = asyncHandler(async (req, res) => {
       let d1 = new Date().getFullYear();
       let d2 = Number(user.year);
 
-      if (new Date().getFullYear() - Number(user.year) > 4) {
-        //checking if the student is an alumni or not
-        alumni.push(user);
-      } else if (
-        new Date().getFullYear() - Number(user.year) > 2 &&
-        user.batch === "Mtech"
-      ) {
-        //checking if the student is an alumni or not
-        alumni.push(user);
-      } else if (user.batch === "Phd") {
-        //checking if the student is an alumni or not
+      // if (new Date().getFullYear() - Number(user.year) > 4) {
+      //   //checking if the student is an alumni or not
+      //   alumni.push(user);
+      // } else if (
+      //   new Date().getFullYear() - Number(user.year) > 2 &&
+      //   user.batch === "Mtech"
+      // ) {
+      //   //checking if the student is an alumni or not
+      //   alumni.push(user);
+      // } else if (user.batch === "Phd") {
+      //   //checking if the student is an alumni or not
+      //   alumni.push(user);
+      // }
+      if (Number(user.year) - new Date().getFullYear() < 0) {
+        //checking if the user is the current student or not
         alumni.push(user);
       }
     });
+    alumni.sort((a, b) => a.year - b.year);
     res.json({ alumni }); //returns all the alumnis as the response
   } catch (err) {
     res.status(500).json({ error: err.message });

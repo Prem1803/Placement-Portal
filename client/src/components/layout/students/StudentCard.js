@@ -8,6 +8,7 @@ const StudentCard = ({
     imgUrl,
     branch,
     batch,
+    cgpa,
     description,
     year,
     skills,
