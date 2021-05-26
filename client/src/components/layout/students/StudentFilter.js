@@ -6,6 +6,7 @@ const StudentFilter = ({ AllStudents, loadFiltered }) => {
   const onChange = (e) => {
     if (text.current.value !== "") {
       const filtered = AllStudents.filter((student) => {
+        console.log(student);
         return (
           student.name
             .toLowerCase()
@@ -19,7 +20,10 @@ const StudentFilter = ({ AllStudents, loadFiltered }) => {
           student.year
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
-          student.cgpa.toLowerCase().includes(text.current.value.toLowerCase())
+          (student.cgpa &&
+            student.cgpa
+              .toLowerCase()
+              .includes(text.current.value.toLowerCase()))
         );
       });
       loadFiltered(filtered);
