@@ -58,8 +58,10 @@ const Management = ({ user }) => {
       );
     });
     filteredStudents = await filteredStudents.filter((student) => {
+      console.log(student.cgpa, " -----  ", Number(student.cgpa));
       return (
-        (filters.cgpa !== "" && Number(student.cgpa) >= Number(filters.cgpa)) ||
+        (Number(filters.cgpa) !== NaN &&
+          Number(student.cgpa) >= Number(filters.cgpa)) ||
         filters.cgpa === ""
       );
     });

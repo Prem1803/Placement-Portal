@@ -70,147 +70,143 @@ const UserProfile = () => {
           >
             <i className="fas fa-user"></i> Profile
           </h2>
-          <h4>
-            <ul className="profile-container">
-              <div className="profile-content">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img
-                          className="round-img"
-                          style={{
-                            height: "200px",
-                            display: "block",
-                            width: "200px",
-                            paddingBottom: "1rem",
-                            textAlign: "center",
-                            margin: "0 auto",
-                          }}
-                          src={
-                            require(`../../uploads/${userDetails.imgUrl}`)
-                              .default
-                          }
-                          alt={userDetails.name}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Name</td>
+
+          <ul className="profile-container">
+            <div className="profile-content">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img
+                        className="round-img"
+                        style={{
+                          height: "200px",
+                          display: "block",
+                          width: "200px",
+                          paddingBottom: "1rem",
+                          textAlign: "center",
+                          margin: "0 auto",
+                        }}
+                        src={
+                          require(`../../uploads/${userDetails.imgUrl}`).default
+                        }
+                        alt={userDetails.name}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Name</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.name ? userDetails.name : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Roll No</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.rollNo ? userDetails.rollNo : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Branch</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.branch ? userDetails.branch : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Course</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.batch ? userDetails.batch : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Passout Year</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.year ? userDetails.year : ""}
+                    </td>
+                  </tr>
+                  {/* <tr>
+                      <td className="table-content">CGPA</td>
                       <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.name ? userDetails.name : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Roll No</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.rollNo ? userDetails.rollNo : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Branch</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.branch ? userDetails.branch : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Course</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.batch ? userDetails.batch : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Passout Year</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.year ? userDetails.year : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>CGPA</td>
-                      <td>:</td>
-                      <td>{userDetails.cgpa ? userDetails.cgpa : ""}</td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Description</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.description ? userDetails.description : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Bio</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.bio ? userDetails.bio : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Works At</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.worksAt ? userDetails.worksAt : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Skill</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.skills
-                          ? userDetails.skills.map((skill) => {
-                              return skill + " ";
-                            })
-                          : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">LinkedIn</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.linkedInUrl ? userDetails.linkedInUrl : ""}
-                      </td>
-                    </tr>
-                    {/* <tr>
+                      <td className="table-content">{userDetails.cgpa ? userDetails.cgpa : ""}</td>
+                    </tr> */}
+                  <tr>
+                    <td className="table-content">Description</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.description ? userDetails.description : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Bio</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.bio ? userDetails.bio : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Works At</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.worksAt ? userDetails.worksAt : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Skill</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.skills
+                        ? userDetails.skills.map((skill) => {
+                            return skill + " ";
+                          })
+                        : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">LinkedIn</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.linkedInUrl ? userDetails.linkedInUrl : ""}
+                    </td>
+                  </tr>
+                  {/* <tr>
                       <td>Github</td>
                       <td>:</td>
                       <td>
                         {userDetails.githubUrl ? userDetails.githubUrl : ""}
                       </td>
                     </tr> */}
-                    {/* <tr>
+                  {/* <tr>
                       <td>Resume</td>
                       <td>:</td>
                       <td>
                         {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                       </td>
                     </tr> */}
-                    <tr>
-                      <td className="table-content">Contact Email</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.contactEmail
-                          ? userDetails.contactEmail
-                          : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Portfolio Website</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.portfolioWebsite
-                          ? userDetails.portfolioWebsite
-                          : ""}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </ul>
-          </h4>
+                  <tr>
+                    <td className="table-content">Contact Email</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.contactEmail ? userDetails.contactEmail : ""}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="table-content">Portfolio Website</td>
+                    <td className="no-content">:</td>
+                    <td className="table-content">
+                      {userDetails.portfolioWebsite
+                        ? userDetails.portfolioWebsite
+                        : ""}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ul>
         </div>
         {/* <div>
           <h2

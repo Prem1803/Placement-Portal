@@ -167,13 +167,7 @@ export const EditProfile = ({ userDetails }) => {
             </div>
             <div className="form-group">
               <label htmlFor="cgpa">CGPA</label>
-              <input
-                type="text"
-                name="cgpa"
-                value={cgpa}
-                onChange={onChange}
-                readOnly
-              />
+              <input type="text" name="cgpa" value={cgpa} onChange={onChange} />
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
