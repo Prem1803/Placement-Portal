@@ -203,9 +203,9 @@ const UserDashboard = ({ user, token }) => {
                       </td>
                     </tr> */}
                     <tr>
-                      <td>Resume</td>
-                      <td>:</td>
-                      <td>
+                      <td className="table-content">Resume</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
                         {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                       </td>
                     </tr>
