@@ -6,7 +6,6 @@ const StudentFilter = ({ AllStudents, loadFiltered }) => {
   const onChange = (e) => {
     if (text.current.value !== "") {
       const filtered = AllStudents.filter((student) => {
-        console.log(student);
         return (
           student.name
             .toLowerCase()

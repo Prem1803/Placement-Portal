@@ -115,60 +115,74 @@ const UserDashboard = ({ user, token }) => {
                         </td>
                       </tr>
                       <tr>
-                        <td>Name</td>
-                        <td>:</td>
-                        <td>{userDetails.name ? userDetails.name : ""}</td>
+                        <td className="table-content">Name</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.name ? userDetails.name : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Roll No</td>
-                        <td>:</td>
-                        <td>{userDetails.rollNo ? userDetails.rollNo : ""}</td>
+                        <td className="table-content">Roll No</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.rollNo ? userDetails.rollNo : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Branch</td>
-                        <td>:</td>
-                        <td>{userDetails.branch ? userDetails.branch : ""}</td>
+                        <td className="table-content">Branch</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.branch ? userDetails.branch : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Course</td>
-                        <td>:</td>
-                        <td>{userDetails.batch ? userDetails.batch : ""}</td>
+                        <td className="table-content">Course</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.batch ? userDetails.batch : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Passout Year</td>
-                        <td>:</td>
-                        <td>{userDetails.year ? userDetails.year : ""}</td>
+                        <td className="table-content">Passout Year</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.year ? userDetails.year : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>CGPA</td>
-                        <td>:</td>
-                        <td>{userDetails.cgpa ? userDetails.cgpa : ""}</td>
+                        <td className="table-content">CGPA</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.cgpa ? userDetails.cgpa : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Description</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Description</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.description
                             ? userDetails.description
                             : ""}
                         </td>
                       </tr>
                       <tr>
-                        <td>Bio</td>
-                        <td>:</td>
-                        <td>{userDetails.bio ? userDetails.bio : ""}</td>
+                        <td className="table-content">Bio</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.bio ? userDetails.bio : ""}
+                        </td>
                       </tr>
                       <tr>
-                        <td>Works At</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Works At</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.worksAt ? userDetails.worksAt : ""}
                         </td>
                       </tr>
                       <tr>
-                        <td>Skills</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Skills</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.skills
                             ? userDetails.skills.map((skill) => {
                                 return skill + " ";
@@ -177,9 +191,9 @@ const UserDashboard = ({ user, token }) => {
                         </td>
                       </tr>
                       <tr>
-                        <td>LinkedIn</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">LinkedIn</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.linkedInUrl
                             ? userDetails.linkedInUrl
                             : ""}
@@ -193,26 +207,26 @@ const UserDashboard = ({ user, token }) => {
                         </td>
                       </tr> */}
                       <tr>
-                        <td>Resume</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Resume</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
                         </td>
                       </tr>
 
                       <tr>
-                        <td>Contact Email</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Contact Email</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.contactEmail
                             ? userDetails.contactEmail
                             : ""}
                         </td>
                       </tr>
                       <tr>
-                        <td>Portfolio Website</td>
-                        <td>:</td>
-                        <td>
+                        <td className="table-content">Portfolio Website</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
                           {userDetails.portfolioWebsite
                             ? userDetails.portfolioWebsite
                             : ""}

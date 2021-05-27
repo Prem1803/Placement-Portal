@@ -31,6 +31,7 @@ import AdminAnnouncements from "./components/layout/AdminAnnouncements";
 import EditAnnouncement from "./components/layout/EditAnnouncement";
 import SingleAnnouncement from "./components/layout/announcements/SingleAnnouncement";
 import AdminBlogs from "./components/layout/AdminBlogs";
+import Management from "./components/layout/Management";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -186,6 +187,11 @@ function App() {
                     token={token}
                   />
                 )}
+              />
+              <Route
+                exact
+                path="/admindashboard/:id/management"
+                render={() => <Management user={user} />}
               />
               <Route
                 exact
