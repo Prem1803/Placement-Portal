@@ -9,23 +9,15 @@ const AlumniFilter = ({ AllAlumni, loadFiltered }) => {
           alumni.name
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
-          alumni.batch
+          alumni.course
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
           alumni.branch
             .toLowerCase()
             .includes(text.current.value.toLowerCase()) ||
-          alumni.year
+          alumni.passoutYear
             .toLowerCase()
-            .includes(text.current.value.toLowerCase()) ||
-          (alumni.cgpa &&
-            alumni.cgpa
-              .toLowerCase()
-              .includes(text.current.value.toLowerCase())) ||
-          (alumni.worksAt &&
-            alumni.worksAt
-              .toLowerCase()
-              .includes(text.current.value.toLowerCase()))
+            .includes(text.current.value.toLowerCase())
         );
       });
       loadFiltered(filtered);

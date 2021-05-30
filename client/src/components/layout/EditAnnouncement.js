@@ -101,7 +101,7 @@ const EditAnnouncement = ({ token, user }) => {
         { indent: "+1" },
       ],
       [{ script: "sub" }, { script: "super" }],
-      [("link", "image")],
+      ["link"],
     ],
   };
 
@@ -116,7 +116,6 @@ const EditAnnouncement = ({ token, user }) => {
     "bullet",
     "indent",
     "link",
-    "image",
     "font",
     "size",
     "color",

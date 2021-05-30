@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { register } from "../../../actions/userActions";
 import { useToasts } from "react-toast-notifications";
+import axios from "axios";
 
 const Register = () => {
   const [valid, setValid] = useState("false");
@@ -11,15 +12,23 @@ const Register = () => {
     email: "",
     rollNo: "",
     branch: "CSE",
-    batch: "Btech",
-    year: "",
+    course: "Btech",
+    passoutYear: "",
     password: "",
     password2: "",
   }); //setting the user details to empty strings
   const dispatch = useDispatch();
   const history = useHistory();
-  const { name, email, rollNo, branch, batch, year, password, password2 } =
-    user; //destructuring the user object
+  const {
+    name,
+    email,
+    rollNo,
+    branch,
+    course,
+    passoutYear,
+    password,
+    password2,
+  } = user; //destructuring the user object
   const validateEmail = (email) => {
     var re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -53,10 +62,7 @@ const Register = () => {
       }
     }
   };
-  const validateRollNo = () => {
-    const expectedRollNo = email.slice(0, email.indexOf("@nitdelhi.ac.in"));
-    return expectedRollNo === rollNo;
-  };
+
   const validatePassword = () => {
     return password === password2 && password.length >= 5;
   };
@@ -74,23 +80,17 @@ const Register = () => {
   const onSubmit = async (e) => {
     //submitting the form to register the Student
     e.preventDefault();
-    const isRollNoValid = validateRollNo();
     const isPasswordValid = validatePassword();
     if (!valid)
       addToast(
-        "Validation Failed Enter Correct Email Address.A valid Email is of the format Rollno@nitdelhi.ac.in",
+        "Validation Failed Enter Correct Email Address.Email must end with @nitdelhi.ac.in",
         {
           appearance: "error",
           autoDismiss: true,
           autoDismissTimeout: 5000,
         }
       );
-    if (!isRollNoValid)
-      addToast("Validation Failed Enter Correct RollNo", {
-        appearance: "error",
-        autoDismiss: true,
-        autoDismissTimeout: 5000,
-      });
+
     if (!isPasswordValid)
       addToast(
         "Validation Failed Either Password is too short or Password Confirmation doesn't match Password ",
@@ -100,30 +100,63 @@ const Register = () => {
           autoDismissTimeout: 5000,
         }
       );
-    if (name === "" || year === "") {
+    if (name === "" || passoutYear === "") {
       addToast("Validation Failed Please Fill in all the required Fields", {
         appearance: "error",
         autoDismiss: true,
         autoDismissTimeout: 5000,
       });
     }
-    if (
-      valid &&
-      isRollNoValid &&
-      name !== "" &&
-      year !== "" &&
-      isPasswordValid
-    ) {
-      const isRegistered = await dispatch(register(user));
-      if (isRegistered) {
-        //ckecking if the student is registered or not
+    if (valid && name !== "" && passoutYear !== "" && isPasswordValid) {
+      // const isRegistered = await dispatch(register(user));
+      // if (isRegistered) {
+      //   //ckecking if the student is registered or not
+      //   addToast("User Registered Successfully", {
+      //     appearance: "success",
+      //     autoDismiss: true,
+      //     autoDismissTimeout: 2000,
+      //   });
+      //   history.push("/verify"); //redirects to the Verification Page on successfull register
+
+      //   // history.push("/"); //redirects to the homepage on successfull register
+      //   window.location.reload();
+      // } else {
+      //   addToast("Registration Failed This Email is Already Taken", {
+      //     appearance: "error",
+      //     autoDismiss: true,
+      //     autoDismissTimeout: 2000,
+      //   });
+      // }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      let { data } = await axios.get(
+        `/api/users/isEmailAvailable`, //making backend call to check if email is available
+        { email: user.email },
+        config
+      );
+      if (data.isEmailAvailable) {
         addToast("User Registered Successfully", {
           appearance: "success",
           autoDismiss: true,
           autoDismissTimeout: 2000,
         });
-        history.push("/"); //redirects to the homepage on successfull register
-        window.location.reload();
+        history.push({
+          pathname: "/verify",
+          state: {
+            name: user.name,
+            rollNo: user.rollNo,
+            email: user.email,
+            password: user.password,
+            branch: user.branch,
+            course: user.course,
+            passoutYear: user.passoutYear,
+          },
+        }); //redirects to the Verification Page on successfull register
       } else {
         addToast("Registration Failed This Email is Already Taken", {
           appearance: "error",
@@ -172,11 +205,11 @@ const Register = () => {
             />
           </div>
           <div className="col">
-            <label htmlFor="batch">
+            <label htmlFor="course">
               Course<span className="text-danger"> *</span>
             </label>
 
-            <select name="batch" value={batch} onChange={onChange}>
+            <select name="course" value={course} onChange={onChange}>
               <option value="BTech">BTech</option>
               <option value="MTech">MTech</option>
               <option value="PhD">PhD</option>
@@ -197,10 +230,16 @@ const Register = () => {
             </select>
           </div>
           <div className="col">
-            <label htmlFor="year">
-              Passout Year<span className="text-danger"> *</span>(For ex : 2019)
+            <label htmlFor="passoutYear">
+              Passout Year<span className="text-danger"> *</span>
             </label>
-            <input type="text" name="year" value={year} onChange={onChange} />
+            <input
+              type="text"
+              name="passoutYear"
+              value={passoutYear}
+              onChange={onChange}
+              placeholder={new Date().getFullYear()}
+            />
           </div>
         </div>
         <div className="form-group">

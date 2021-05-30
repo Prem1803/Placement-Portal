@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { getAllAnnouncements } from "../../api/apiAnnouncement";
-import UserAnnouncementCard from "./announcements/UserAnnouncementCard";
-import UserBlogCard from "./blogs/UserBlogCard";
 import { getAllUserBlogs } from "../../api/apiBlog";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
@@ -39,14 +37,6 @@ const AdminDashboard = ({ props, user, userDetails, token }) => {
     loadBlogs(); //loading all the blogs
   }, [blogs.length, user.uid]);
   const history = useHistory();
-  const addBlog = () => {
-    //adding blogs
-    history.push(`/users/${user.uid}/addBlog`); //redirects to the add blog page
-  };
-  const addAnnouncement = () => {
-    //adding announcements
-    history.push(`/users/${user.uid}/addAnnouncement`); //redirects to the add announcement page
-  };
 
   if (user.uid) {
     if (userid === user.uid)

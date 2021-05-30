@@ -20,33 +20,69 @@ const StudentSchema = mongoose.Schema({
     required: true,
     default: "CSE",
   },
-  batch: {
+  course: {
     type: String,
     required: true,
   },
-  year: {
+  passoutYear: {
     type: String,
     required: true,
   },
-  cgpa: { type: Number, required: false },
-  description: {
+  cgpa: { type: Number, required: false, default: "" },
+  dob: {
     type: String,
     required: false,
     default: "",
   },
-  bio: {
+  gender: {
+    type: String,
+    required: false,
+    default: "Male",
+  },
+  mobileNo: {
     type: String,
     required: false,
     default: "",
   },
-  worksAt: {
+  nationality: {
     type: String,
     required: false,
     default: "",
   },
-  skills: {
-    type: Array,
-    default: [],
+  address: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  board10th: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  passingYear10th: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  percentage10th: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  board12th: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  passingYear12th: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  percentage12th: {
+    type: String,
+    required: false,
+    default: "",
   },
   imgUrl: {
     type: String,
@@ -63,17 +99,7 @@ const StudentSchema = mongoose.Schema({
     required: false,
     default: "",
   },
-  githubUrl: {
-    type: String,
-    required: false,
-    default: "",
-  },
   contactEmail: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  portfolioWebsite: {
     type: String,
     required: false,
     default: "",

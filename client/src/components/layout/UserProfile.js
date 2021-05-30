@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getUser } from "../../api/apiUser";
 import BlogCard from "./blogs/BlogCard";
-import ProjectCard from "./projects/ProjectCard";
 import { getAllUserBlogs } from "../../api/apiBlog";
 
 import { getAllStudentProjects } from "../../api/apiProject";
@@ -39,22 +38,7 @@ const UserProfile = () => {
   useEffect(() => {
     loadUser(); //loading user
   }, userDetails);
-  const [projects, setProjects] = useState([]); //setting projects to empty array
 
-  const loadProjects = () => {
-    //loading projects
-    if (userDetails._id !== undefined)
-      getAllStudentProjects(userDetails._id)
-        .then((data) => {
-          setProjects(data.projects); //setting projects with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
-  useEffect(() => {
-    loadProjects(); //loading projects
-  }, userDetails._id);
   if (userDetails._id !== undefined)
     return (
       //returns user profile card
@@ -119,14 +103,14 @@ const UserProfile = () => {
                     <td className="table-content">Course</td>
                     <td className="no-content">:</td>
                     <td className="table-content">
-                      {userDetails.batch ? userDetails.batch : ""}
+                      {userDetails.course ? userDetails.course : ""}
                     </td>
                   </tr>
                   <tr>
                     <td className="table-content">Passout Year</td>
                     <td className="no-content">:</td>
                     <td className="table-content">
-                      {userDetails.year ? userDetails.year : ""}
+                      {userDetails.passoutYear ? userDetails.passoutYear : ""}
                     </td>
                   </tr>
                   {/* <tr>
@@ -134,38 +118,7 @@ const UserProfile = () => {
                       <td className="no-content">:</td>
                       <td className="table-content">{userDetails.cgpa ? userDetails.cgpa : ""}</td>
                     </tr> */}
-                  <tr>
-                    <td className="table-content">Description</td>
-                    <td className="no-content">:</td>
-                    <td className="table-content">
-                      {userDetails.description ? userDetails.description : ""}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-content">Bio</td>
-                    <td className="no-content">:</td>
-                    <td className="table-content">
-                      {userDetails.bio ? userDetails.bio : ""}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-content">Works At</td>
-                    <td className="no-content">:</td>
-                    <td className="table-content">
-                      {userDetails.worksAt ? userDetails.worksAt : ""}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-content">Skill</td>
-                    <td className="no-content">:</td>
-                    <td className="table-content">
-                      {userDetails.skills
-                        ? userDetails.skills.map((skill) => {
-                            return skill + " ";
-                          })
-                        : ""}
-                    </td>
-                  </tr>
+
                   <tr>
                     <td className="table-content">LinkedIn</td>
                     <td className="no-content">:</td>
@@ -192,15 +145,6 @@ const UserProfile = () => {
                     <td className="no-content">:</td>
                     <td className="table-content">
                       {userDetails.contactEmail ? userDetails.contactEmail : ""}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="table-content">Portfolio Website</td>
-                    <td className="no-content">:</td>
-                    <td className="table-content">
-                      {userDetails.portfolioWebsite
-                        ? userDetails.portfolioWebsite
-                        : ""}
                     </td>
                   </tr>
                 </tbody>

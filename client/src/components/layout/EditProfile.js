@@ -11,6 +11,29 @@ export const EditProfile = ({ userDetails }) => {
   const userid = useParams().id; //getting user id
 
   const [user, setUser] = useState({}); //setting user
+  const {
+    name,
+    rollNo,
+    branch,
+    course,
+    passoutYear,
+    imgUrl,
+    cgpa,
+    dob,
+    gender,
+    mobileNo,
+    nationality,
+    address,
+    board10th,
+    passingYear10th,
+    percentage10th,
+    board12th,
+    passingYear12th,
+    percentage12th,
+    linkedInUrl,
+    resumeUrl,
+    contactEmail,
+  } = user;
   const loadUser = () => {
     //loading user
     getUser(userid)
@@ -30,29 +53,52 @@ export const EditProfile = ({ userDetails }) => {
   };
   const history = useHistory();
   const onSubmit = async (e) => {
+    console.log(user);
     e.preventDefault();
-    if (Number(user.cgpa) > 10 || Number(user.cgpa) < 0) user.cgpa = "";
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": `${token}`, //passing token to the request headers
-      },
-    };
+    if (Number(cgpa) > 10 || Number(cgpa) < 0) user.cgpa = "NaN";
+    console.log(dob);
+    if (
+      dob === "" ||
+      gender === "" ||
+      mobileNo === "" ||
+      nationality === "" ||
+      address === "" ||
+      board10th === "" ||
+      passingYear10th === "" ||
+      percentage10th === "" ||
+      board12th === "" ||
+      passingYear12th === "" ||
+      percentage12th === "" ||
+      contactEmail === ""
+    ) {
+      addToast("Validation Failed Please Fill in all the required Fields", {
+        appearance: "error",
+        autoDismiss: true,
+        autoDismissTimeout: 5000,
+      });
+    } else {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${token}`, //passing token to the request headers
+        },
+      };
 
-    let { data } = await axios.put(
-      `/api/users/${user._id}`, //making backend call to Edit Profile
-      user,
-      config
-    );
+      let { data } = await axios.put(
+        `/api/users/${user._id}`, //making backend call to Edit Profile
+        user,
+        config
+      );
 
-    setUser(JSON.parse(JSON.stringify(data))); //setting user with the response
-    addToast("Profile Updated Successfully", {
-      appearance: "success",
-      autoDismiss: true,
-      autoDismissTimeout: 2000,
-    });
-    history.push(`/`); //redirecting to the home page
-    window.location.reload();
+      setUser(JSON.parse(JSON.stringify(data))); //setting user with the response
+      addToast("Profile Updated Successfully", {
+        appearance: "success",
+        autoDismiss: true,
+        autoDismissTimeout: 2000,
+      });
+      history.push(`/`); //redirecting to the home page
+      window.location.reload();
+    }
   };
   const uploadFileHandler = async (e) => {
     //uploading the user image
@@ -77,24 +123,7 @@ export const EditProfile = ({ userDetails }) => {
       console.error(error);
     }
   };
-  const {
-    name,
-    branch,
-    imgUrl,
-    batch,
-    year,
-    cgpa,
-    rollNo,
-    description,
-    bio,
-    skills,
-    linkedInUrl,
-    resumeUrl,
-    githubUrl,
-    portfolioWebsite,
-    contactEmail,
-    worksAt,
-  } = user;
+
   if (userDetails._id && user._id) {
     if (user._id === userDetails._id)
       return (
@@ -146,77 +175,148 @@ export const EditProfile = ({ userDetails }) => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="batch">Batch</label>
+              <label htmlFor="course">Course</label>
               <input
                 type="text"
-                name="batch"
-                value={batch}
+                name="course"
+                value={course}
                 onChange={onChange}
                 readOnly
               />
             </div>
             <div className="form-group">
-              <label htmlFor="year">Passout Year</label>
+              <label htmlFor="passoutYear">Passout Year</label>
               <input
                 type="text"
-                name="year"
-                value={year}
+                name="passoutYear"
+                value={passoutYear}
                 onChange={onChange}
                 readOnly
               />
             </div>
             <div className="form-group">
-              <label htmlFor="cgpa">CGPA</label>
+              <label htmlFor="cgpa">
+                Current CGPA<span className="text-danger"> *</span>
+              </label>
               <input type="text" name="cgpa" value={cgpa} onChange={onChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="dob">
+                Date of Birth<span className="text-danger"> *</span>
+              </label>
+              <input type="date" name="dob" value={dob} onChange={onChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="gender">
+                Gender<span className="text-danger"> *</span>
+              </label>
+              <select name="gender" value={gender} onChange={onChange}>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="mobileNo">
+                Mobile No<span className="text-danger"> *</span>
+              </label>
               <input
                 type="text"
-                name="description"
-                value={description}
+                name="mobileNo"
+                value={mobileNo}
                 onChange={onChange}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="bio">Bio</label>
+              <label htmlFor="nationality">
+                Nationality<span className="text-danger"> *</span>
+              </label>
+              <input
+                type="text"
+                name="nationality"
+                value={nationality}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="address">
+                Address<span className="text-danger"> *</span>
+              </label>
               <textarea
                 type="text"
-                name="bio"
-                value={bio}
+                name="address"
+                value={address}
                 onChange={onChange}
-                rows={10}
+                rows={5}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="worksAt">Works At</label>
+              <label htmlFor="board10th">
+                10th Board<span className="text-danger"> *</span>
+              </label>
               <input
                 type="text"
-                name="worksAt"
-                value={worksAt}
+                name="board10th"
+                value={board10th}
                 onChange={onChange}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="skills">Skills</label>
+              <label htmlFor="passingYear10th">
+                10th Passing Year<span className="text-danger"> *</span>
+              </label>
               <input
                 type="text"
-                name="skills"
-                value={skills}
+                name="passingYear10th"
+                value={passingYear10th}
                 onChange={onChange}
               />
             </div>
-            {/* <div className="form-group">
-              <label htmlFor="githubUrl">Github</label>
+            <div className="form-group">
+              <label htmlFor="percentage10th">
+                10th Percentage/CGPA<span className="text-danger"> *</span>
+              </label>
               <input
                 type="text"
-                name="githubUrl"
-                value={githubUrl}
+                name="percentage10th"
+                value={percentage10th}
                 onChange={onChange}
               />
-            </div> */}
+            </div>
             <div className="form-group">
-              <label htmlFor="linkedInUrl">LinkedIn</label>
+              <label htmlFor="board12th">
+                12th Board<span className="text-danger"> *</span>
+              </label>
+              <input
+                type="text"
+                name="board12th"
+                value={board12th}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="passingYear12th">
+                12th Passing Year<span className="text-danger"> *</span>
+              </label>
+              <input
+                type="text"
+                name="passingYear12th"
+                value={passingYear12th}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="percentage12th">
+                12th Percentage/CGPA<span className="text-danger"> *</span>
+              </label>
+              <input
+                type="text"
+                name="percentage12th"
+                value={percentage12th}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="linkedInUrl">Linked In</label>
               <input
                 type="text"
                 name="linkedInUrl"
@@ -239,15 +339,6 @@ export const EditProfile = ({ userDetails }) => {
                 type="text"
                 name="contactEmail"
                 value={contactEmail}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="portfolioWebsite">Portfolio Website</label>
-              <input
-                type="text"
-                name="portfolioWebsite"
-                value={portfolioWebsite}
                 onChange={onChange}
               />
             </div>

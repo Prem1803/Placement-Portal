@@ -13,7 +13,6 @@ import Blogs from "./components/layout/blogs/Blogs";
 import Students from "./components/layout/students/Students";
 import Alumni from "./components/layout/alumni/Alumni";
 import Announcements from "./components/layout/announcements/Announcements";
-import Projects from "./components/layout/projects/Projects";
 import SingleBlog from "./components/layout/blogs/SingleBlog";
 import UserDashboard from "./components/layout/UserDashboard";
 import { useEffect, useState } from "react";
@@ -23,7 +22,6 @@ import UserProfile from "./components/layout/UserProfile";
 import AdminDashboard from "./components/layout/AdminDashboard";
 import EditProject from "./components/layout/EditProject";
 import EditBlog from "./components/layout/EditBlog";
-import ProjectForm from "./components/layout/ProjectForm";
 import BlogForm from "./components/layout/BlogForm";
 import EditProfile from "./components/layout/EditProfile";
 import AnnouncementForm from "./components/layout/AnnouncementForm";
@@ -32,6 +30,7 @@ import EditAnnouncement from "./components/layout/EditAnnouncement";
 import SingleAnnouncement from "./components/layout/announcements/SingleAnnouncement";
 import AdminBlogs from "./components/layout/AdminBlogs";
 import Management from "./components/layout/Management";
+import OTPVerification from "./components/layout/auth/OTPVerification";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -151,6 +150,13 @@ function App() {
                     userDetails={userDetails}
                     token={token}
                   />
+                )}
+              />
+              <Route
+                exact
+                path="/verify"
+                render={() => (
+                  <OTPVerification user={user} userDetails={userDetails} />
                 )}
               />
               {/*Renders the user dashboard page*/}

@@ -42,7 +42,7 @@ const EditBlog = ({ token, userDetails }) => {
       },
     };
 
-    let { data } = await axios.put(
+    await axios.put(
       `/api/blogs/${blogId}`, //making backend call to Edit a blog
       blog,
       config
@@ -102,7 +102,7 @@ const EditBlog = ({ token, userDetails }) => {
         { indent: "+1" },
       ],
       [{ script: "sub" }, { script: "super" }],
-      [("link", "image")],
+      ["link"],
     ],
   };
 
@@ -117,7 +117,6 @@ const EditBlog = ({ token, userDetails }) => {
     "bullet",
     "indent",
     "link",
-    "image",
     "font",
     "size",
     "color",

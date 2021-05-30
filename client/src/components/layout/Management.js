@@ -9,8 +9,8 @@ const Management = ({ user }) => {
   const userid = useParams().id; //getting the user id
 
   const [filters, setFilters] = useState({
-    batch: "",
-    year: "",
+    course: "",
+    passoutYear: "",
     cgpa: "",
     branch: "",
   });
@@ -36,9 +36,11 @@ const Management = ({ user }) => {
         // (student.branch
         //   .toLowerCase()
         //   .includes(text.current.value.toLowerCase()))
-        (filters.batch !== "" &&
-          student.batch.toLowerCase().includes(filters.batch.toLowerCase())) ||
-        filters.batch === ""
+        (filters.course !== "" &&
+          student.course
+            .toLowerCase()
+            .includes(filters.course.toLowerCase())) ||
+        filters.course === ""
       );
     });
     filteredStudents = await filteredStudents.filter((student) => {
@@ -53,7 +55,7 @@ const Management = ({ user }) => {
     filteredStudents = await filteredStudents.filter((student) => {
       return (
         (filters.year !== "" &&
-          student.year.toLowerCase().includes(filters.year)) ||
+          student.year.toLowerCase().includes(filters.passoutYear)) ||
         filters.year === ""
       );
     });
@@ -92,7 +94,11 @@ const Management = ({ user }) => {
               <div className="student-filter-option">
                 <label>Course</label>
 
-                <select name="batch" value={filters.batch} onChange={onChange}>
+                <select
+                  name="course"
+                  value={filters.course}
+                  onChange={onChange}
+                >
                   <option value="">All</option>
                   <option value="BTech">BTech</option>
                   <option value="MTech">MTech</option>
@@ -103,8 +109,8 @@ const Management = ({ user }) => {
                 <label>Passout Year</label>
 
                 <input
-                  name="year"
-                  value={filters.year}
+                  name="passoutYear"
+                  value={filters.passoutYear}
                   onChange={onChange}
                   type="text"
                   placeholder="For ex 2021"
@@ -173,9 +179,9 @@ const Management = ({ user }) => {
                       <tr>
                         <td>{student.name}</td>
                         <td>{student.rollNo}</td>
-                        <td>{student.batch}</td>
+                        <td>{student.course}</td>
                         <td>{student.branch}</td>
-                        <td>{student.year}</td>
+                        <td>{student.passoutYear}</td>
                         <td>{student.cgpa}</td>
                         <td style={{ display: "none" }}>{student.resumeUrl}</td>
                       </tr>
@@ -205,7 +211,11 @@ const Management = ({ user }) => {
               <div className="student-filter-option">
                 <label>Course</label>
 
-                <select name="batch" value={filters.batch} onChange={onChange}>
+                <select
+                  name="course"
+                  value={filters.course}
+                  onChange={onChange}
+                >
                   <option value="">All</option>
                   <option value="BTech">BTech</option>
                   <option value="MTech">MTech</option>
@@ -216,8 +226,8 @@ const Management = ({ user }) => {
                 <label>Passout Year</label>
 
                 <input
-                  name="year"
-                  value={filters.year}
+                  name="passoutYear"
+                  value={filters.passoutYear}
                   onChange={onChange}
                   type="text"
                   placeholder="For ex 2021"
@@ -303,9 +313,9 @@ const Management = ({ user }) => {
                       <tr>
                         <td>{student.name}</td>
                         <td>{student.rollNo}</td>
-                        <td>{student.batch}</td>
+                        <td>{student.course}</td>
                         <td>{student.branch}</td>
-                        <td>{student.year}</td>
+                        <td>{student.passoutYear}</td>
                         <td>{student.cgpa}</td>
                         <td style={{ display: "none" }}>{student.resumeUrl}</td>
                       </tr>

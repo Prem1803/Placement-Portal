@@ -33,7 +33,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             </h1>
           </Link>
           <a
-            href="javascript:void(0);"
+            // href="javascript:void(0);"
             className="hamburger"
             onClick={() => {
               var x = document.getElementById("mobilenav");
@@ -64,7 +64,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
 
             <li>
               <Link to="/contact">
-                <i className="fas fa-phone"></i> Contact Us
+                <i className="fas fa-phone-alt"></i> Contact Us
               </Link>
             </li>
 
@@ -110,7 +110,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             }}
           >
             <Link to="/contact">
-              <i className="fas fa-phone"></i> Contact Us
+              <i className="fas fa-phone-alt"></i> Contact Us
             </Link>
           </li>
 
@@ -227,7 +227,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             </h1>
           </Link>
           <a
-            href="javascript:void(0);"
+            // href="javascript:void(0);"
             className="hamburger"
             onClick={() => {
               var x = document.getElementById("mobilenav");
@@ -259,7 +259,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
 
             <li>
               <Link to="/contact">
-                <i className="fas fa-phone"></i> Contact Us
+                <i className="fas fa-phone-alt"></i> Contact Us
               </Link>
             </li>
 
@@ -320,7 +320,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             }}
           >
             <Link to="/contact">
-              <i className="fas fa-phone"></i> Contact Us
+              <i className="fas fa-phone-alt"></i> Contact Us
             </Link>
           </li>
 

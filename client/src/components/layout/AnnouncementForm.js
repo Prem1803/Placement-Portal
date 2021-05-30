@@ -79,7 +79,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
         { indent: "+1" },
       ],
       [{ script: "sub" }, { script: "super" }],
-      [("link", "image")],
+      ["link"],
     ],
   };
 
@@ -94,7 +94,6 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
     "bullet",
     "indent",
     "link",
-    "image",
     "font",
     "size",
     "color",

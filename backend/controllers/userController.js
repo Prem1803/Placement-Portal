@@ -40,7 +40,19 @@ const registerAdmin = asyncHandler(async (req, res) => {
     console.error(err.message);
   }
 });
-
+const isEmailAvailable = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await User.findOne({ email }); //checking if user with same email is already present or not
+    if (user) {
+      return res.json({ isEmailAvailable: false });
+    } else {
+      return res.json({ isEmailAvailable: true });
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+});
 //Registering the student and generating token
 const registerStudent = asyncHandler(async (req, res) => {
   const { email, password } = req.body; //extracting email and password from the request
@@ -65,21 +77,22 @@ const registerStudent = asyncHandler(async (req, res) => {
         }
       });
     });
-    const { name, rollNo, branch, batch, year } = req.body; //extracting student details from the request
+    const { name, rollNo, branch, course, passoutYear } = req.body; //extracting student details from the request
     try {
       const newStudent = new Student({
         userid: user._id,
         name,
         rollNo,
         branch,
-        batch,
-        year,
+        course,
+        passoutYear,
+        contactEmail: email,
       }); //creating new student
       await newStudent.save();
 
       const payload = {
         //payload for generating the token
-        user: { id: user._id },
+        user: { id: user._id, email: user.email },
         student: { id: newStudent._id },
       };
       jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
@@ -123,7 +136,7 @@ const authUser = asyncHandler(async (req, res) => {
         //if password matches
         let payload = {
           //payload for generating jwt token
-          user: { id: user._id },
+          user: { id: user._id, email: user.email },
           student: { id: student._id },
         };
 
@@ -207,6 +220,7 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
         let userDetails = {
           type: user.type,
           uid: user._id,
+          email: user.email,
           sid: student._id,
         };
         res.json(userDetails); //user details are returned as response
@@ -240,8 +254,7 @@ const updateUserById = asyncHandler(async (req, res) => {
     if (student) {
       //if student exists
       let updatedstudent = req.body; //extracting the student details from the request
-      let skills = updatedstudent.skills;
-      if (skills.indexOf(",") !== -1) updatedstudent.skills = skills.split(",");
+
       student = await Student.updateOne(
         { _id: req.student.id },
         { $set: updatedstudent }
@@ -259,9 +272,6 @@ const getAllStudents = asyncHandler(async (req, res) => {
     const users = await Student.find({}); //getting all the students from the database
     let students = [];
     users.forEach((user) => {
-      let d1 = new Date().getFullYear();
-      let d2 = Number(user.year);
-
       // if (
       //   new Date().getFullYear() - Number(user.year) <= 4 &&
       //   user.batch === "Btech"
@@ -278,12 +288,12 @@ const getAllStudents = asyncHandler(async (req, res) => {
       //   //checking if the user is the current student or not
       //   students.push(user);
       // }
-      if (Number(user.year) - new Date().getFullYear() >= 0) {
+      if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
         //checking if the user is the current student or not
         students.push(user);
       }
     });
-    students.sort((a, b) => a.year - b.year);
+    students.sort((a, b) => a.passoutYear - b.passoutYear);
     res.json({ students }); //all the current 1st to 4th year students are returned as the response
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -296,9 +306,6 @@ const getAllAlumni = asyncHandler(async (req, res) => {
     const users = await Student.find({}); //getting all the students from the database
     let alumni = [];
     users.forEach((user) => {
-      let d1 = new Date().getFullYear();
-      let d2 = Number(user.year);
-
       // if (new Date().getFullYear() - Number(user.year) > 4) {
       //   //checking if the student is an alumni or not
       //   alumni.push(user);
@@ -312,12 +319,12 @@ const getAllAlumni = asyncHandler(async (req, res) => {
       //   //checking if the student is an alumni or not
       //   alumni.push(user);
       // }
-      if (Number(user.year) - new Date().getFullYear() < 0) {
+      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
         //checking if the user is the current student or not
         alumni.push(user);
       }
     });
-    alumni.sort((a, b) => a.year - b.year);
+    alumni.sort((a, b) => a.passoutYear - b.passoutYear);
     res.json({ alumni }); //returns all the alumnis as the response
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -333,4 +340,5 @@ module.exports = {
   updateUserById: updateUserById,
   getAllStudents: getAllStudents,
   getAllAlumni: getAllAlumni,
+  isEmailAvailable: isEmailAvailable,
 };

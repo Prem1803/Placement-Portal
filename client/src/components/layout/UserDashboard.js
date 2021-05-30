@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import UserBlogCard from "./blogs/UserBlogCard";
-import UserProjectCard from "./projects/UserProjectCard";
 
 import { getAllUserBlogs } from "../../api/apiBlog";
 import { getAllStudentProjects } from "../../api/apiProject";
@@ -55,10 +54,6 @@ const UserDashboard = ({ user, token }) => {
     loadProjects(); //loading projects
   }, [projects.length, userDetails._id]);
 
-  const addProject = () => {
-    //adding projects
-    history.push(`/users/${userDetails._id}/addProject`); //redirects to add project page
-  };
   const addBlog = () => {
     //adding blogs
     history.push(`/users/${userDetails._id}/addBlog`); //redirects to add blog page
@@ -139,14 +134,14 @@ const UserDashboard = ({ user, token }) => {
                       <td className="table-content">Course</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.batch ? userDetails.batch : ""}
+                        {userDetails.course ? userDetails.course : ""}
                       </td>
                     </tr>
                     <tr>
                       <td className="table-content">Passout Year</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.year ? userDetails.year : ""}
+                        {userDetails.passoutYear ? userDetails.passoutYear : ""}
                       </td>
                     </tr>
                     <tr>
@@ -157,53 +152,100 @@ const UserDashboard = ({ user, token }) => {
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Description</td>
+                      <td className="table-content">Date Of Birth</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.description ? userDetails.description : ""}
+                        {userDetails.dob ? userDetails.dob : ""}
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Bio</td>
+                      <td className="table-content">Gender</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.bio ? userDetails.bio : ""}
+                        {userDetails.gender ? userDetails.gender : ""}
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Works At</td>
+                      <td className="table-content">Mobile No</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.worksAt ? userDetails.worksAt : ""}
+                        {userDetails.mobileNo ? userDetails.mobileNo : ""}
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">Skills</td>
+                      <td className="table-content">Nationality</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
-                        {userDetails.skills
-                          ? userDetails.skills.map((skill) => {
-                              return skill + " ";
-                            })
+                        {userDetails.nationality ? userDetails.nationality : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">Address</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.address ? userDetails.address : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">10th Board</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.board10th ? userDetails.board10th : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">10th Passing Year</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.passingYear10th
+                          ? userDetails.passingYear10th
                           : ""}
                       </td>
                     </tr>
                     <tr>
-                      <td className="table-content">LinkedIn</td>
+                      <td className="table-content">10th Percentage/CGPA</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.percentage10th
+                          ? userDetails.percentage10th
+                          : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">12th Board</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.board12th ? userDetails.board12th : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">12th Passing Year</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.passingYear12th
+                          ? userDetails.passingYear12th
+                          : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">12th Percentage/CGPA</td>
+                      <td className="no-content">:</td>
+                      <td className="table-content">
+                        {userDetails.percentage12th
+                          ? userDetails.percentage12th
+                          : ""}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="table-content">Linked In</td>
                       <td className="no-content">:</td>
                       <td className="table-content">
                         {userDetails.linkedInUrl ? userDetails.linkedInUrl : ""}
                       </td>
                     </tr>
-                    {/* <tr>
-                      <td>Github</td>
-                      <td>:</td>
-                      <td>
-                        {userDetails.githubUrl ? userDetails.githubUrl : ""}
-                      </td>
-                    </tr> */}
+
                     <tr>
-                      <td className="table-content">Resume</td>
+                      <td className="table-content">Resume </td>
                       <td className="no-content">:</td>
                       <td className="table-content">
                         {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
@@ -215,15 +257,6 @@ const UserDashboard = ({ user, token }) => {
                       <td className="table-content">
                         {userDetails.contactEmail
                           ? userDetails.contactEmail
-                          : ""}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="table-content">Portfolio Website</td>
-                      <td className="no-content">:</td>
-                      <td className="table-content">
-                        {userDetails.portfolioWebsite
-                          ? userDetails.portfolioWebsite
                           : ""}
                       </td>
                     </tr>

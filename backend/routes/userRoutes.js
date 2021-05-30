@@ -10,12 +10,13 @@ const {
   updateUserById,
   getAllStudents,
   getAllAlumni,
+  isEmailAvailable,
 } = require("../controllers/userController.js"); //importing the functions from the user controller
 const auth = require("../middleware/authMiddleware.js"); //importing the middleware for protecting the routes
 
 router.get("/allStudents", getAllStudents); //route for getting all the students
 router.get("/allAlumni", getAllAlumni); //route for getting all the alumni's
-
+router.get("/isEmailAvailable", isEmailAvailable);
 router.post("/admin", registerAdmin); //route for registering the admin
 router.post("/login", authUser); //route for authenticating the Student
 router.post("/adminlogin", authAdmin); //route for authenticating the admin
