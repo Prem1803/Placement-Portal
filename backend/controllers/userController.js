@@ -29,7 +29,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
     });
     const payload = {
       //payload for generating the token
-      user: { id: user._id },
+      user: { id: user._id, email: user.email },
     };
     jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
       //token is generated using jwt
@@ -179,7 +179,7 @@ const authAdmin = asyncHandler(async (req, res) => {
         //if password matches
         let payload = {
           //payload for generating jwt token
-          user: { id: user._id },
+          user: { id: user._id, email: user.email },
         };
 
         jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
@@ -211,6 +211,7 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
       let userDetails = {
         type: user.type,
         uid: user._id,
+        email: user.email,
       };
       res.json(userDetails); //user details are returned as response
     } else {

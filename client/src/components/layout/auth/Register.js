@@ -12,7 +12,7 @@ const Register = () => {
     email: "",
     rollNo: "",
     branch: "CSE",
-    course: "Btech",
+    course: "BTech",
     passoutYear: "",
     password: "",
     password2: "",
@@ -134,7 +134,7 @@ const Register = () => {
         },
       };
 
-      let { data } = await axios.post(
+      let data = await axios.post(
         `/api/users/isEmailAvailable`, //making backend call to check if email is available
         { email: user.email },
         config

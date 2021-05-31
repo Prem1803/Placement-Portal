@@ -14,6 +14,34 @@ export const getAllAnnouncements = () => {
     .catch((err) => console.log(err));
 };
 
+export const getAllOnCampusAnnouncements = () => {
+  return fetch(`/api/announcements/oncampus`, {
+    //call is made to backend using axios
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json(); //resonse is returned
+    })
+    .catch((err) => console.log(err));
+};
+export const getAllOffCampusAnnouncements = () => {
+  return fetch(`/api/announcements/offcampus`, {
+    //call is made to backend using axios
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json(); //resonse is returned
+    })
+    .catch((err) => console.log(err));
+};
 //Making call to the backend to get a particular announcement
 export const getAnnouncementById = (id) => {
   return fetch(`/api/announcements/${id}`, {

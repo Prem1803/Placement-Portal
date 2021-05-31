@@ -1,70 +1,22 @@
-import React, { useState, useEffect } from "react";
-import AnnouncementCard from "./AnnouncementCard";
-import AnnouncementFilter from "./AnnouncementFilter";
-import { getAllAnnouncements } from "../../../api/apiAnnouncement";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Announcements = () => {
-  const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting announcement array as an empty array
-  const loadAllAnnouncements = () => {
-    // Loads the announcements
-    getAllAnnouncements()
-      .then((data) => {
-        setAllAnnouncements(data.announcement); //setting the announments with the response from the backend
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const [filtered, setFiltered] = useState(null);
-  const loadFiltered = (filtered) => {
-    setFiltered(filtered); //filtering the announcements
-  };
-  useEffect(() => {
-    loadAllAnnouncements(); //loading the announcements
-  }, [AllAnnouncements.length]);
+  return (
+    <div className="announcementcontainer">
+      <div className="announcementpanel">
+        <Link to={`/oncampusannouncements`}>
+          <div className="oncampuspanelcard" />
+          On Campus Announcements
+        </Link>
 
-  if (filtered !== null)
-    return (
-      //returns all the filtered announcements with their announcement cards
-      <div className="container">
-        <h2>Announcements</h2>
-        <AnnouncementFilter
-          AllAnnouncements={AllAnnouncements}
-          loadFiltered={loadFiltered}
-        />
-
-        {filtered &&
-          filtered.map((announcement) => {
-            return (
-              <AnnouncementCard
-                announcement={announcement}
-                key={announcement._id}
-              />
-            );
-          })}
+        <Link to={`/offcampusannouncements`}>
+          <div className="offcampuspanelcard" />
+          Off Campus Announcements
+        </Link>
       </div>
-    );
-  else
-    return (
-      //returns all the announcements with their announcement cards
-      <div className="container">
-        <h2>Announcements</h2>
-        <AnnouncementFilter
-          AllAnnouncements={AllAnnouncements}
-          loadFiltered={loadFiltered}
-        />
-
-        {AllAnnouncements &&
-          AllAnnouncements.map((announcement) => {
-            return (
-              <AnnouncementCard
-                announcement={announcement}
-                key={announcement._id}
-              />
-            );
-          })}
-      </div>
-    );
+    </div>
+  );
 };
 
 export default Announcements;

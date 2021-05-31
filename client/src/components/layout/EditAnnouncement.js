@@ -149,6 +149,17 @@ const EditAnnouncement = ({ token, user }) => {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <select
+                name="category"
+                value={announcement.category ? announcement.category : ""}
+                onChange={onChange}
+              >
+                <option value="On Campus">On Campus</option>
+                <option value="Off Campus">Off Campus</option>
+              </select>
+            </div>
+            <div className="form-group">
               <label htmlFor="description">Description</label>
               <textarea
                 name="description"

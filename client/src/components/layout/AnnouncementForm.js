@@ -10,7 +10,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
   const userId = useParams().id; //getting user id
 
-  const [announcement, setAnnouncement] = useState({}); //setting announcement as empty object
+  const [announcement, setAnnouncement] = useState({ category: "On Campus" }); //setting announcement as empty object
   const [content, setContent] = useState("");
   const history = useHistory();
 
@@ -119,6 +119,13 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
                   backgroundColor: "white",
                 }}
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <select name="category" onChange={onChange}>
+                <option value="On Campus">On Campus</option>
+                <option value="Off Campus">Off Campus</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>

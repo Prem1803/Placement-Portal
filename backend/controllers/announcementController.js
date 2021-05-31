@@ -12,6 +12,22 @@ const getAllAnnouncements = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllOnCampusAnnouncements = asyncHandler(async (req, res) => {
+  try {
+    let announcement = await Announcement.find({ category: "On Campus" }); //getting all the announcements from the database
+    res.json({ announcement }); //all the announcements are returned as the response
+  } catch (e) {
+    res.status(500).json({ msg: "Server Error" }); //if some thing went wrong then error is throwed
+  }
+});
+const getAllOffCampusAnnouncements = asyncHandler(async (req, res) => {
+  try {
+    let announcement = await Announcement.find({ category: "Off Campus" }); //getting all the announcements from the database
+    res.json({ announcement }); //all the announcements are returned as the response
+  } catch (e) {
+    res.status(500).json({ msg: "Server Error" }); //if some thing went wrong then error is throwed
+  }
+});
 //returns a particular announcement from the database on the basis of announcement id
 const getAnnouncementById = asyncHandler(async (req, res) => {
   try {
@@ -32,11 +48,12 @@ const addAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
   if (user.type === 1) {
     //checking if user has the right to add an announcement
-    const { title, description, content, tags, image } = req.body; //extracting the announcement details from the request
+    const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
     try {
       const newAnnouncement = new Announcement({
         title,
         description,
+        category,
         content,
         tags: tags.split(","),
         image,
@@ -56,7 +73,7 @@ const updateAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
   if (user.type === 1) {
     //checking if user has the right to add an announcement
-    const { title, description, content, tags, image } = req.body; //extracting the announcement details from the request
+    const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
 
     try {
       const updatedAnnouncement = {};
@@ -68,6 +85,7 @@ const updateAnnouncement = asyncHandler(async (req, res) => {
 
       if (title) updatedAnnouncement.title = title;
       if (description) updatedAnnouncement.description = description;
+      if (category) updatedAnnouncement.category = category;
       if (content) updatedAnnouncement.content = content;
       if (image) updatedAnnouncement.image = image;
       if (tags) updatedAnnouncement.tags = tags.split(",");
@@ -110,4 +128,6 @@ module.exports = {
   updateAnnouncement: updateAnnouncement,
   getAllAnnouncements: getAllAnnouncements,
   getAnnouncementById: getAnnouncementById,
+  getAllOnCampusAnnouncements: getAllOnCampusAnnouncements,
+  getAllOffCampusAnnouncements: getAllOffCampusAnnouncements,
 };

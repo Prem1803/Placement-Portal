@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const PageNotFound = () => {
   //Page not found component
   return (
-    <div className="mainbox">
+    <div className="mainbox container">
       <div className="err">4</div>
       <i className="far fa-question-circle fa-spin"></i>
       <div className="err2">4</div>

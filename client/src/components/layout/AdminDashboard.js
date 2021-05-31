@@ -1,42 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router";
-import { getAllAnnouncements } from "../../api/apiAnnouncement";
-import { getAllUserBlogs } from "../../api/apiBlog";
+import React from "react";
+import { useParams } from "react-router";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = ({ props, user, userDetails, token }) => {
   const userid = useParams().id; //getting the user id
-  const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting the announcements as an empty array
-  const loadAllAnnouncements = () => {
-    // Get the information from the database
-    getAllAnnouncements()
-      .then((data) => {
-        setAllAnnouncements(data.announcement); //setting the announcements with the response
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    loadAllAnnouncements(); //loading all the announcements
-  }, [AllAnnouncements.length]);
-  const [blogs, setBlogs] = useState([]); //setting blogs array as an empty array
-  const loadBlogs = () => {
-    if (user.uid !== undefined)
-      getAllUserBlogs(user.uid)
-        .then((data) => {
-          setBlogs(data.blogs); //setting blogs array with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
-  useEffect(() => {
-    loadBlogs(); //loading all the blogs
-  }, [blogs.length, user.uid]);
-  const history = useHistory();
 
   if (user.uid) {
     if (userid === user.uid)

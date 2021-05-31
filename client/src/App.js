@@ -29,10 +29,15 @@ import AdminAnnouncements from "./components/layout/AdminAnnouncements";
 import EditAnnouncement from "./components/layout/EditAnnouncement";
 import SingleAnnouncement from "./components/layout/announcements/SingleAnnouncement";
 import AdminBlogs from "./components/layout/AdminBlogs";
-import Management from "./components/layout/Management";
 import OTPVerification from "./components/layout/auth/OTPVerification";
 import ForgotPassword from "./components/layout/auth/ForgotPassword";
 import ChangePassword from "./components/layout/auth/ChangePassword";
+import ShortlistingStuents from "./components/layout/ShortListingStudents";
+import Management from "./components/layout/Management";
+import ManageAdminAccount from "./components/layout/ManageAdminAccount";
+import AdminAccess from "./components/layout/AdminAccess";
+import OnCampusAnnouncements from "./components/layout/announcements/OnCampusAnnouncements";
+import OffCampusAnnouncements from "./components/layout/announcements/OffCampusAnnouncements";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -136,6 +141,16 @@ function App() {
               <Route exact path="/announcements" component={Announcements} />
               <Route exact path="/forgotpassword" component={ForgotPassword} />
               <Route exact path="/changepassword" component={ChangePassword} />
+              <Route
+                exact
+                path="/oncampusannouncements"
+                component={OnCampusAnnouncements}
+              />
+              <Route
+                exact
+                path="/offcampusannouncements"
+                component={OffCampusAnnouncements}
+              />
 
               {/*Renders the all announcement page*/}
               <Route exact path="/blogs/:id" component={SingleBlog} />
@@ -201,8 +216,23 @@ function App() {
               />
               <Route
                 exact
-                path="/admindashboard/:id/management"
+                path="/admindashboard/:id/management/students"
+                render={() => <ShortlistingStuents user={user} />}
+              />
+              <Route
+                exact
+                path="/admindashboard/:id/management/"
                 render={() => <Management user={user} />}
+              />
+              <Route
+                exact
+                path="/admindashboard/:id/management/manageaccount"
+                render={() => <ManageAdminAccount user={user} />}
+              />
+              <Route
+                exact
+                path="/admindashboard/:id/management/admins"
+                render={() => <AdminAccess user={user} />}
               />
               <Route
                 exact
