@@ -269,10 +269,9 @@ const Navbar = ({ title, icon, user, userDetails }) => {
                   <i className="fas fa-user"></i> Admin
                 </Link>
               )}
-              {user.type === 0 && (
+              {user.type === 0 && userDetails.name && (
                 <Link to={`/userdashboard/${user.sid}`}>
-                  <i className="fas fa-user"></i>
-                  {userDetails.name}
+                  <i className="fas fa-user"></i> {" " + userDetails.name}
                 </Link>
               )}
             </li>
@@ -340,10 +339,10 @@ const Navbar = ({ title, icon, user, userDetails }) => {
                 <i className="fas fa-user"></i> Admin
               </Link>
             )}
-            {user.type === 0 && (
+            {user.type === 0 && userDetails.name && (
               <Link to={`/userdashboard/${user.sid}`}>
                 <i className="fas fa-user"></i>
-                {userDetails.name}
+                {" " + userDetails.name}
               </Link>
             )}
           </li>
@@ -437,6 +436,28 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             <Link className="sidebar_links" to={`/alumni`}>
               <i className="fas fa-user-graduate"></i> Alumni
             </Link>
+          </li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            {user.type === 1 && (
+              <Link to={`/admindashboard/${user.uid}`}>
+                <i className="fas fa-th-large"></i> Admin Dashboard
+              </Link>
+            )}
+            {user.type === 0 && userDetails.name && (
+              <Link to={`/userdashboard/${user.sid}`}>
+                <i className="fas fa-th-large"></i> User Dashboard
+              </Link>
+            )}
           </li>
         </ul>
       </div>

@@ -42,21 +42,23 @@ const AdminDashboard = ({ props, user, userDetails, token }) => {
     if (userid === user.uid)
       //if the logged in user is an admin
       return (
-        <div className="admincontainer adminpanel">
-          <Link to={`/admindashboard/${user.uid}/announcements`}>
-            <div className="announcementpanelcard" />
-            Announcements
-          </Link>
+        <div className="admincontainer">
+          <div className="adminpanel">
+            <Link to={`/admindashboard/${user.uid}/announcements`}>
+              <div className="announcementpanelcard" />
+              Announcements
+            </Link>
 
-          <Link to={`/admindashboard/${user.uid}/blogs`}>
-            <div className="blogpanelcard" />
-            Blogs
-          </Link>
+            <Link to={`/admindashboard/${user.uid}/blogs`}>
+              <div className="blogpanelcard" />
+              Blogs
+            </Link>
 
-          <Link to={`/admindashboard/${user.uid}/management`}>
-            <div className="managementpanelcard" />
-            Management
-          </Link>
+            <Link to={`/admindashboard/${user.uid}/management`}>
+              <div className="managementpanelcard" />
+              Management
+            </Link>
+          </div>
         </div>
       );
     else

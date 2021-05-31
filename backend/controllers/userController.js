@@ -266,6 +266,25 @@ const updateUserById = asyncHandler(async (req, res) => {
   }
 });
 
+const resetPassword = asyncHandler(async (req, res) => {
+  try {
+    let password = "";
+    // await bcrypt.genSalt(10, function (err, salt) {
+    //   bcrypt.hash(req.body.password, salt, function (err, hash) {
+    //     //hashing the password so that the password is secured
+    //     password = hash;
+    //   });
+    // });
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    await User.updateOne(
+      { email: req.body.email },
+      { $set: { password: hashedPassword } }
+    ); //getting the User from the database
+    res.json({ passwordReset: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 //Returns all the students which are currently studing in the college
 const getAllStudents = asyncHandler(async (req, res) => {
   try {
@@ -341,4 +360,5 @@ module.exports = {
   getAllStudents: getAllStudents,
   getAllAlumni: getAllAlumni,
   isEmailAvailable: isEmailAvailable,
+  resetPassword: resetPassword,
 };

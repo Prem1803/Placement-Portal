@@ -134,7 +134,7 @@ const Register = () => {
         },
       };
 
-      let { data } = await axios.get(
+      let { data } = await axios.post(
         `/api/users/isEmailAvailable`, //making backend call to check if email is available
         { email: user.email },
         config

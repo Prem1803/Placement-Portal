@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions/userActions";
 import { useToasts } from "react-toast-notifications";
@@ -65,6 +65,12 @@ const Login = () => {
         <button type="submit" value="Login" className="btn btn-primary">
           Login
         </button>
+        <Link
+          to="/forgotpassword"
+          style={{ float: "right", fontSize: "16px", marginTop: "0.4rem" }}
+        >
+          Forgot Password ?
+        </Link>
       </form>
     </div>
   );

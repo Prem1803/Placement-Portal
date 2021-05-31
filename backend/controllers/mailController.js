@@ -61,7 +61,41 @@ const sendOTP = asyncHandler(async (req, res) => {
     res.status(500).json({ msg: e.message });
   }
 });
+const sendOTPToResetPassword = asyncHandler(async (req, res) => {
+  try {
+    const { student, otp } = req.body;
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "prem47645@gmail.com",
+        pass: "premkumar@47645",
+      },
+    });
+    if (student) {
+      transporter.sendMail({
+        from: "Admin@Tnp NIT Delhi <prem47645@gmail.com>",
+        to: student,
+        subject: "Reset Your Password",
+        text:
+          "Hi,Below is your one time passcode to reset your password " +
+          otp +
+          " This one time passcode will be valid for 5 min",
+        html:
+          "<h4>Hi,</h4><h4>Below is your one time passcode to reset your password</h4><h3>" +
+          otp +
+          "</h3> <h4>This one time passcode will be valid for 5 min</h4>",
+      });
+
+      res.json({
+        msg: "Mail Sent",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({ msg: e.message });
+  }
+});
 module.exports = {
   sendAnnouncementNotification: sendAnnouncementNotification,
   sendOTP: sendOTP,
+  sendOTPToResetPassword: sendOTPToResetPassword,
 };

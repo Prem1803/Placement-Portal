@@ -62,6 +62,14 @@ const UserDashboard = ({ user, token }) => {
     //edit profile
     history.push(`/users/${userDetails._id}/editProfile`); //redirects to edit profile page
   };
+  const changePassword = () => {
+    history.push({
+      pathname: "/changepassword",
+      state: {
+        email: user.email,
+      },
+    });
+  };
   if (userDetails._id !== undefined) {
     if (userid === user.sid)
       return (
@@ -80,8 +88,14 @@ const UserDashboard = ({ user, token }) => {
                 className="btn btn-dark"
                 style={{ float: "right" }}
               >
-                <i className="fa fa-edit" />
-                Edit Profile
+                <i className="fa fa-edit" /> Edit Profile
+              </button>
+              <button
+                onClick={changePassword}
+                className="btn btn-dark"
+                style={{ float: "right" }}
+              >
+                <i className="fas fa-key" /> Change Password
               </button>
             </h2>
 

@@ -31,6 +31,8 @@ import SingleAnnouncement from "./components/layout/announcements/SingleAnnounce
 import AdminBlogs from "./components/layout/AdminBlogs";
 import Management from "./components/layout/Management";
 import OTPVerification from "./components/layout/auth/OTPVerification";
+import ForgotPassword from "./components/layout/auth/ForgotPassword";
+import ChangePassword from "./components/layout/auth/ChangePassword";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -132,6 +134,9 @@ function App() {
               {/* <Route exact path="/projects" component={Projects} /> */}
               {/*Renders the all projects page*/}
               <Route exact path="/announcements" component={Announcements} />
+              <Route exact path="/forgotpassword" component={ForgotPassword} />
+              <Route exact path="/changepassword" component={ChangePassword} />
+
               {/*Renders the all announcement page*/}
               <Route exact path="/blogs/:id" component={SingleBlog} />
               {/*Renders the single blog page*/}
