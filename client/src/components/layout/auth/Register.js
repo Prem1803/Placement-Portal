@@ -139,7 +139,7 @@ const Register = () => {
         { email: user.email },
         config
       );
-      if (data.isEmailAvailable) {
+      if (data.data.isEmailAvailable) {
         addToast("User Registered Successfully", {
           appearance: "success",
           autoDismiss: true,
