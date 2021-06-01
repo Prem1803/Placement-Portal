@@ -8,7 +8,7 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         user: "prem47645@gmail.com",
-        pass: "premkumar@47645",
+        pass: "premkumar@1803",
       },
     });
     students.forEach((student) => {
@@ -35,7 +35,7 @@ const sendOTP = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         user: "prem47645@gmail.com",
-        pass: "premkumar@47645",
+        pass: "premkumar@1803",
       },
     });
     if (student) {
@@ -68,7 +68,7 @@ const sendOTPToResetPassword = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         user: "prem47645@gmail.com",
-        pass: "premkumar@47645",
+        pass: "premkumar@1803",
       },
     });
     if (student) {
