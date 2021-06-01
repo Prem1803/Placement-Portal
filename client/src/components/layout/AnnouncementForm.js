@@ -13,7 +13,19 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   const [announcement, setAnnouncement] = useState({ category: "On Campus" }); //setting announcement as empty object
   const [content, setContent] = useState("");
   const history = useHistory();
+  const sendAnnouncementNotificationOverMail = async (newAnnouncement) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
+    await axios.post(
+      `/api/mail/sendannouncementnotification`, //making backend call to send otp for confirming email
+      { announcement: newAnnouncement },
+      config
+    );
+  };
   const onSubmit = async (e) => {
     announcement.content = content;
     e.preventDefault();
@@ -31,6 +43,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
     );
 
     setAnnouncement(JSON.parse(JSON.stringify(data))); //setting announcement with the resonse
+    sendAnnouncementNotificationOverMail(JSON.parse(JSON.stringify(data)));
     addToast("Announcement Addded Successfully", {
       appearance: "success",
       autoDismiss: true,

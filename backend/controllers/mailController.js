@@ -1,9 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const nodemailer = require("nodemailer");
+const { getMaxListeners } = require("../models/User");
+const User = require("../models/User"); //importing User model
 
 const sendAnnouncementNotification = asyncHandler(async (req, res) => {
   try {
-    const { students, announcement } = req.body;
+    const { announcement } = req.body;
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -11,13 +13,34 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
         pass: "premkumar@1803",
       },
     });
+    const students = User.find({ type: 0 });
     students.forEach((student) => {
       transporter.sendMail({
         from: "Admin@Tnp NIT Delhi <prem47645@gmail.com>",
         to: student,
-        subject: "New Announcement :" + announcement.title,
-        text: announcement.content,
-        html: announcement.content,
+        subject: "New Announcement ",
+        text:
+          "Hi , An Announcement has been added to the TNP Portal by the Admin Below is the link to view the announcement http://localhost:3000/announcements/" +
+          announcement._id,
+        html:
+          "<h4>Hi,</h4> <h3>An Announcement has been added to the TNP Portal by the Admin Below is the link to view the announcement </h3> <h3>http://localhost:3000/announcements/" +
+          announcement._id +
+          "</h3><h4>Thank You</h4>",
+      });
+    });
+    students = User.find({ type: 2 });
+    students.forEach((student) => {
+      transporter.sendMail({
+        from: "Admin@Tnp NIT Delhi <prem47645@gmail.com>",
+        to: student,
+        subject: "New Announcement ",
+        text:
+          "Hi , An Announcement has been added to the TNP Portal by the Admin Below is the link to view the announcement http://localhost:3000/announcements/" +
+          announcement._id,
+        html:
+          "<h4>Hi,</h4> <h3>An Announcement has been added to the TNP Portal by the Admin Below is the link to view the announcement </h3> <h3>http://localhost:3000/announcements/" +
+          announcement._id +
+          "</h3><h4>Thank You</h4>",
       });
     });
 
@@ -61,6 +84,73 @@ const sendOTP = asyncHandler(async (req, res) => {
     res.status(500).json({ msg: e.message });
   }
 });
+const contactFormSubmission = asyncHandler(async (req, res) => {
+  try {
+    const { name, email, subject, category, content } = req.body;
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "prem47645@gmail.com",
+        pass: "premkumar@1803",
+      },
+    });
+    if (category === "General Query")
+      transporter.sendMail({
+        from: name + " <prem47645@gmail.com>",
+        to: "prem47645@gmail.com",
+        subject: "Contact Form Submission: " + category,
+        text:
+          "Name:" +
+          name +
+          "Email:" +
+          email +
+          "Subject:" +
+          subject +
+          "Message:" +
+          content,
+        html:
+          "<h3>Name:" +
+          name +
+          "</h3><h3>Email:</h3>" +
+          email +
+          "<h3>Subject:" +
+          subject +
+          "</h3><h3>Message:" +
+          content +
+          "</h3>",
+      });
+    else
+      transporter.sendMail({
+        from: name + " <prem47645@gmail.com>",
+        to: "prem47645@gmail.com",
+        subject: "Contact Form Submission: " + category,
+        text:
+          "Name:" +
+          name +
+          "Email:" +
+          email +
+          "Subject:" +
+          subject +
+          "Message:" +
+          content,
+        html:
+          "<h3>Name:" +
+          name +
+          "</h3><h3>Email:</h3>" +
+          email +
+          "<h3>Subject:" +
+          subject +
+          "</h3><h3>Message:" +
+          content +
+          "</h3>",
+      });
+    res.json({
+      msg: "Mail Sent",
+    });
+  } catch (e) {
+    res.status(500).json({ msg: e.message });
+  }
+});
 const sendOTPToResetPassword = asyncHandler(async (req, res) => {
   try {
     const { student, otp } = req.body;
@@ -98,4 +188,5 @@ module.exports = {
   sendAnnouncementNotification: sendAnnouncementNotification,
   sendOTP: sendOTP,
   sendOTPToResetPassword: sendOTPToResetPassword,
+  contactFormSubmission: contactFormSubmission,
 };

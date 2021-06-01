@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useToasts } from "react-toast-notifications";
+import { useHistory } from "react-router";
 
 const Contact = ({ token, user, userDetails }) => {
+  const { addToast } = useToasts();
+  const history = useHistory();
+
   //Contact us page component
   const [message, setMessage] = useState({
     name: userDetails.name,
@@ -13,10 +19,54 @@ const Contact = ({ token, user, userDetails }) => {
     //setting the message content on change in the value of the respective inputs
     setMessage({ ...message, [e.target.name]: e.target.value });
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     //submitting the contact form
     e.preventDefault();
+    if (
+      name !== "" &&
+      email !== "" &&
+      subject !== "" &&
+      category !== "" &&
+      content !== ""
+    ) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      await axios.post(
+        `/api/mail/contact`, //making backend call to send otp for confirming email
+        {
+          name: name,
+          email: email,
+          category: category,
+          subject: subject,
+          content: content,
+        },
+        config
+      );
+      addToast("Contact Form Submitted", {
+        appearance: "success",
+        autoDismiss: true,
+        autoDismissTimeout: 2000,
+      });
+      history.push("/");
+    } else {
+      addToast("Failed to Submit the contact form", {
+        appearance: "alert",
+        autoDismiss: true,
+        autoDismissTimeout: 2000,
+      });
+    }
   };
+  useEffect(() => {
+    setMessage({
+      name: userDetails.name,
+      email: user.email,
+      category: "General Query",
+    });
+  }, [userDetails]);
   const { name, email, category, subject, content } = message;
   // if (token === null || token === "null" || token === "")
   //   return <div className="not-allowed">Sorry. You are not logged In</div>;
@@ -24,6 +74,7 @@ const Contact = ({ token, user, userDetails }) => {
   return (
     //returns the contact form
     <div className="form-container">
+      {console.log(userDetails)}
       <h1>
         <span className="text-primary">Contact Us</span>
       </h1>
