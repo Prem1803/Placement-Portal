@@ -121,12 +121,12 @@ const ShortlistingStuents = ({ user }) => {
 
                 <select name="cgpa" value={filters.cgpa} onChange={onChange}>
                   <option value="">All</option>
+                  <option value="6">6 and Above</option>
+                  <option value="6.5">6.5 and Above</option>
                   <option value="7">7 and Above</option>
                   <option value="7.5">7.5 and Above</option>
                   <option value="8">8 and Above</option>
                   <option value="8.5">8.5 and Above</option>
-                  <option value="9">9 and Above</option>
-                  <option value="9.5">9.5 and Above</option>
                 </select>
               </div>
               <div
