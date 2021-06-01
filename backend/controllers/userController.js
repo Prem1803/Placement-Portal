@@ -292,22 +292,6 @@ const getAllStudents = asyncHandler(async (req, res) => {
     const users = await Student.find({}); //getting all the students from the database
     let students = [];
     users.forEach((user) => {
-      // if (
-      //   new Date().getFullYear() - Number(user.year) <= 4 &&
-      //   user.batch === "Btech"
-      // ) {
-      //   //checking if the user is the current student or not
-      //   students.push(user);
-      // } else if (
-      //   new Date().getFullYear() - Number(user.year) <= 2 &&
-      //   user.batch === "Mtech"
-      // ) {
-      //   //checking if the user is the current student or not
-      //   students.push(user);
-      // } else if (user.batch === "PhD") {
-      //   //checking if the user is the current student or not
-      //   students.push(user);
-      // }
       if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
         //checking if the user is the current student or not
         students.push(user);
@@ -319,33 +303,244 @@ const getAllStudents = asyncHandler(async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+function groupBy(objectArray, property) {
+  return objectArray.reduce((acc, obj) => {
+    const key = obj[property];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    // Add object to list for given key's value
+    acc[key].push(obj);
+    return acc;
+  }, {});
+}
+const getAllBTechStudents = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "BTech") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const getAllMTechStudents = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "MTech") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const getAllPhDStudents = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+    let meStudents = [];
+    let asStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "PhD") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+        else if (student.branch === "ME") meStudents.push(student);
+        else if (student.branch === "AS") asStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    meStudents = groupBy(meStudents, "passoutYear");
+    asStudents = groupBy(asStudents, "passoutYear");
+    res.json({
+      CSE: cseStudents,
+      ECE: eceStudents,
+      EEE: eeeStudents,
+      ME: meStudents,
+      AS: asStudents,
+    }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 //Returns all the alumnis
+const getAllBTechAlumni = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "BTech") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const getAllMTechAlumni = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "MTech") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const getAllPhDAlumni = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}); //getting all the students from the database
+    let students = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
+        //checking if the user is the current student or not
+        students.push(user);
+      }
+    });
+    let cseStudents = [];
+    let eceStudents = [];
+    let eeeStudents = [];
+    let meStudents = [];
+    let asStudents = [];
+
+    students.forEach((student) => {
+      if (student.course === "PhD") {
+        if (student.branch === "CSE") cseStudents.push(student);
+        else if (student.branch === "ECE") eceStudents.push(student);
+        else if (student.branch === "EEE") eeeStudents.push(student);
+        else if (student.branch === "ME") meStudents.push(student);
+        else if (student.branch === "AS") asStudents.push(student);
+      }
+    });
+
+    cseStudents = groupBy(cseStudents, "passoutYear");
+    eceStudents = groupBy(eceStudents, "passoutYear");
+    eeeStudents = groupBy(eeeStudents, "passoutYear");
+    meStudents = groupBy(meStudents, "passoutYear");
+    asStudents = groupBy(asStudents, "passoutYear");
+    res.json({
+      CSE: cseStudents,
+      ECE: eceStudents,
+      EEE: eeeStudents,
+      ME: meStudents,
+      AS: asStudents,
+    }); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 const getAllAlumni = asyncHandler(async (req, res) => {
   try {
     const users = await Student.find({}); //getting all the students from the database
     let alumni = [];
     users.forEach((user) => {
-      // if (new Date().getFullYear() - Number(user.year) > 4) {
-      //   //checking if the student is an alumni or not
-      //   alumni.push(user);
-      // } else if (
-      //   new Date().getFullYear() - Number(user.year) > 2 &&
-      //   user.batch === "Mtech"
-      // ) {
-      //   //checking if the student is an alumni or not
-      //   alumni.push(user);
-      // } else if (user.batch === "Phd") {
-      //   //checking if the student is an alumni or not
-      //   alumni.push(user);
-      // }
       if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
         //checking if the user is the current student or not
         alumni.push(user);
       }
     });
-    alumni.sort((a, b) => a.passoutYear - b.passoutYear);
-    res.json({ alumni }); //returns all the alumnis as the response
+
+    alumni = groupBy(alumni, "passoutYear");
+    alumni = Object.entries(alumni);
+
+    // alumni.forEach((a) => {
+    //   alumni = groupBy(a[1], "course");
+    // });
+    for (var i = 0; i < alumni.length; i++) {
+      alumni[i][1] = groupBy(alumni[i][1], "course");
+    }
+    res.json(alumni); //returns all the alumnis as the response
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -362,4 +557,7 @@ module.exports = {
   getAllAlumni: getAllAlumni,
   isEmailAvailable: isEmailAvailable,
   resetPassword: resetPassword,
+  getAllBTechStudents: getAllBTechStudents,
+  getAllMTechStudents: getAllMTechStudents,
+  getAllPhDStudents: getAllPhDStudents,
 };

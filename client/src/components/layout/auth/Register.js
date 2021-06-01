@@ -227,6 +227,8 @@ const Register = () => {
               <option value="CSE">CSE</option>
               <option value="ECE">ECE</option>
               <option value="EEE">EEE</option>
+              <option value="ME">ME</option>
+              <option value="AS">AS</option>
             </select>
           </div>
           <div className="col">

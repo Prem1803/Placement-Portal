@@ -38,6 +38,16 @@ import ManageAdminAccount from "./components/layout/ManageAdminAccount";
 import AdminAccess from "./components/layout/AdminAccess";
 import OnCampusAnnouncements from "./components/layout/announcements/OnCampusAnnouncements";
 import OffCampusAnnouncements from "./components/layout/announcements/OffCampusAnnouncements";
+import BTechStudents from "./components/layout/students/BTechStudents";
+import BatchWiseStudents from "./components/layout/students/BatchWiseStudents";
+import MTechStudents from "./components/layout/students/MTechStudents";
+import PhDStudents from "./components/layout/students/PhDStudents";
+import BranchWiseStudents from "./components/layout/students/BranchWiseStudents";
+import AlumniBatchWise from "./components/layout/alumni/AlumniBatchWise";
+import BTechAlumni from "./components/layout/alumni/BTechAlumni";
+import MTechAlumni from "./components/layout/alumni/MTechAlumni";
+import PhDAlumni from "./components/layout/alumni/PhDAlumni";
+import AlumniBranchWise from "./components/layout/alumni/AlumniBranchWise";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -141,6 +151,44 @@ function App() {
               <Route exact path="/announcements" component={Announcements} />
               <Route exact path="/forgotpassword" component={ForgotPassword} />
               <Route exact path="/changepassword" component={ChangePassword} />
+              <Route exact path="/students/btech" component={BTechStudents} />
+              <Route exact path="/students/mtech" component={MTechStudents} />
+              <Route exact path="/students/phd" component={PhDStudents} />
+              <Route
+                exact
+                path="/students/:course/:branch"
+                component={BranchWiseStudents}
+              />
+              <Route
+                exact
+                path="/students/:course/:branch/:passoutYear"
+                component={BatchWiseStudents}
+              />
+              <Route
+                exact
+                path="/alumni/:passoutYear"
+                component={AlumniBatchWise}
+              />
+              <Route
+                exact
+                path="/alumni/:passoutYear/btech"
+                component={BTechAlumni}
+              />
+              <Route
+                exact
+                path="/alumni/:passoutYear/mtech"
+                component={MTechAlumni}
+              />
+              <Route
+                exact
+                path="/alumni/:passoutYear/phd"
+                component={PhDAlumni}
+              />
+              <Route
+                exact
+                path="/alumni/:passoutYear/:course/:branch"
+                component={AlumniBranchWise}
+              />
               <Route
                 exact
                 path="/oncampusannouncements"
