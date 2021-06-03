@@ -60,3 +60,17 @@ export const getAllUserBlogs = (userid) => {
     })
     .catch((err) => console.log(err));
 };
+export const getAllAdminBlogs = (userid) => {
+  return fetch(`/api/blogs/adminblog`, {
+    //call is made to backend using axios
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json(); //resonse is returned
+    })
+    .catch((err) => console.log(err));
+};

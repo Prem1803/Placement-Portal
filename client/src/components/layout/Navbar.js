@@ -265,12 +265,12 @@ const Navbar = ({ title, icon, user, userDetails }) => {
 
             <li>
               {user.type === 1 && (
-                <Link to={`/admindashboard/${user.uid}`}>
+                <Link to={`/admindashboard`}>
                   <i className="fas fa-user"></i> Admin
                 </Link>
               )}
-              {user.type === 0 && userDetails.name && (
-                <Link to={`/userdashboard/${user.sid}`}>
+              {(user.type === 0 || user.type === 2) && userDetails.name && (
+                <Link to={`/userdashboard`}>
                   <i className="fas fa-user"></i> {" " + userDetails.name}
                 </Link>
               )}
@@ -335,12 +335,12 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             }}
           >
             {user.type === 1 && (
-              <Link to={`/admindashboard/${user.uid}`}>
+              <Link to={`/admindashboard`}>
                 <i className="fas fa-user"></i> Admin
               </Link>
             )}
-            {user.type === 0 && userDetails.name && (
-              <Link to={`/userdashboard/${user.sid}`}>
+            {(user.type === 0 || user.type === 2) && userDetails.name && (
+              <Link to={`/userdashboard`}>
                 <i className="fas fa-user"></i>
                 {" " + userDetails.name}
               </Link>
@@ -448,13 +448,25 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               y.classList.toggle("fa-bars");
             }}
           >
-            {user.type === 1 && (
-              <Link to={`/admindashboard/${user.uid}`}>
+            {(user.type === 1 || user.type === 2) && (
+              <Link to={`/admindashboard`}>
                 <i className="fas fa-th-large"></i> Admin Dashboard
               </Link>
             )}
-            {user.type === 0 && userDetails.name && (
-              <Link to={`/userdashboard/${user.sid}`}>
+          </li>
+          <li
+            onClick={() => {
+              var x = document.getElementById("mobilenav");
+              x.style.display = "none";
+              var y = document.getElementById("navicon");
+              y.classList.toggle("fas");
+              y.classList.toggle("fa-times");
+              y.classList.toggle("fa");
+              y.classList.toggle("fa-bars");
+            }}
+          >
+            {(user.type === 0 || user.type === 2) && userDetails.name && (
+              <Link to={`/userdashboard`}>
                 <i className="fas fa-th-large"></i> User Dashboard
               </Link>
             )}

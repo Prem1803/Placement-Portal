@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useParams } from "react-router";
 
-const MTechStudents = () => {
+const MTechStudents = ({ user }) => {
   const location = useLocation();
   const passoutYear = useParams().passoutYear.toString();
   const alumni = location.state;
@@ -15,28 +15,41 @@ const MTechStudents = () => {
   const eeeAlumni = alumni.filter((alumni) => {
     return alumni.branch === "EEE";
   });
-  return (
-    <div className="studentcontainer studentpanel">
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/mtech/cse`, state: cseAlumni }}
-      >
-        <div className="csepanelcard" />
-        CSE
-      </Link>
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/mtech/ece`, state: eceAlumni }}
-      >
-        <div className="ecepanelcard" />
-        ECE
-      </Link>
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/mtech/eee`, state: eeeAlumni }}
-      >
-        <div className="eeepanelcard" />
-        EEE
-      </Link>
-    </div>
-  );
+  if (Object.keys(user).length !== 0)
+    return (
+      <div className="studentcontainer studentpanel">
+        <Link
+          to={{
+            pathname: `/alumni/${passoutYear}/mtech/cse`,
+            state: cseAlumni,
+          }}
+        >
+          <div className="csepanelcard" />
+        </Link>
+        <Link
+          to={{
+            pathname: `/alumni/${passoutYear}/mtech/ece`,
+            state: eceAlumni,
+          }}
+        >
+          <div className="ecepanelcard" />
+        </Link>
+        <Link
+          to={{
+            pathname: `/alumni/${passoutYear}/mtech/eee`,
+            state: eeeAlumni,
+          }}
+        >
+          <div className="eeepanelcard" />
+        </Link>
+      </div>
+    );
+  else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default MTechStudents;

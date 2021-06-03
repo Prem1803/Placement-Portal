@@ -3,7 +3,7 @@ import BlogCard from "./BlogCard";
 import BlogFilter from "./BlogFilter";
 import { getAllBlogs } from "../../../api/apiBlog";
 
-const Blogs = () => {
+const Blogs = ({ user }) => {
   const [AllBlogs, setAllBlogs] = useState([]); //setting the blogs to null
   const loadAllBlogs = () => {
     // Get the information from the database
@@ -22,32 +22,39 @@ const Blogs = () => {
   useEffect(() => {
     loadAllBlogs(); //loading the blogs
   }, [AllBlogs.length]);
-  if (filtered !== null) {
-    return (
-      //returns all the filtered blogs with individual blog card
-      <div className="container">
-        <h2>Blogs</h2>
-        <BlogFilter AllBlogs={AllBlogs} loadFiltered={loadFiltered} />
-        <div className="row blog-container">
-          {filtered &&
-            filtered.map((blog) => {
-              return <BlogCard blog={blog} key={blog._id} />;
-            })}
+  if (Object.keys(user).length !== 0) {
+    if (filtered !== null) {
+      return (
+        //returns all the filtered blogs with individual blog card
+        <div className="container">
+          <h2>Blogs</h2>
+          <BlogFilter AllBlogs={AllBlogs} loadFiltered={loadFiltered} />
+          <div className="row blog-container">
+            {filtered &&
+              filtered.map((blog) => {
+                return <BlogCard blog={blog} key={blog._id} />;
+              })}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else
+      return (
+        //returns all the blogs with individual blog card
+        <div className="container">
+          <h2>Blogs</h2>
+          <BlogFilter AllBlogs={AllBlogs} loadFiltered={loadFiltered} />
+          <div className="row blog-container">
+            {AllBlogs &&
+              AllBlogs.map((blog) => {
+                return <BlogCard blog={blog} key={blog._id} />;
+              })}
+          </div>
+        </div>
+      );
   } else
     return (
-      //returns all the blogs with individual blog card
-      <div className="container">
-        <h2>Blogs</h2>
-        <BlogFilter AllBlogs={AllBlogs} loadFiltered={loadFiltered} />
-        <div className="row blog-container">
-          {AllBlogs &&
-            AllBlogs.map((blog) => {
-              return <BlogCard blog={blog} key={blog._id} />;
-            })}
-        </div>
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
       </div>
     );
 };

@@ -33,7 +33,7 @@ export const ProjectForm = ({ user, token, userDetails }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the dahboard
-    history.push(`/userdashboard/${userDetails._id}`);
+    history.push(`/userdashboard/`);
   };
   const onChange = (e) => {
     //setting project on change in project details from the form

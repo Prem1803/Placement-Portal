@@ -49,7 +49,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
       autoDismiss: true,
       autoDismissTimeout: 2000,
     });
-    history.push(`/admindashboard/${user.uid}`); //redirecting to the admin dahboard
+    history.push(`/admindashboard`); //redirecting to the admin dahboard
   };
   const onChange = (e) => {
     //setting announcement on change in announcement details from the form
@@ -111,70 +111,77 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
     "size",
     "color",
   ];
-  if (user) {
-    if (user.type === 1 && user.uid === userId)
-      return (
-        //returns the announcement form
-        <div className="container">
-          <form onSubmit={onSubmit}>
-            <h1>Add Announcement</h1>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input type="text" name="title" onChange={onChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="image">Banner Image</label>
-              <input
-                type="file"
-                name="image"
-                onChange={uploadFileHandler}
-                style={{
-                  backgroundColor: "white",
-                }}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
-              <select name="category" onChange={onChange}>
-                <option value="On Campus">On Campus</option>
-                <option value="Off Campus">Off Campus</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                rows={3}
-                onChange={onChange}
-                style={{ fontSize: "15px" }}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="tags">Tags</label>
-              <input type="text" name="tags" onChange={onChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="content">Content</label>
+  if (Object.keys(user).length !== 0) {
+    if (user) {
+      if (user.type === 1 || user.type === 2)
+        return (
+          //returns the announcement form
+          <div className="container">
+            <form onSubmit={onSubmit}>
+              <h1>Add Announcement</h1>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input type="text" name="title" onChange={onChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="image">Banner Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={uploadFileHandler}
+                  style={{
+                    backgroundColor: "white",
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select name="category" onChange={onChange}>
+                  <option value="On Campus">On Campus</option>
+                  <option value="Off Campus">Off Campus</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  rows={3}
+                  onChange={onChange}
+                  style={{ fontSize: "15px" }}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="tags">Tags</label>
+                <input type="text" name="tags" onChange={onChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="content">Content</label>
 
-              <ReactQuill
-                value={content}
-                onChange={setContent}
-                modules={modules}
-                formats={formats}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Add Announcement
-            </button>
-          </form>
-        </div>
-      );
-    else
-      return (
-        <div className="not-allowed">
-          Sorry, you are not allowed to Add Announcements.
-        </div>
-      );
-  } else return <Spinner />;
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={modules}
+                  formats={formats}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Add Announcement
+              </button>
+            </form>
+          </div>
+        );
+      else
+        return (
+          <div className="not-allowed">
+            Sorry, you are not allowed to Add Announcements.
+          </div>
+        );
+    } else return <Spinner />;
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 export default AnnouncementForm;

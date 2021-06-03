@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import { useHistory, useParams } from "react-router";
-import { getUser } from "../../api/apiUser";
+import { getUserInfo } from "../../api/apiUser";
 import Spinner from "./Spinner";
 
-export const EditProfile = ({ userDetails }) => {
+export const EditProfile = ({ user, userDetails }) => {
   const token = localStorage.getItem("userInfo");
   const { addToast } = useToasts();
   const userid = useParams().id; //getting user id
 
-  const [user, setUser] = useState({}); //setting user
+  const [currentUser, setUser] = useState({}); //setting user
   const {
     name,
     rollNo,
@@ -33,29 +33,31 @@ export const EditProfile = ({ userDetails }) => {
     linkedInUrl,
     resumeUrl,
     contactEmail,
-  } = user;
+  } = currentUser;
   const loadUser = () => {
     //loading user
-    getUser(userid)
-      .then((data) => {
-        setUser(data); //setting user details with the response
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // console.log(user.sid);
+    if (user.sid)
+      getUserInfo(user.sid)
+        .then((data) => {
+          setUser(data); //setting user details with the response
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
   useEffect(() => {
     loadUser(); //loading user
-  }, user);
+  }, [user]);
   const onChange = (e) => {
     //setting user on change in user details from the form
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...currentUser, [e.target.name]: e.target.value });
   };
   const history = useHistory();
   const onSubmit = async (e) => {
-    console.log(user);
+    console.log(currentUser);
     e.preventDefault();
-    if (Number(cgpa) > 10 || Number(cgpa) < 0) user.cgpa = "NaN";
+    if (Number(cgpa) > 10 || Number(cgpa) < 0) currentUser.cgpa = "NaN";
     console.log(dob);
     if (
       dob === "" ||
@@ -85,8 +87,8 @@ export const EditProfile = ({ userDetails }) => {
       };
 
       let { data } = await axios.put(
-        `/api/users/${user._id}`, //making backend call to Edit Profile
-        user,
+        `/api/users/${currentUser._id}`, //making backend call to Edit Profile
+        currentUser,
         config
       );
 
@@ -118,242 +120,255 @@ export const EditProfile = ({ userDetails }) => {
         formData,
         config
       );
-      user.imgUrl = data.slice(data.indexOf("image"));
+      currentUser.imgUrl = data.slice(data.indexOf("image"));
     } catch (error) {
       console.error(error);
     }
   };
+  if (Object.keys(user).length !== 0) {
+    if (userDetails._id && currentUser._id) {
+      if (currentUser._id === userDetails._id)
+        return (
+          //returns the user Profile form
+          <div className="container">
+            <form onSubmit={onSubmit}>
+              <div className="form-group">
+                <label htmlFor="image">Image</label>
+                <input
+                  type="file"
+                  name="imgUrl"
+                  onChange={uploadFileHandler}
+                  {...imgUrl}
+                  style={{
+                    backgroundColor: "white",
+                  }}
+                />
+              </div>
 
-  if (userDetails._id && user._id) {
-    if (user._id === userDetails._id)
-      return (
-        //returns the user Profile form
-        <div className="container">
-          <form onSubmit={onSubmit}>
-            <div className="form-group">
-              <label htmlFor="image">Image</label>
-              <input
-                type="file"
-                name="imgUrl"
-                onChange={uploadFileHandler}
-                {...imgUrl}
-                style={{
-                  backgroundColor: "white",
-                }}
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={onChange}
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="rollNo">Roll No</label>
+                <input
+                  type="text"
+                  name="rollNo"
+                  value={rollNo}
+                  onChange={onChange}
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="branch">Branch</label>
+                <input
+                  type="text"
+                  name="branch"
+                  value={branch}
+                  onChange={onChange}
+                  readOnly
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={onChange}
-                readOnly
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="rollNo">Roll No</label>
-              <input
-                type="text"
-                name="rollNo"
-                value={rollNo}
-                onChange={onChange}
-                readOnly
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="branch">Branch</label>
-              <input
-                type="text"
-                name="branch"
-                value={branch}
-                onChange={onChange}
-                readOnly
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="course">Course</label>
-              <input
-                type="text"
-                name="course"
-                value={course}
-                onChange={onChange}
-                readOnly
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="passoutYear">Passout Year</label>
-              <input
-                type="text"
-                name="passoutYear"
-                value={passoutYear}
-                onChange={onChange}
-                readOnly
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="cgpa">
-                Current CGPA<span className="text-danger"> *</span>
-              </label>
-              <input type="text" name="cgpa" value={cgpa} onChange={onChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="dob">
-                Date of Birth<span className="text-danger"> *</span>
-              </label>
-              <input type="date" name="dob" value={dob} onChange={onChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="gender">
-                Gender<span className="text-danger"> *</span>
-              </label>
-              <select name="gender" value={gender} onChange={onChange}>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="mobileNo">
-                Mobile No<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="mobileNo"
-                value={mobileNo}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="nationality">
-                Nationality<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="nationality"
-                value={nationality}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="address">
-                Address<span className="text-danger"> *</span>
-              </label>
-              <textarea
-                type="text"
-                name="address"
-                value={address}
-                onChange={onChange}
-                rows={5}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="board10th">
-                10th Board<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="board10th"
-                value={board10th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="passingYear10th">
-                10th Passing Year<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="passingYear10th"
-                value={passingYear10th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="percentage10th">
-                10th Percentage/CGPA<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="percentage10th"
-                value={percentage10th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="board12th">
-                12th Board<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="board12th"
-                value={board12th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="passingYear12th">
-                12th Passing Year<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="passingYear12th"
-                value={passingYear12th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="percentage12th">
-                12th Percentage/CGPA<span className="text-danger"> *</span>
-              </label>
-              <input
-                type="text"
-                name="percentage12th"
-                value={percentage12th}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="linkedInUrl">Linked In</label>
-              <input
-                type="text"
-                name="linkedInUrl"
-                value={linkedInUrl}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="resumeUrl">Resume</label>
-              <input
-                type="text"
-                name="resumeUrl"
-                value={resumeUrl}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="contactEmail">Contact Email</label>
-              <input
-                type="text"
-                name="contactEmail"
-                value={contactEmail}
-                onChange={onChange}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Update Profile
-            </button>
-          </form>
-        </div>
-      );
-    else
-      return (
-        <div className="not-allowed">
-          Sorry, you are not allowed to Edit this user profile.
-        </div>
-      );
-  } else return <Spinner />;
+              <div className="form-group">
+                <label htmlFor="course">Course</label>
+                <input
+                  type="text"
+                  name="course"
+                  value={course}
+                  onChange={onChange}
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="passoutYear">Passout Year</label>
+                <input
+                  type="text"
+                  name="passoutYear"
+                  value={passoutYear}
+                  onChange={onChange}
+                  readOnly
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="cgpa">
+                  Current CGPA<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="cgpa"
+                  value={cgpa}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="dob">
+                  Date of Birth<span className="text-danger"> *</span>
+                </label>
+                <input type="date" name="dob" value={dob} onChange={onChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="gender">
+                  Gender<span className="text-danger"> *</span>
+                </label>
+                <select name="gender" value={gender} onChange={onChange}>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="mobileNo">
+                  Mobile No<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="mobileNo"
+                  value={mobileNo}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="nationality">
+                  Nationality<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="nationality"
+                  value={nationality}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="address">
+                  Address<span className="text-danger"> *</span>
+                </label>
+                <textarea
+                  type="text"
+                  name="address"
+                  value={address}
+                  onChange={onChange}
+                  rows={5}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="board10th">
+                  10th Board<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="board10th"
+                  value={board10th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="passingYear10th">
+                  10th Passing Year<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="passingYear10th"
+                  value={passingYear10th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="percentage10th">
+                  10th Percentage/CGPA<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="percentage10th"
+                  value={percentage10th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="board12th">
+                  12th Board<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="board12th"
+                  value={board12th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="passingYear12th">
+                  12th Passing Year<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="passingYear12th"
+                  value={passingYear12th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="percentage12th">
+                  12th Percentage/CGPA<span className="text-danger"> *</span>
+                </label>
+                <input
+                  type="text"
+                  name="percentage12th"
+                  value={percentage12th}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="linkedInUrl">Linked In</label>
+                <input
+                  type="text"
+                  name="linkedInUrl"
+                  value={linkedInUrl}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="resumeUrl">Resume</label>
+                <input
+                  type="text"
+                  name="resumeUrl"
+                  value={resumeUrl}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactEmail">Contact Email</label>
+                <input
+                  type="text"
+                  name="contactEmail"
+                  value={contactEmail}
+                  onChange={onChange}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Update Profile
+              </button>
+            </form>
+          </div>
+        );
+      else
+        return (
+          <div className="not-allowed">
+            Sorry, you are not allowed to Edit this user profile.
+          </div>
+        );
+    } else {
+      return <Spinner />;
+    }
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 export default EditProfile;

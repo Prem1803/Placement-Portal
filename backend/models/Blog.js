@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const BlogSchema = mongoose.Schema({
   userid: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "student",
   },
   title: {
     type: String,

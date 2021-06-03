@@ -46,7 +46,7 @@ const getAnnouncementById = asyncHandler(async (req, res) => {
 //adds an announcement to the database
 const addAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
-  if (user.type === 1) {
+  if (user.type === 1 || user.type === 2) {
     //checking if user has the right to add an announcement
     const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
     try {
@@ -71,7 +71,7 @@ const addAnnouncement = asyncHandler(async (req, res) => {
 //updates an existing announcement
 const updateAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
-  if (user.type === 1) {
+  if (user.type === 1 || user.type === 2) {
     //checking if user has the right to add an announcement
     const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
 

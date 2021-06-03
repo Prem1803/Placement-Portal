@@ -3,6 +3,7 @@ const User = require("../models/User"); //importing User model
 const Student = require("../models/Student"); //importing Student model
 const config = require("config");
 const jwt = require("jsonwebtoken");
+var mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 
 //Registering the Admin and generating a token
@@ -29,7 +30,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
     });
     const payload = {
       //payload for generating the token
-      user: { id: user._id, email: user.email },
+      user: { id: user._id, email: user.email, type: user.type },
     };
     jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
       //token is generated using jwt
@@ -92,7 +93,7 @@ const registerStudent = asyncHandler(async (req, res) => {
 
       const payload = {
         //payload for generating the token
-        user: { id: user._id, email: user.email },
+        user: { id: user._id, email: user.email, type: user.type },
         student: { id: newStudent._id },
       };
       jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
@@ -136,7 +137,7 @@ const authUser = asyncHandler(async (req, res) => {
         //if password matches
         let payload = {
           //payload for generating jwt token
-          user: { id: user._id, email: user.email },
+          user: { id: user._id, email: user.email, type: user.type },
           student: { id: student._id },
         };
 
@@ -147,7 +148,7 @@ const authUser = asyncHandler(async (req, res) => {
               .status(400)
               .json({ isLoggedIn: false, msg: "Error Occurred" });
           }
-          if (user.type === 0)
+          if (user.type === 0 || user.type === 2)
             return res.json({ isLoggedIn: true, token: token });
           //returning jwt token as the response
           else return res.json({ isLoggedIn: false, msg: "Error Occurred" });
@@ -179,7 +180,7 @@ const authAdmin = asyncHandler(async (req, res) => {
         //if password matches
         let payload = {
           //payload for generating jwt token
-          user: { id: user._id, email: user.email },
+          user: { id: user._id, email: user.email, type: user.type },
         };
 
         jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
@@ -239,6 +240,18 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
 //Returns a particular student based on the id
 const getUserById = asyncHandler(async (req, res) => {
   try {
+    const student = await Student.findById(req.params.id).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -linkedInUrl -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+    ); //getting the student on the basis of the id
+    if (student) res.json(student);
+    //returning the student as the response
+    else res.json({ msg: "No such student exists in the database" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+const getUserInfo = asyncHandler(async (req, res) => {
+  try {
     const student = await Student.findById(req.params.id); //getting the student on the basis of the id
     if (student) res.json(student);
     //returning the student as the response
@@ -266,7 +279,19 @@ const updateUserById = asyncHandler(async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
+const updateUser = asyncHandler(async (req, res) => {
+  try {
+    if (req.user.type === 1) {
+      const user = await User.updateOne(
+        { _id: req.body._id },
+        { $set: { type: req.body.type } }
+      ); //updating the user
+      res.json({ msg: "User Updated" }); //returning the updated user as the response
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 const resetPassword = asyncHandler(async (req, res) => {
   try {
     let password = "";
@@ -285,6 +310,43 @@ const resetPassword = asyncHandler(async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+const getAllUsers = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({})
+      .select(
+        "-branch -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th -imgUrl -linkedInUrl -resumeUrl -contactEmail -dateCreated  -course -passoutYear"
+      )
+      .populate("userid", "_id email type")
+      .then((result) => {
+        return res.json(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // students.sort((a, b) => a.passoutYear - b.passoutYear);
+    //res.json(users); //all the current 1st to 4th year students are returned as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+  // try {
+  //   const users = await Student.find({}).select(
+  //     "-branch -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th -imgUrl -linkedInUrl -resumeUrl -contactEmail -dateCreated  -course -passoutYear"
+  //   );
+  //   for (var i = 0; i < users.length; i++) {
+  //     const userDetails = await User.findOne({ _id: users[i].userid });
+  //     users[i] = {
+  //       userInfo: users[i],
+  //       email: userDetails.email,
+  //       type: userDetails.type,
+  //     };
+  //   }
+  //   // students.sort((a, b) => a.passoutYear - b.passoutYear);
+  //   res.json(users); //all the current 1st to 4th year students are returned as the response
+  // } catch (err) {
+  //   res.status(500).json({ error: err.message });
+  // }
 });
 //Returns all the students which are currently studing in the college
 const getAllStudents = asyncHandler(async (req, res) => {
@@ -316,7 +378,9 @@ function groupBy(objectArray, property) {
 }
 const getAllBTechStudents = asyncHandler(async (req, res) => {
   try {
-    const users = await Student.find({}); //getting all the students from the database
+    const users = await Student.find({}).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -dateCreated "
+    ); //getting all the students from the database
     let students = [];
     users.forEach((user) => {
       if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
@@ -346,7 +410,9 @@ const getAllBTechStudents = asyncHandler(async (req, res) => {
 });
 const getAllMTechStudents = asyncHandler(async (req, res) => {
   try {
-    const users = await Student.find({}); //getting all the students from the database
+    const users = await Student.find({}).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl  -dateCreated "
+    ); //getting all the students from the database
     let students = [];
     users.forEach((user) => {
       if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
@@ -376,7 +442,9 @@ const getAllMTechStudents = asyncHandler(async (req, res) => {
 });
 const getAllPhDStudents = asyncHandler(async (req, res) => {
   try {
-    const users = await Student.find({}); //getting all the students from the database
+    const users = await Student.find({}).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl  -dateCreated "
+    ); //getting all the students from the database
     let students = [];
     users.forEach((user) => {
       if (Number(user.passoutYear) - new Date().getFullYear() >= 0) {
@@ -418,111 +486,12 @@ const getAllPhDStudents = asyncHandler(async (req, res) => {
 });
 
 //Returns all the alumnis
-const getAllBTechAlumni = asyncHandler(async (req, res) => {
-  try {
-    const users = await Student.find({}); //getting all the students from the database
-    let students = [];
-    users.forEach((user) => {
-      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
-        //checking if the user is the current student or not
-        students.push(user);
-      }
-    });
-    let cseStudents = [];
-    let eceStudents = [];
-    let eeeStudents = [];
 
-    students.forEach((student) => {
-      if (student.course === "BTech") {
-        if (student.branch === "CSE") cseStudents.push(student);
-        else if (student.branch === "ECE") eceStudents.push(student);
-        else if (student.branch === "EEE") eeeStudents.push(student);
-      }
-    });
-
-    cseStudents = groupBy(cseStudents, "passoutYear");
-    eceStudents = groupBy(eceStudents, "passoutYear");
-    eeeStudents = groupBy(eeeStudents, "passoutYear");
-    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-const getAllMTechAlumni = asyncHandler(async (req, res) => {
-  try {
-    const users = await Student.find({}); //getting all the students from the database
-    let students = [];
-    users.forEach((user) => {
-      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
-        //checking if the user is the current student or not
-        students.push(user);
-      }
-    });
-    let cseStudents = [];
-    let eceStudents = [];
-    let eeeStudents = [];
-
-    students.forEach((student) => {
-      if (student.course === "MTech") {
-        if (student.branch === "CSE") cseStudents.push(student);
-        else if (student.branch === "ECE") eceStudents.push(student);
-        else if (student.branch === "EEE") eeeStudents.push(student);
-      }
-    });
-
-    cseStudents = groupBy(cseStudents, "passoutYear");
-    eceStudents = groupBy(eceStudents, "passoutYear");
-    eeeStudents = groupBy(eeeStudents, "passoutYear");
-    res.json({ CSE: cseStudents, ECE: eceStudents, EEE: eeeStudents }); //all the current 1st to 4th year students are returned as the response
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-const getAllPhDAlumni = asyncHandler(async (req, res) => {
-  try {
-    const users = await Student.find({}); //getting all the students from the database
-    let students = [];
-    users.forEach((user) => {
-      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
-        //checking if the user is the current student or not
-        students.push(user);
-      }
-    });
-    let cseStudents = [];
-    let eceStudents = [];
-    let eeeStudents = [];
-    let meStudents = [];
-    let asStudents = [];
-
-    students.forEach((student) => {
-      if (student.course === "PhD") {
-        if (student.branch === "CSE") cseStudents.push(student);
-        else if (student.branch === "ECE") eceStudents.push(student);
-        else if (student.branch === "EEE") eeeStudents.push(student);
-        else if (student.branch === "ME") meStudents.push(student);
-        else if (student.branch === "AS") asStudents.push(student);
-      }
-    });
-
-    cseStudents = groupBy(cseStudents, "passoutYear");
-    eceStudents = groupBy(eceStudents, "passoutYear");
-    eeeStudents = groupBy(eeeStudents, "passoutYear");
-    meStudents = groupBy(meStudents, "passoutYear");
-    asStudents = groupBy(asStudents, "passoutYear");
-    res.json({
-      CSE: cseStudents,
-      ECE: eceStudents,
-      EEE: eeeStudents,
-      ME: meStudents,
-      AS: asStudents,
-    }); //all the current 1st to 4th year students are returned as the response
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 const getAllAlumni = asyncHandler(async (req, res) => {
   try {
-    const users = await Student.find({}); //getting all the students from the database
+    const users = await Student.find({}).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+    ); //getting all the students from the database
     let alumni = [];
     users.forEach((user) => {
       if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
@@ -560,4 +529,7 @@ module.exports = {
   getAllBTechStudents: getAllBTechStudents,
   getAllMTechStudents: getAllMTechStudents,
   getAllPhDStudents: getAllPhDStudents,
+  getAllUsers: getAllUsers,
+  updateUser: updateUser,
+  getUserInfo: getUserInfo,
 };

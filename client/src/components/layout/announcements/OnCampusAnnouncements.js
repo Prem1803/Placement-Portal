@@ -3,7 +3,7 @@ import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementFilter from "./AnnouncementFilter";
 import { getAllOnCampusAnnouncements } from "../../../api/apiAnnouncement";
 
-const OnCampusAnnouncements = () => {
+const OnCampusAnnouncements = ({ user }) => {
   const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting announcement array as an empty array
   const loadAllAnnouncements = () => {
     // Loads the announcements
@@ -22,47 +22,53 @@ const OnCampusAnnouncements = () => {
   useEffect(() => {
     loadAllAnnouncements(); //loading the announcements
   }, []);
+  if (Object.keys(user).length !== 0) {
+    if (filtered !== null)
+      return (
+        //returns all the filtered announcements with their announcement cards
+        <div className="container">
+          <h2>On Campus Announcements</h2>
+          <AnnouncementFilter
+            AllAnnouncements={AllAnnouncements}
+            loadFiltered={loadFiltered}
+          />
 
-  if (filtered !== null)
+          {filtered &&
+            filtered.map((announcement) => {
+              return (
+                <AnnouncementCard
+                  announcement={announcement}
+                  key={announcement._id}
+                />
+              );
+            })}
+        </div>
+      );
+    else
+      return (
+        //returns all the announcements with their announcement cards
+        <div className="container">
+          <h2>On Campus Announcements</h2>
+          <AnnouncementFilter
+            AllAnnouncements={AllAnnouncements}
+            loadFiltered={loadFiltered}
+          />
+
+          {AllAnnouncements &&
+            AllAnnouncements.map((announcement) => {
+              return (
+                <AnnouncementCard
+                  announcement={announcement}
+                  key={announcement._id}
+                />
+              );
+            })}
+        </div>
+      );
+  } else
     return (
-      //returns all the filtered announcements with their announcement cards
-      <div className="container">
-        <h2>On Campus Announcements</h2>
-        <AnnouncementFilter
-          AllAnnouncements={AllAnnouncements}
-          loadFiltered={loadFiltered}
-        />
-
-        {filtered &&
-          filtered.map((announcement) => {
-            return (
-              <AnnouncementCard
-                announcement={announcement}
-                key={announcement._id}
-              />
-            );
-          })}
-      </div>
-    );
-  else
-    return (
-      //returns all the announcements with their announcement cards
-      <div className="container">
-        <h2>On Campus Announcements</h2>
-        <AnnouncementFilter
-          AllAnnouncements={AllAnnouncements}
-          loadFiltered={loadFiltered}
-        />
-
-        {AllAnnouncements &&
-          AllAnnouncements.map((announcement) => {
-            return (
-              <AnnouncementCard
-                announcement={announcement}
-                key={announcement._id}
-              />
-            );
-          })}
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
       </div>
     );
 };

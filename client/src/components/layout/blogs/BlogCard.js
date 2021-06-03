@@ -15,19 +15,19 @@ const BlogCard = ({ blog }) => {
     userid,
   } = blog;
   let date = new Date(dateCreated);
-  const [author, setAuthor] = useState(null); //setting the sutor to null
-  const loadAuthor = () => {
-    getUser(userid)
-      .then((data) => {
-        setAuthor(data.name); //setting the author with the response
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    loadAuthor(); //loads the author of the blog
-  }, [author]);
+  // const [author, setAuthor] = useState(null); //setting the sutor to null
+  // const loadAuthor = () => {
+  //   getUser(userid)
+  //     .then((data) => {
+  //       setAuthor(data.name); //setting the author with the response
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  // useEffect(() => {
+  //   loadAuthor(); //loads the author of the blog
+  // }, [author]);
   return (
     //returns the Blog card
     <div className="blog-card">
@@ -67,8 +67,8 @@ const BlogCard = ({ blog }) => {
             {postedBy === 1 ? (
               <h4>By Admin</h4>
             ) : (
-              <Link to={`users/${userid}`}>
-                <h4>By {author}</h4>
+              <Link to={`users/${userid._id}`}>
+                <h4>By {userid.name}</h4>
               </Link>
             )}
             <small>{dateCreated && date.toDateString()}</small>

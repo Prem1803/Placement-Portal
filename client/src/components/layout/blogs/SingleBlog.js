@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getBlogById } from "../../../api/apiBlog";
 import Spinner from "../Spinner";
-const SingleBlog = () => {
+const SingleBlog = ({ user }) => {
   const [blog, setBlog] = useState({}); //setting blog to empty object
   const blogId = useParams().id; //getting blog id
   const loadBlog = () => {
@@ -19,73 +19,80 @@ const SingleBlog = () => {
     loadBlog(); //loading the blog
   }, blog);
   const { title, tags, content, image } = blog; //extracting the blog details
-  if (blog.image)
-    return (
-      //returns the single blog component
-      <div className="container">
-        <h1
-          style={{
-            textAlign: "center",
-            color: "#25467a",
-            marginTop: "1rem",
-            marginBottom: "1rem",
-          }}
-        >
-          <i className="fab fa-blogger"></i> Blog !!
-        </h1>
-        <div
-          style={{
-            height: "350px",
-            display: "flex",
-          }}
-        >
-          <img
-            src={require(`../../../uploads/${image}`).default}
+  if (Object.keys(user).length !== 0) {
+    if (blog.image)
+      return (
+        //returns the single blog component
+        <div className="container">
+          <h1
             style={{
-              margin: "auto",
-              height: "100%",
-              borderRadius: "1rem",
+              textAlign: "center",
+              color: "#25467a",
+              marginTop: "1rem",
+              marginBottom: "1rem",
             }}
-            alt={title}
+          >
+            <i className="fab fa-blogger"></i> Blog !!
+          </h1>
+          <div
+            style={{
+              height: "350px",
+              display: "flex",
+            }}
+          >
+            <img
+              src={require(`../../../uploads/${image}`).default}
+              style={{
+                margin: "auto",
+                height: "100%",
+                borderRadius: "1rem",
+              }}
+              alt={title}
+            />
+          </div>
+
+          <div
+            style={{
+              borderRadius: "1rem",
+              marginTop: "1rem",
+            }}
+          >
+            <h1 style={{ textAlign: "center" }}>{title}</h1>
+            {tags &&
+              tags.map((tag) => {
+                return (
+                  <i
+                    className="fas fa-tags"
+                    style={{
+                      marginRight: "1rem",
+                      marginTop: "1rem",
+                      float: "right",
+                      textAlign: "center",
+                    }}
+                  >
+                    {tag}
+                  </i>
+                );
+              })}
+          </div>
+          <div
+            style={{
+              borderRadius: "1rem",
+              marginTop: "2rem",
+              paddingTop: "1rem",
+              textAlign: "justify",
+            }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
-
-        <div
-          style={{
-            borderRadius: "1rem",
-            marginTop: "1rem",
-          }}
-        >
-          <h1 style={{ textAlign: "center" }}>{title}</h1>
-          {tags &&
-            tags.map((tag) => {
-              return (
-                <i
-                  className="fas fa-tags"
-                  style={{
-                    marginRight: "1rem",
-                    marginTop: "1rem",
-                    float: "right",
-                    textAlign: "center",
-                  }}
-                >
-                  {tag}
-                </i>
-              );
-            })}
-        </div>
-        <div
-          style={{
-            borderRadius: "1rem",
-            marginTop: "2rem",
-            paddingTop: "1rem",
-            textAlign: "justify",
-          }}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+      );
+    else return <Spinner />;
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
       </div>
     );
-  else return <Spinner />;
 };
 
 export default SingleBlog;

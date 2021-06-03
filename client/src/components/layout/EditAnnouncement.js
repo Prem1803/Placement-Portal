@@ -120,90 +120,99 @@ const EditAnnouncement = ({ token, user }) => {
     "size",
     "color",
   ];
-  if (user.uid) {
-    if (user.type === 1 && user.uid === userId)
-      return (
-        //returns the announcement form
-        <div className="container">
-          <form onSubmit={onSubmit}>
-            <h1>Edit Announcement</h1>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                name="title"
-                value={announcement.title ? announcement.title : ""}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="image">Banner Image</label>
-              <input
-                type="file"
-                name="image"
-                onChange={uploadFileHandler}
-                {...announcement.image}
-                style={{
-                  backgroundColor: "white",
-                }}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="category">Category</label>
-              <select
-                name="category"
-                value={announcement.category ? announcement.category : ""}
-                onChange={onChange}
-              >
-                <option value="On Campus">On Campus</option>
-                <option value="Off Campus">Off Campus</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                rows={3}
-                onChange={onChange}
-                style={{ fontSize: "15px" }}
-                value={announcement.description ? announcement.description : ""}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="tags">Tags</label>
-              <input
-                type="text"
-                name="tags"
-                value={
-                  announcement.tags && announcement.tags.length !== 0
-                    ? tags
-                    : ""
-                }
-                onChange={onTagChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="content">Content</label>
-              <ReactQuill
-                value={content}
-                onChange={setContent}
-                modules={modules}
-                formats={formats}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Save Changes
-            </button>
-          </form>
-        </div>
-      );
-    else
-      return (
-        <div className="not-allowed">
-          Sorry, you are not allowed to Edit this announcement.
-        </div>
-      );
-  } else return <Spinner />;
+  if (Object.keys(user).length !== 0) {
+    if (user.uid) {
+      if ((user.type === 1 || user.type === 2) && user.uid)
+        return (
+          //returns the announcement form
+          <div className="container">
+            <form onSubmit={onSubmit}>
+              <h1>Edit Announcement</h1>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={announcement.title ? announcement.title : ""}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="image">Banner Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={uploadFileHandler}
+                  {...announcement.image}
+                  style={{
+                    backgroundColor: "white",
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select
+                  name="category"
+                  value={announcement.category ? announcement.category : ""}
+                  onChange={onChange}
+                >
+                  <option value="On Campus">On Campus</option>
+                  <option value="Off Campus">Off Campus</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  rows={3}
+                  onChange={onChange}
+                  style={{ fontSize: "15px" }}
+                  value={
+                    announcement.description ? announcement.description : ""
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="tags">Tags</label>
+                <input
+                  type="text"
+                  name="tags"
+                  value={
+                    announcement.tags && announcement.tags.length !== 0
+                      ? tags
+                      : ""
+                  }
+                  onChange={onTagChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="content">Content</label>
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={modules}
+                  formats={formats}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        );
+      else
+        return (
+          <div className="not-allowed">
+            Sorry, you are not allowed to Edit this announcement.
+          </div>
+        );
+    } else return <Spinner />;
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default EditAnnouncement;

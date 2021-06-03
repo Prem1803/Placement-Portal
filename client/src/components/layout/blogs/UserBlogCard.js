@@ -16,8 +16,7 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
           autoDismissTimeout: 2000,
         });
         //redirection after deleting blog
-        if (userDetails._id) history.push(`/users/${userDetails._id}`);
-        else history.push(`/`);
+        history.push(`/`);
       })
       .catch((err) => {
         console.log(err);
@@ -25,9 +24,8 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
   };
   const editBlog = () => {
     //redirets to edit blog page
-    if (userDetails._id)
-      history.push(`/users/${userDetails._id}/blogs/${_id}/edit`);
-    else history.push(`/users/${user.uid}/blogs/${_id}/edit`);
+    if (userDetails._id) history.push(`/blogs/${_id}/edit`);
+    else history.push(`/blogs/${_id}/edit`);
   };
 
   return (
@@ -70,11 +68,15 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
                 <i className="fas fa-edit"></i> Edit
               </button>
             </span>
-            <span>
-              <button className="tag tag-purple" onClick={deleteBlog}>
-                <i className="fas fa-trash"></i> Delete
-              </button>
-            </span>
+            {(user.type === 0 ||
+              user.type === 1 ||
+              (user.type === 2 && blog.postedBy === 0)) && (
+              <span>
+                <button className="tag tag-purple" onClick={deleteBlog}>
+                  <i className="fas fa-trash"></i> Delete
+                </button>
+              </span>
+            )}
           </div>
         </div>
       </div>

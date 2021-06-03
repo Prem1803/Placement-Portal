@@ -6,7 +6,7 @@ import {
   getAllPhDStudents,
 } from "../../../api/apiStudent";
 
-const Students = () => {
+const Students = ({ user }) => {
   const [btechStudents, setbtechStudents] = useState([]); //setting the students array as an empty array
   const [mtechStudents, setmtechStudents] = useState([]); //setting the students array as an empty array
   const [phdStudents, setphdStudents] = useState([]); //setting the students array as an empty array
@@ -88,22 +88,26 @@ const Students = () => {
   //       </div>
   //     </div>
   //   );
-  return (
-    <div className="studentcontainer studentpanel">
-      <Link to={{ pathname: `/students/btech`, state: btechStudents }}>
-        <div className="btechpanelcard" />
-        BTech
-      </Link>
-      <Link to={{ pathname: `/students/mtech`, state: mtechStudents }}>
-        <div className="mtechpanelcard" />
-        MTech
-      </Link>
-      <Link to={{ pathname: `/students/phd`, state: phdStudents }}>
-        <div className="phdpanelcard" />
-        PhD
-      </Link>
-    </div>
-  );
+  if (Object.keys(user).length !== 0)
+    return (
+      <div className="studentcontainer studentpanel">
+        <Link to={{ pathname: `/students/btech`, state: btechStudents }}>
+          <div className="btechpanelcard" />
+        </Link>
+        <Link to={{ pathname: `/students/mtech`, state: mtechStudents }}>
+          <div className="mtechpanelcard" />
+        </Link>
+        <Link to={{ pathname: `/students/phd`, state: phdStudents }}>
+          <div className="phdpanelcard" />
+        </Link>
+      </div>
+    );
+  else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default Students;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useParams } from "react-router";
-const PhDAlumni = () => {
+const PhDAlumni = ({ user }) => {
   const location = useLocation();
   const passoutYear = useParams().passoutYear.toString();
   const alumni = location.state;
@@ -20,36 +20,42 @@ const PhDAlumni = () => {
   const asAlumni = alumni.filter((alumni) => {
     return alumni.branch === "AS";
   });
-  return (
-    <div className="studentcontainer studentpanel">
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/phd/cse`, state: cseAlumni }}
-      >
-        <div className="csepanelcard" />
-        CSE
-      </Link>
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/phd/ece`, state: eceAlumni }}
-      >
-        <div className="ecepanelcard" />
-        ECE
-      </Link>
-      <Link
-        to={{ pathname: `/alumni/${passoutYear}/phd/eee`, state: eeeAlumni }}
-      >
-        <div className="eeepanelcard" />
-        EEE
-      </Link>
-      <Link to={{ pathname: `/alumni/${passoutYear}/phd/me`, state: meAlumni }}>
-        <div className="mepanelcard" />
-        ME
-      </Link>
-      <Link to={{ pathname: `/alumni/${passoutYear}/phd/as`, state: asAlumni }}>
-        <div className="aspanelcard" />
-        AS
-      </Link>
-    </div>
-  );
+  if (Object.keys(user).length !== 0)
+    return (
+      <div className="studentcontainer studentpanel">
+        <Link
+          to={{ pathname: `/alumni/${passoutYear}/phd/cse`, state: cseAlumni }}
+        >
+          <div className="csepanelcard" />
+        </Link>
+        <Link
+          to={{ pathname: `/alumni/${passoutYear}/phd/ece`, state: eceAlumni }}
+        >
+          <div className="ecepanelcard" />
+        </Link>
+        <Link
+          to={{ pathname: `/alumni/${passoutYear}/phd/eee`, state: eeeAlumni }}
+        >
+          <div className="eeepanelcard" />
+        </Link>
+        <Link
+          to={{ pathname: `/alumni/${passoutYear}/phd/me`, state: meAlumni }}
+        >
+          <div className="mepanelcard" />
+        </Link>
+        <Link
+          to={{ pathname: `/alumni/${passoutYear}/phd/as`, state: asAlumni }}
+        >
+          <div className="aspanelcard" />
+        </Link>
+      </div>
+    );
+  else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default PhDAlumni;

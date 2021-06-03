@@ -27,7 +27,7 @@ const UserAnnouncementCard = ({
   };
   const editAnnouncement = () => {
     //editing the announcement
-    history.push(`/users/${user.uid}/announcements/${_id}/edit`); //redirects to the edit page
+    history.push(`/announcements/${_id}/edit`); //redirects to the edit page
   };
 
   return (
@@ -74,13 +74,15 @@ const UserAnnouncementCard = ({
             <i className="fas fa-edit"></i> Edit
           </button>
 
-          <button
-            className="tag tag-purple"
-            style={{ float: "right" }}
-            onClick={deleteAnnouncement}
-          >
-            <i className="fas fa-trash"></i> Delete
-          </button>
+          {user.type === 1 && (
+            <button
+              className="tag tag-purple"
+              style={{ float: "right" }}
+              onClick={deleteAnnouncement}
+            >
+              <i className="fas fa-trash"></i> Delete
+            </button>
+          )}
         </span>
       </div>
     </div>

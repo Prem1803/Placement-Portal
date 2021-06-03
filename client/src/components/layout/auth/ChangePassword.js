@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import { useToasts } from "react-toast-notifications";
 
-const ChangePassword = () => {
+const ChangePassword = ({ user }) => {
   const { addToast } = useToasts();
 
   const [password, setPassword] = useState("");
@@ -42,15 +42,22 @@ const ChangePassword = () => {
       });
     }
   };
-  return (
-    <div className="container" style={{ marginTop: "2rem" }}>
-      <h4>Enter the new password</h4>
-      <input onChange={onPasswordChange} type="password" />
-      <button className="btn btn-success" onClick={ResetPassword}>
-        Reset Password
-      </button>
-    </div>
-  );
+  if (Object.keys(user).length !== 0)
+    return (
+      <div className="container" style={{ marginTop: "2rem" }}>
+        <h4>Enter the new password</h4>
+        <input onChange={onPasswordChange} type="password" />
+        <button className="btn btn-success" onClick={ResetPassword}>
+          Reset Password
+        </button>
+      </div>
+    );
+  else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default ChangePassword;

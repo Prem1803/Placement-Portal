@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useParams } from "react-router";
 import StudentCard from "./StudentCard";
 import StudentFilter from "./StudentFilter";
-const BatchWiseStudents = () => {
+const BatchWiseStudents = ({ user }) => {
   const location = useLocation();
   let course = useParams().course.toString();
   if (course === "btech") course = "BTech";
@@ -16,36 +16,43 @@ const BatchWiseStudents = () => {
   const loadFiltered = (filtered) => {
     setFiltered(filtered); //filtering the students
   };
-  if (filtered !== null)
-    return (
-      //returns all the filtered students with individual student card
-      <div className="container ">
-        <h2>
-          {course} {branch} {passoutYear}
-        </h2>
-        <StudentFilter AllStudents={students} loadFiltered={loadFiltered} />
-        <div className="row">
-          {filtered &&
-            filtered.map((student) => {
-              return <StudentCard student={student} key={student._id} />;
-            })}
+  if (Object.keys(user).length !== 0) {
+    if (filtered !== null)
+      return (
+        //returns all the filtered students with individual student card
+        <div className="container ">
+          <h2>
+            {course} {branch} {passoutYear}
+          </h2>
+          <StudentFilter AllStudents={students} loadFiltered={loadFiltered} />
+          <div className="row">
+            {filtered &&
+              filtered.map((student) => {
+                return <StudentCard student={student} key={student._id} />;
+              })}
+          </div>
         </div>
-      </div>
-    );
-  else
-    return (
-      //returns all the students with individual student card
-      <div className="container ">
-        <h2>
-          {course} {branch} {passoutYear}
-        </h2>
-        <StudentFilter AllStudents={students} loadFiltered={loadFiltered} />
-        <div className="row">
-          {students &&
-            students.map((student) => {
-              return <StudentCard student={student} key={student._id} />;
-            })}
+      );
+    else
+      return (
+        //returns all the students with individual student card
+        <div className="container ">
+          <h2>
+            {course} {branch} {passoutYear}
+          </h2>
+          <StudentFilter AllStudents={students} loadFiltered={loadFiltered} />
+          <div className="row">
+            {students &&
+              students.map((student) => {
+                return <StudentCard student={student} key={student._id} />;
+              })}
+          </div>
         </div>
+      );
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
       </div>
     );
 };

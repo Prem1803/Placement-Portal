@@ -1,19 +1,28 @@
 const asyncHandler = require("express-async-handler");
 
 const Blog = require("../models/Blog"); //impoting the Blog Model
+const User = require("../models/User"); //impoting the User Model
 const Student = require("../models/Student"); //improting the student Model
 
 //Returns all the blogs from the database
 const getAllBlogs = asyncHandler(async (req, res) => {
   try {
-    let blog = await Blog.find({}); //getting all the blogs from the database
+    let blog = await Blog.find({}).populate("userid", "_id name"); //getting all the blogs from the database
 
     res.json({ blog }); //All blogs are returned as the response
   } catch (e) {
     res.status(500).json({ msg: "Server Error" });
   }
 });
+const getAllAdminBlogs = asyncHandler(async (req, res) => {
+  try {
+    let blogs = await Blog.find({ postedBy: 1 }); //getting all the blogs from the database
 
+    res.json({ blogs }); //All blogs are returned as the response
+  } catch (e) {
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
 //Returns a particular blog based on the blog id
 const getBlogById = asyncHandler(async (req, res) => {
   try {
@@ -32,7 +41,10 @@ const getBlogById = asyncHandler(async (req, res) => {
 //Returns all the blogs of a particular user
 const getBlogByUserId = asyncHandler(async (req, res) => {
   try {
-    let blogs = await Blog.find({ userid: req.params.userid }); //getting all the blogs of the user
+    let blogs = await Blog.find({ userid: req.params.userid }).populate(
+      "userid",
+      "_id name"
+    ); //getting all the blogs of the user
     if (!blogs)
       return res.status(500).json({ msg: "No Blogs in the database" });
 
@@ -43,32 +55,19 @@ const getBlogByUserId = asyncHandler(async (req, res) => {
 });
 //Adds a blog to the database
 const addBlog = asyncHandler(async (req, res) => {
-  const { title, description, content, tags, image } = req.body; //extracting the blog details from the request
+  const { title, description, content, tags, image, postedBy } = req.body; //extracting the blog details from the request
   try {
-    let newBlog;
-
-    if (req.student === undefined) {
-      //If the blog is created by the admin
-      newBlog = new Blog({
-        userid: req.user.id,
-        title,
-        description,
-        content,
-        tags: tags.split(","),
-        image,
-        postedBy: 1,
-      });
-    } else {
-      //if the blog is created by a student
-      newBlog = new Blog({
-        userid: req.student.id,
-        title,
-        description,
-        content,
-        tags: tags.split(","),
-        image,
-        postedBy: 0,
-      });
+    let newBlog = new Blog({
+      userid: req.student.id,
+      title,
+      description,
+      content,
+      tags: tags.split(","),
+      image,
+      postedBy,
+    });
+    if (postedBy === 1) {
+      newBlog.userid = await User.findOne({ type: 1 })._id;
     }
     const blog = await newBlog.save(); //new blog is saved
     res.json(blog); //newly created blog is returned as the response
@@ -139,4 +138,5 @@ module.exports = {
   deleteBlog: deleteBlog,
   addBlog: addBlog,
   getBlogByUserId: getBlogByUserId,
+  getAllAdminBlogs: getAllAdminBlogs,
 };

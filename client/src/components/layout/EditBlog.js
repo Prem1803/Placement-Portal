@@ -6,7 +6,7 @@ import { getBlogById } from "../../api/apiBlog";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-const EditBlog = ({ token, userDetails }) => {
+const EditBlog = ({ token, user, userDetails }) => {
   const [blog, setBlog] = useState({}); //setting blog as empty object
   const blogId = useParams().bid; //getting blog id
   const userId = useParams().id; //getting user id
@@ -54,8 +54,7 @@ const EditBlog = ({ token, userDetails }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the home page
-    if (userDetails.name) history.push(`/userdashboard/${userDetails._id}`);
-    else history.push(`/`);
+    history.push(`/`);
   };
   const onChange = (e) => {
     //setting blog on change in blog details from the form
@@ -121,76 +120,86 @@ const EditBlog = ({ token, userDetails }) => {
     "size",
     "color",
   ];
-  if (blog.userid) {
-    if (blog.userid === userId && blog.userid === userDetails._id)
-      return (
-        //returns the blog form
-        <div className="container">
-          <form onSubmit={onSubmit}>
-            <h1>Edit Blog</h1>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                name="title"
-                value={blog.title ? blog.title : ""}
-                onChange={onChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="image">Banner Image</label>
-              <input
-                type="file"
-                name="image"
-                onChange={uploadFileHandler}
-                {...blog.image}
-                style={{
-                  backgroundColor: "white",
-                }}
-              />
-            </div>
+  if (Object.keys(user).length !== 0) {
+    if (blog.userid) {
+      if (blog.userid === user.sid || blog.userid === user.uid)
+        return (
+          //returns the blog form
+          <div className="container">
+            <form onSubmit={onSubmit}>
+              <h1>Edit Blog</h1>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={blog.title ? blog.title : ""}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="image">Banner Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={uploadFileHandler}
+                  {...blog.image}
+                  style={{
+                    backgroundColor: "white",
+                  }}
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                name="description"
-                rows={3}
-                onChange={onChange}
-                style={{ fontSize: "15px" }}
-                value={blog.description ? blog.description : ""}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="tags">Tags</label>
-              <input
-                type="text"
-                name="tags"
-                value={blog.tags && blog.tags.length !== 0 ? tags : ""}
-                onChange={onTagChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="content">Content</label>
-              <ReactQuill
-                value={content}
-                onChange={setContent}
-                modules={modules}
-                formats={formats}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Save Changes
-            </button>
-          </form>
-        </div>
-      );
-    else
-      return (
-        <div className="not-allowed">
-          Sorry, you are not allowed to Edit this Blog.
-        </div>
-      );
-  } else return <Spinner />;
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <textarea
+                  name="description"
+                  rows={3}
+                  onChange={onChange}
+                  style={{ fontSize: "15px" }}
+                  value={blog.description ? blog.description : ""}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="tags">Tags</label>
+                <input
+                  type="text"
+                  name="tags"
+                  value={blog.tags && blog.tags.length !== 0 ? tags : ""}
+                  onChange={onTagChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="content">Content</label>
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={modules}
+                  formats={formats}
+                />
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        );
+      else
+        return (
+          <div className="not-allowed">
+            {console.log(user)}
+            {console.log(blog)}
+            {console.log(userDetails)}
+            Sorry, you are not allowed to Edit this Blog.
+          </div>
+        );
+    } else return <Spinner />;
+  } else
+    return (
+      <div className="not-allowed">
+        Sorry, you are not Logged In .Kindly Login In to access this page.
+      </div>
+    );
 };
 
 export default EditBlog;
