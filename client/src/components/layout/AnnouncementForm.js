@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import c from "config";
 
 export const AnnouncementForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
@@ -12,6 +13,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
 
   const [announcement, setAnnouncement] = useState({ category: "On Campus" }); //setting announcement as empty object
   const [content, setContent] = useState("");
+  const [visibility, setVisibility] = useState("All");
   const history = useHistory();
   const sendAnnouncementNotificationOverMail = async (newAnnouncement) => {
     const config = {
@@ -53,6 +55,10 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   };
   const onChange = (e) => {
     //setting announcement on change in announcement details from the form
+    if (e.target.name === "visibility") {
+      setVisibility(e.target.value);
+      console.log(visibility);
+    }
     setAnnouncement({ ...announcement, [e.target.name]: e.target.value });
   };
   const uploadFileHandler = async (e) => {
@@ -92,7 +98,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
         { indent: "+1" },
       ],
       [{ script: "sub" }, { script: "super" }],
-      ["link"],
+      ["link", "image"],
     ],
   };
 
@@ -110,6 +116,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
     "font",
     "size",
     "color",
+    "image",
   ];
   if (Object.keys(user).length !== 0) {
     if (user) {
@@ -139,6 +146,13 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
                 <select name="category" onChange={onChange}>
                   <option value="On Campus">On Campus</option>
                   <option value="Off Campus">Off Campus</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="visibiity">Visibiity</label>
+                <select name="visibiity" onChange={onChange}>
+                  <option value="all">All</option>
+                  <option value="specific">Specific</option>
                 </select>
               </div>
               <div className="form-group">

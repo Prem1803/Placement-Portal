@@ -174,6 +174,18 @@ const ShortListingStudents = ({ user }) => {
                     <td>Branch</td>
                     <td>Passout Year</td>
                     <td>CGPA</td>
+                    <td style={{ display: "none" }}>Contact Email</td>
+                    <td style={{ display: "none" }}>Date of Birth</td>
+                    <td style={{ display: "none" }}>Gender</td>
+                    <td style={{ display: "none" }}>Mobile No</td>
+                    <td style={{ display: "none" }}>Nationality</td>
+                    <td style={{ display: "none" }}>Address</td>
+                    <td style={{ display: "none" }}>10th Board</td>
+                    <td style={{ display: "none" }}>10th Passing Year</td>
+                    <td style={{ display: "none" }}>10th Percentage/CGPA</td>
+                    <td style={{ display: "none" }}>12th Board</td>
+                    <td style={{ display: "none" }}>12th Passing Year</td>
+                    <td style={{ display: "none" }}>12th Percentage</td>
                     <td style={{ display: "none" }}>Resume</td>
                   </tr>
 
@@ -187,6 +199,36 @@ const ShortListingStudents = ({ user }) => {
                           <td>{student.branch}</td>
                           <td>{student.passoutYear}</td>
                           <td>{student.cgpa}</td>
+                          <td style={{ display: "none" }}>
+                            {student.contactEmail}
+                          </td>
+                          <td style={{ display: "none" }}>{student.dob}</td>
+                          <td style={{ display: "none" }}>{student.gender}</td>
+                          <td style={{ display: "none" }}>
+                            {student.mobileNo}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.nationality}
+                          </td>
+                          <td style={{ display: "none" }}>{student.address}</td>
+                          <td style={{ display: "none" }}>
+                            {student.board10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.passingYear10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.percentage10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.board12th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.passingYear12th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.percentage12th}
+                          </td>
                           <td style={{ display: "none" }}>
                             {student.resumeUrl}
                           </td>
@@ -296,30 +338,21 @@ const ShortListingStudents = ({ user }) => {
                     <td>Branch</td>
                     <td>Passout Year</td>
                     <td>CGPA</td>
+                    <td style={{ display: "none" }}>Contact Email</td>
+                    <td style={{ display: "none" }}>Date of Birth</td>
+                    <td style={{ display: "none" }}>Gender</td>
+                    <td style={{ display: "none" }}>Mobile No</td>
+                    <td style={{ display: "none" }}>Nationality</td>
+                    <td style={{ display: "none" }}>Address</td>
+                    <td style={{ display: "none" }}>10th Board</td>
+                    <td style={{ display: "none" }}>10th Passing Year</td>
+                    <td style={{ display: "none" }}>10th Percentage/CGPA</td>
+                    <td style={{ display: "none" }}>12th Board</td>
+                    <td style={{ display: "none" }}>12th Passing Year</td>
+                    <td style={{ display: "none" }}>12th Percentage</td>
                     <td style={{ display: "none" }}>Resume</td>
                   </tr>
-                  {/* <tr>
-                  <td>Prem</td>
-                  <td>191210037</td>
-                  <td>BTech</td>
-                  <td>2023</td>
-                  <td>7.88</td>
-                </tr>
-                <tr>
-                  <td>Prem Kumar</td>
-                  <td>191210037</td>
-                  <td>BTech</td>
-                  <td>2023</td>
-                  <td>7.88</td>
-                </tr>
-                <tr>
-                  <td>Abhishek Kumar Suman</td>
-                  <td>191210037</td>
-                  <td>BTech</td>
-                  <td>2023</td>
-                  <td>7.88</td>
-                </tr>
-                 */}
+
                   {students &&
                     students.map((student) => {
                       return (
@@ -330,6 +363,36 @@ const ShortListingStudents = ({ user }) => {
                           <td>{student.branch}</td>
                           <td>{student.passoutYear}</td>
                           <td>{student.cgpa}</td>
+                          <td style={{ display: "none" }}>
+                            {student.contactEmail}
+                          </td>
+                          <td style={{ display: "none" }}>{student.dob}</td>
+                          <td style={{ display: "none" }}>{student.gender}</td>
+                          <td style={{ display: "none" }}>
+                            {student.mobileNo}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.nationality}
+                          </td>
+                          <td style={{ display: "none" }}>{student.address}</td>
+                          <td style={{ display: "none" }}>
+                            {student.board10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.passingYear10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.percentage10th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.board12th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.passingYear12th}
+                          </td>
+                          <td style={{ display: "none" }}>
+                            {student.percentage12th}
+                          </td>
                           <td style={{ display: "none" }}>
                             {student.resumeUrl}
                           </td>

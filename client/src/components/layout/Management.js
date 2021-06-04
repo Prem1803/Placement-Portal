@@ -24,6 +24,10 @@ const Management = ({ user }) => {
                 <div className="accountmanagementpanelcard" />
                 Manage Account
               </Link>
+              <Link to={`/admindashboard/management/placements`}>
+                <div className="placementpanelcard" />
+                Placement Status
+              </Link>
             </div>
           </div>
         );

@@ -937,6 +937,14 @@ hr {
   border-radius: 1rem;
   background-size: cover;
 }
+.placementpanelcard {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9twywINRcG4-M1xRgttBEVE7ADtCEYOmcLw&usqp=CAU");
+  background-repeat: no-repeat;
+  height: 150px;
+  width: 200px;
+  border-radius: 1rem;
+  background-size: cover;
+}
 .admincontainer,
 .announcementcontainer,
 .studentcontainer {

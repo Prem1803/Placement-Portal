@@ -48,6 +48,7 @@ import BTechAlumni from "./components/layout/alumni/BTechAlumni";
 import MTechAlumni from "./components/layout/alumni/MTechAlumni";
 import PhDAlumni from "./components/layout/alumni/PhDAlumni";
 import AlumniBranchWise from "./components/layout/alumni/AlumniBranchWise";
+import PlacementStatus from "./components/layout/PlacementStatus";
 
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
@@ -388,6 +389,17 @@ function App() {
                 path="/admindashboard/management/admins"
                 render={() => (
                   <AdminAccess
+                    user={user}
+                    token={token}
+                    userDetails={userDetails}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/admindashboard/management/placements"
+                render={() => (
+                  <PlacementStatus
                     user={user}
                     token={token}
                     userDetails={userDetails}

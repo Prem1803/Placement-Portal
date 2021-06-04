@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 const config = require("config");
 
 //Middelware for decoding the json web token which is passed in the request header
