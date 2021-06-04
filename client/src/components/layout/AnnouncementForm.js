@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import c from "config";
+// import config from "config";
 
 export const AnnouncementForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
