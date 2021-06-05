@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { useParams } from "react-router";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { getAllStudents } from "../../api/apiStudent";
 import Spinner from "./Spinner";
 
 const ShortListingStudents = ({ user }) => {
-  const userid = useParams().id; //getting the user id
-
   const [filters, setFilters] = useState({
     course: "",
     passoutYear: "",
@@ -43,7 +40,6 @@ const ShortListingStudents = ({ user }) => {
         filters.course === ""
       );
     });
-    console.log(filteredStudents);
     filteredStudents = await filteredStudents.filter((student) => {
       return (
         (filters.branch !== "" &&
@@ -167,74 +163,80 @@ const ShortListingStudents = ({ user }) => {
                 style={{ overflowX: "auto" }}
               >
                 <table className="student-table" id="table-to-xls">
-                  <tr>
-                    <td>Name</td>
-                    <td>Roll No</td>
-                    <td>Course</td>
-                    <td>Branch</td>
-                    <td>Passout Year</td>
-                    <td>CGPA</td>
-                    <td style={{ display: "none" }}>Contact Email</td>
-                    <td style={{ display: "none" }}>Date of Birth</td>
-                    <td style={{ display: "none" }}>Gender</td>
-                    <td style={{ display: "none" }}>Mobile No</td>
-                    <td style={{ display: "none" }}>Nationality</td>
-                    <td style={{ display: "none" }}>Address</td>
-                    <td style={{ display: "none" }}>10th Board</td>
-                    <td style={{ display: "none" }}>10th Passing Year</td>
-                    <td style={{ display: "none" }}>10th Percentage/CGPA</td>
-                    <td style={{ display: "none" }}>12th Board</td>
-                    <td style={{ display: "none" }}>12th Passing Year</td>
-                    <td style={{ display: "none" }}>12th Percentage</td>
-                    <td style={{ display: "none" }}>Resume</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>Roll No</td>
+                      <td>Course</td>
+                      <td>Branch</td>
+                      <td>Passout Year</td>
+                      <td>CGPA</td>
+                      <td style={{ display: "none" }}>Contact Email</td>
+                      <td style={{ display: "none" }}>Date of Birth</td>
+                      <td style={{ display: "none" }}>Gender</td>
+                      <td style={{ display: "none" }}>Mobile No</td>
+                      <td style={{ display: "none" }}>Nationality</td>
+                      <td style={{ display: "none" }}>Address</td>
+                      <td style={{ display: "none" }}>10th Board</td>
+                      <td style={{ display: "none" }}>10th Passing Year</td>
+                      <td style={{ display: "none" }}>10th Percentage/CGPA</td>
+                      <td style={{ display: "none" }}>12th Board</td>
+                      <td style={{ display: "none" }}>12th Passing Year</td>
+                      <td style={{ display: "none" }}>12th Percentage</td>
+                      <td style={{ display: "none" }}>Resume</td>
+                    </tr>
 
-                  {filtered &&
-                    filtered.map((student) => {
-                      return (
-                        <tr>
-                          <td>{student.name}</td>
-                          <td>{student.rollNo}</td>
-                          <td>{student.course}</td>
-                          <td>{student.branch}</td>
-                          <td>{student.passoutYear}</td>
-                          <td>{student.cgpa}</td>
-                          <td style={{ display: "none" }}>
-                            {student.contactEmail}
-                          </td>
-                          <td style={{ display: "none" }}>{student.dob}</td>
-                          <td style={{ display: "none" }}>{student.gender}</td>
-                          <td style={{ display: "none" }}>
-                            {student.mobileNo}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.nationality}
-                          </td>
-                          <td style={{ display: "none" }}>{student.address}</td>
-                          <td style={{ display: "none" }}>
-                            {student.board10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.passingYear10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.percentage10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.board12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.passingYear12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.percentage12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.resumeUrl}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    {filtered &&
+                      filtered.map((student) => {
+                        return (
+                          <tr key={student._id}>
+                            <td>{student.name}</td>
+                            <td>{student.rollNo}</td>
+                            <td>{student.course}</td>
+                            <td>{student.branch}</td>
+                            <td>{student.passoutYear}</td>
+                            <td>{student.cgpa}</td>
+                            <td style={{ display: "none" }}>
+                              {student.contactEmail}
+                            </td>
+                            <td style={{ display: "none" }}>{student.dob}</td>
+                            <td style={{ display: "none" }}>
+                              {student.gender}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.mobileNo}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.nationality}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.address}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.board10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.passingYear10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.percentage10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.board12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.passingYear12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.percentage12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.resumeUrl}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -331,74 +333,80 @@ const ShortListingStudents = ({ user }) => {
                 style={{ overflowX: "auto" }}
               >
                 <table className="student-table" id="table-to-xls">
-                  <tr>
-                    <td>Name</td>
-                    <td>Roll No</td>
-                    <td>Course</td>
-                    <td>Branch</td>
-                    <td>Passout Year</td>
-                    <td>CGPA</td>
-                    <td style={{ display: "none" }}>Contact Email</td>
-                    <td style={{ display: "none" }}>Date of Birth</td>
-                    <td style={{ display: "none" }}>Gender</td>
-                    <td style={{ display: "none" }}>Mobile No</td>
-                    <td style={{ display: "none" }}>Nationality</td>
-                    <td style={{ display: "none" }}>Address</td>
-                    <td style={{ display: "none" }}>10th Board</td>
-                    <td style={{ display: "none" }}>10th Passing Year</td>
-                    <td style={{ display: "none" }}>10th Percentage/CGPA</td>
-                    <td style={{ display: "none" }}>12th Board</td>
-                    <td style={{ display: "none" }}>12th Passing Year</td>
-                    <td style={{ display: "none" }}>12th Percentage</td>
-                    <td style={{ display: "none" }}>Resume</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>Roll No</td>
+                      <td>Course</td>
+                      <td>Branch</td>
+                      <td>Passout Year</td>
+                      <td>CGPA</td>
+                      <td style={{ display: "none" }}>Contact Email</td>
+                      <td style={{ display: "none" }}>Date of Birth</td>
+                      <td style={{ display: "none" }}>Gender</td>
+                      <td style={{ display: "none" }}>Mobile No</td>
+                      <td style={{ display: "none" }}>Nationality</td>
+                      <td style={{ display: "none" }}>Address</td>
+                      <td style={{ display: "none" }}>10th Board</td>
+                      <td style={{ display: "none" }}>10th Passing Year</td>
+                      <td style={{ display: "none" }}>10th Percentage/CGPA</td>
+                      <td style={{ display: "none" }}>12th Board</td>
+                      <td style={{ display: "none" }}>12th Passing Year</td>
+                      <td style={{ display: "none" }}>12th Percentage</td>
+                      <td style={{ display: "none" }}>Resume</td>
+                    </tr>
 
-                  {students &&
-                    students.map((student) => {
-                      return (
-                        <tr>
-                          <td>{student.name}</td>
-                          <td>{student.rollNo}</td>
-                          <td>{student.course}</td>
-                          <td>{student.branch}</td>
-                          <td>{student.passoutYear}</td>
-                          <td>{student.cgpa}</td>
-                          <td style={{ display: "none" }}>
-                            {student.contactEmail}
-                          </td>
-                          <td style={{ display: "none" }}>{student.dob}</td>
-                          <td style={{ display: "none" }}>{student.gender}</td>
-                          <td style={{ display: "none" }}>
-                            {student.mobileNo}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.nationality}
-                          </td>
-                          <td style={{ display: "none" }}>{student.address}</td>
-                          <td style={{ display: "none" }}>
-                            {student.board10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.passingYear10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.percentage10th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.board12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.passingYear12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.percentage12th}
-                          </td>
-                          <td style={{ display: "none" }}>
-                            {student.resumeUrl}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    {students &&
+                      students.map((student) => {
+                        return (
+                          <tr key={student._id}>
+                            <td>{student.name}</td>
+                            <td>{student.rollNo}</td>
+                            <td>{student.course}</td>
+                            <td>{student.branch}</td>
+                            <td>{student.passoutYear}</td>
+                            <td>{student.cgpa}</td>
+                            <td style={{ display: "none" }}>
+                              {student.contactEmail}
+                            </td>
+                            <td style={{ display: "none" }}>{student.dob}</td>
+                            <td style={{ display: "none" }}>
+                              {student.gender}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.mobileNo}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.nationality}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.address}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.board10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.passingYear10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.percentage10th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.board12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.passingYear12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.percentage12th}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.resumeUrl}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 </table>
               </div>
             </div>

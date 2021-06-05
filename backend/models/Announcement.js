@@ -28,6 +28,10 @@ const AnnouncementSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  visibility: {
+    type: Object,
+    required: false,
+  },
   dateCreated: { type: Date, default: Date.now() },
 });
 module.exports = mongoose.model("announcement", AnnouncementSchema);

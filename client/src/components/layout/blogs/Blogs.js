@@ -21,7 +21,7 @@ const Blogs = ({ user }) => {
   };
   useEffect(() => {
     loadAllBlogs(); //loading the blogs
-  }, [AllBlogs.length]);
+  }, []);
   if (Object.keys(user).length !== 0) {
     if (filtered !== null) {
       return (

@@ -18,6 +18,7 @@ const {
   getAllUsers,
   updateUser,
   getUserInfo,
+  updateStudent,
 } = require("../controllers/userController.js"); //importing the functions from the user controller
 const auth = require("../middleware/authMiddleware.js"); //importing the middleware for protecting the routes
 router.put("/resetPassword", resetPassword); //route for updating password
@@ -25,6 +26,7 @@ router.put("/resetPassword", resetPassword); //route for updating password
 router.get("/allStudents", getAllStudents); //route for getting all the students
 router.get("/allusers", getAllUsers); //route for getting all the students
 router.put("/updateUser", auth, updateUser);
+router.put("/updateStudent", auth, updateStudent);
 router.get("/allBtechStudents", getAllBTechStudents); //route for getting all the students
 router.get("/allMtechStudents", getAllMTechStudents); //route for getting all the students
 router.get("/allPhDStudents", getAllPhDStudents); //route for getting all the students

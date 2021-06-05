@@ -1,10 +1,8 @@
 import React from "react";
-import { useHistory, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import Spinner from "./Spinner";
 
 const ManageAdminAccount = ({ user }) => {
-  const userid = useParams().id; //getting the user id
   const history = useHistory();
 
   const changePassword = () => {
@@ -21,9 +19,9 @@ const ManageAdminAccount = ({ user }) => {
         //if the logged in user is an admin
         return (
           <div className="container" style={{ marginTop: "2rem" }}>
-            <a onClick={changePassword}>
+            <div onClick={changePassword}>
               <i className="fas fa-key" /> Change Your Password
-            </a>
+            </div>
           </div>
         );
       else

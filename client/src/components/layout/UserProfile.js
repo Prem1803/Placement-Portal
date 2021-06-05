@@ -4,40 +4,41 @@ import { getUser } from "../../api/apiUser";
 import BlogCard from "./blogs/BlogCard";
 import { getAllUserBlogs } from "../../api/apiBlog";
 
-import { getAllStudentProjects } from "../../api/apiProject";
 import Spinner from "./Spinner";
 
 const UserProfile = ({ user }) => {
   const [userDetails, setUserDetails] = useState({}); //setting the user details as an empty object
   const userid = useParams().id; //getting user id
   const [blogs, setBlogs] = useState([]); //setting blogs to empty array
-  const loadBlogs = () => {
-    //loading blogs
-    if (userDetails._id !== undefined)
-      getAllUserBlogs(userDetails._id)
+
+  useEffect(() => {
+    const loadBlogs = () => {
+      //loading blogs
+      if (userDetails._id !== undefined)
+        getAllUserBlogs(userDetails._id)
+          .then((data) => {
+            setBlogs(data.blogs); //setting blogs with response
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
+    loadBlogs(); //loading blogs
+  }, [userDetails._id]);
+
+  useEffect(() => {
+    const loadUser = () => {
+      //loading user
+      getUser(userid)
         .then((data) => {
-          setBlogs(data.blogs); //setting blogs with response
+          setUserDetails(data); //setting user details with the response
         })
         .catch((err) => {
           console.log(err);
         });
-  };
-  useEffect(() => {
-    loadBlogs(); //loading blogs
-  }, userDetails._id);
-  const loadUser = () => {
-    //loading user
-    getUser(userid)
-      .then((data) => {
-        setUserDetails(data); //setting user details with the response
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
+    };
     loadUser(); //loading user
-  }, userDetails);
+  }, []);
   if (Object.keys(user).length !== 0) {
     if (userDetails._id !== undefined)
       return (

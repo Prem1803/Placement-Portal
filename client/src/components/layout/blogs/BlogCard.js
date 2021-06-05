@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { getUser } from "../../../api/apiUser";
 
 const BlogCard = ({ blog }) => {
   const {
@@ -15,19 +14,7 @@ const BlogCard = ({ blog }) => {
     userid,
   } = blog;
   let date = new Date(dateCreated);
-  // const [author, setAuthor] = useState(null); //setting the sutor to null
-  // const loadAuthor = () => {
-  //   getUser(userid)
-  //     .then((data) => {
-  //       setAuthor(data.name); //setting the author with the response
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-  // useEffect(() => {
-  //   loadAuthor(); //loads the author of the blog
-  // }, [author]);
+
   return (
     //returns the Blog card
     <div className="blog-card">

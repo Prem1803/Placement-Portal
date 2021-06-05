@@ -48,7 +48,8 @@ const addAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
   if (user.type === 1 || user.type === 2) {
     //checking if user has the right to add an announcement
-    const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
+    const { title, description, category, content, tags, image, visibility } =
+      req.body; //extracting the announcement details from the request
     try {
       const newAnnouncement = new Announcement({
         title,
@@ -57,6 +58,7 @@ const addAnnouncement = asyncHandler(async (req, res) => {
         content,
         tags: tags.split(","),
         image,
+        visibility,
       }); //creating an announcement
       const announcement = await newAnnouncement.save(); //saving the announcement
       res.json(announcement); //newly created announcement is returned as the response
@@ -73,7 +75,8 @@ const updateAnnouncement = asyncHandler(async (req, res) => {
   let user = await User.findById(req.user.id); //getting user from the database on the basis of id
   if (user.type === 1 || user.type === 2) {
     //checking if user has the right to add an announcement
-    const { title, description, category, content, tags, image } = req.body; //extracting the announcement details from the request
+    const { title, description, category, content, visibility, tags, image } =
+      req.body; //extracting the announcement details from the request
 
     try {
       const updatedAnnouncement = {};
@@ -88,6 +91,7 @@ const updateAnnouncement = asyncHandler(async (req, res) => {
       if (category) updatedAnnouncement.category = category;
       if (content) updatedAnnouncement.content = content;
       if (image) updatedAnnouncement.image = image;
+      if (visibility) updatedAnnouncement.visibility = visibility;
       if (tags) updatedAnnouncement.tags = tags.split(",");
 
       announcement = await Announcement.findByIdAndUpdate(req.params.id, {

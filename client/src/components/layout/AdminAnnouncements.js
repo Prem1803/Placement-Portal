@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 import { getAllAnnouncements } from "../../api/apiAnnouncement";
 import UserAnnouncementCard from "./announcements/UserAnnouncementCard";
 
 import Spinner from "./Spinner";
 
 const AdminAnnouncements = ({ props, user, userDetails, token }) => {
-  const userid = useParams().id; //getting the user id
   const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting the announcements as an empty array
   const loadAllAnnouncements = () => {
     // Get the information from the database
@@ -21,7 +20,7 @@ const AdminAnnouncements = ({ props, user, userDetails, token }) => {
 
   useEffect(() => {
     loadAllAnnouncements(); //loading all the announcements
-  }, [AllAnnouncements.length]);
+  }, []);
 
   const history = useHistory();
 
@@ -31,7 +30,7 @@ const AdminAnnouncements = ({ props, user, userDetails, token }) => {
   };
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
-      if (user.type != 0)
+      if (user.type !== 0)
         //if the logged in user is an admin
         return (
           <div className="container">

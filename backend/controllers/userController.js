@@ -279,6 +279,17 @@ const updateUserById = asyncHandler(async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+const updateStudent = asyncHandler(async (req, res) => {
+  try {
+    const student = await Student.updateOne(
+      { _id: req.body.id },
+      { $set: { placementStatus: req.body.placementStatus } }
+    ); //updating the student
+    res.json(student);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 const updateUser = asyncHandler(async (req, res) => {
   try {
     if (req.user.type === 1) {
@@ -532,4 +543,5 @@ module.exports = {
   getAllUsers: getAllUsers,
   updateUser: updateUser,
   getUserInfo: getUserInfo,
+  updateStudent: updateStudent,
 };

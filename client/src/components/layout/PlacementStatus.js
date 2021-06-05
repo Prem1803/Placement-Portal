@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import React, { useEffect, useRef, useState } from "react";
 import Spinner from "./Spinner";
 import { getAllUsers } from "../../api/apiUser";
-import UserFilter from "./UserFilter";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 const PlacementStatus = ({ user, token }) => {
-  const userid = useParams().id; //getting the user id
   const [users, setUsers] = useState([]);
   const { addToast } = useToasts();
+  const text = useRef("");
 
   const [filtered, setFiltered] = useState(null);
-  const loadFiltered = (filtered) => {
-    setFiltered(filtered); //filtering the students
-  };
+
   const loadUsers = () => {
     getAllUsers()
       .then((data) => {
@@ -26,16 +22,25 @@ const PlacementStatus = ({ user, token }) => {
   useEffect(() => {
     loadUsers();
   }, []);
-
-  const onChange = async (e) => {
-    var type = 0;
-    if (e.target.checked) {
-      type = 2;
+  const onFilterChange = (e) => {
+    if (text.current.value !== "") {
+      const filtered = users.filter((user) => {
+        return (
+          user.name.toLowerCase().includes(text.current.value.toLowerCase()) ||
+          user.rollNo.toString().includes(text.current.value) ||
+          user.userid.email
+            .toString()
+            .toLowerCase()
+            .includes(text.current.value.toLowerCase())
+        );
+      });
+      setFiltered(filtered);
     } else {
-      type = 0;
+      setFiltered(null);
     }
-    var user = { _id: e.target.name, type: type };
-
+  };
+  const onChange = async (e) => {
+    const user = { id: e.target.name, placementStatus: e.target.value };
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -43,12 +48,12 @@ const PlacementStatus = ({ user, token }) => {
       },
     };
 
-    let { data } = await axios.put(
-      `/api/users/updateUser`, //making backend call to Edit Profile
+    await axios.put(
+      `/api/users/updateStudent`, //making backend call to Edit Profile
       user,
       config
     );
-    addToast("Updating User Please Wait", {
+    addToast("Updating Student Please Wait", {
       appearance: "success",
       autoDismiss: true,
       autoDismissTimeout: 4000,
@@ -66,36 +71,52 @@ const PlacementStatus = ({ user, token }) => {
           return (
             <div className="container">
               <h2>Placement Status</h2>
-              <UserFilter loadFiltered={loadFiltered} AllUsers={users} />
+              <form>
+                <input
+                  ref={text}
+                  type="text"
+                  placeholder="Search Students..."
+                  onChange={onFilterChange}
+                />
+              </form>
               <table className="student-table" style={{ overflowX: "auto" }}>
-                <tr>
-                  <td>Name</td>
-                  <td>Roll No</td>
-                  <td>Email</td>
-                  <td>Placed</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td>Roll No</td>
+                    <td>Email</td>
+                    <td>Placement Status</td>
+                  </tr>
 
-                {filtered &&
-                  filtered.map((user) => {
-                    return (
-                      <tr>
-                        <td>{user.name}</td>
-                        <td>{user.rollNo}</td>
-                        <td>{user.userid.email}</td>
-                        <td>
-                          <label className="switch">
-                            <input
-                              type="checkbox"
-                              name={user.userid._id}
-                              checked={user.userid.type === 0 ? false : true}
+                  {filtered &&
+                    filtered.map((user) => {
+                      return (
+                        <tr key={user._id}>
+                          <td>{user.name}</td>
+                          <td>{user.rollNo}</td>
+                          <td>{user.userid.email}</td>
+                          <td>
+                            <select
+                              name={user._id}
+                              value={user.placementStatus}
                               onChange={onChange}
-                            />
-                            <span className="slider round"></span>
-                          </label>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                            >
+                              <option value="Not Placed">Not Placed</option>
+                              <option value="Below 6LPA">Below 6 LPA</option>
+                              <option value="6LPA - 8LPA">6LPA - 8LPA</option>
+                              <option value="8LPA - 12LPA">8LPA - 12LPA</option>
+                              <option value="12LPA - 16LPA">
+                                12LPA - 16LPA
+                              </option>
+                              <option value="16LPA and Above">
+                                16LPA and Above
+                              </option>
+                            </select>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
               </table>
             </div>
           );
@@ -103,36 +124,52 @@ const PlacementStatus = ({ user, token }) => {
           return (
             <div className="container">
               <h2>Placement Status</h2>
-              <UserFilter loadFiltered={loadFiltered} AllUsers={users} />
+              <form>
+                <input
+                  ref={text}
+                  type="text"
+                  placeholder="Search Students..."
+                  onChange={onFilterChange}
+                />
+              </form>
               <table className="student-table" style={{ overflowX: "auto" }}>
-                <tr>
-                  <td>Name</td>
-                  <td>Roll No</td>
-                  <td>Email</td>
-                  <td>Placed</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td>Roll No</td>
+                    <td>Email</td>
+                    <td>Placement Status</td>
+                  </tr>
 
-                {users &&
-                  users.map((user) => {
-                    return (
-                      <tr>
-                        <td>{user.name}</td>
-                        <td>{user.rollNo}</td>
-                        <td>{user.userid.email}</td>
-                        <td>
-                          <label className="switch">
-                            <input
-                              type="checkbox"
-                              name={user.userid._id}
-                              checked={user.userid.type === 0 ? false : true}
+                  {users &&
+                    users.map((user) => {
+                      return (
+                        <tr key={user._id}>
+                          <td>{user.name}</td>
+                          <td>{user.rollNo}</td>
+                          <td>{user.userid.email}</td>
+                          <td>
+                            <select
+                              name={user._id}
+                              value={user.placementStatus}
                               onChange={onChange}
-                            />
-                            <span className="slider round"></span>
-                          </label>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                            >
+                              <option value="Not Placed">Not Placed</option>
+                              <option value="Below 6LPA">Below 6 LPA</option>
+                              <option value="6LPA - 8LPA">6LPA - 8LPA</option>
+                              <option value="8LPA - 12LPA">8LPA - 12LPA</option>
+                              <option value="12LPA - 16LPA">
+                                12LPA - 16LPA
+                              </option>
+                              <option value="16LPA and Above">
+                                16LPA and Above
+                              </option>
+                            </select>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
               </table>
             </div>
           );

@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 import UserBlogCard from "./blogs/UserBlogCard";
 import Spinner from "./Spinner";
 import { getAllAdminBlogs } from "../../api/apiBlog";
 
 const AdminBlogs = ({ props, user, userDetails, token }) => {
-  const userid = useParams().id; //getting the user id
-
   const [blogs, setBlogs] = useState([]); //setting blogs array as an empty array
-  const loadBlogs = () => {
-    if (user.uid !== undefined)
-      getAllAdminBlogs(user.uid)
-        .then((data) => {
-          setBlogs(data.blogs); //setting blogs array with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+
   useEffect(() => {
+    const loadBlogs = () => {
+      if (user.uid !== undefined)
+        getAllAdminBlogs(user.uid)
+          .then((data) => {
+            setBlogs(data.blogs); //setting blogs array with the response
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
     loadBlogs(); //loading all the blogs
   }, []);
   const history = useHistory();
@@ -28,7 +27,7 @@ const AdminBlogs = ({ props, user, userDetails, token }) => {
   };
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
-      if (user.type != 0)
+      if (user.type !== 0)
         //if the logged in user is an admin
         return (
           <div className="container">

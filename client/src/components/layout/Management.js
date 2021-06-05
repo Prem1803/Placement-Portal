@@ -1,9 +1,7 @@
 import React from "react";
-import { useParams } from "react-router";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 const Management = ({ user }) => {
-  const userid = useParams().id; //getting the user id
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
       if (user.type === 1)

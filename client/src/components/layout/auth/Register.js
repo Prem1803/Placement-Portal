@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { register } from "../../../actions/userActions";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
 
@@ -17,7 +15,6 @@ const Register = () => {
     password: "",
     password2: "",
   }); //setting the user details to empty strings
-  const dispatch = useDispatch();
   const history = useHistory();
   const {
     name,
@@ -185,7 +182,7 @@ const Register = () => {
             Email <span className="text-danger"> *</span>
             <i
               id="email"
-              class=""
+              className=""
               style={{ display: "inline", float: "right" }}
             />
           </label>

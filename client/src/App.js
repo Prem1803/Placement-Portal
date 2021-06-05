@@ -20,7 +20,6 @@ import axios from "axios";
 import { ToastProvider } from "react-toast-notifications";
 import UserProfile from "./components/layout/UserProfile";
 import AdminDashboard from "./components/layout/AdminDashboard";
-import EditProject from "./components/layout/EditProject";
 import EditBlog from "./components/layout/EditBlog";
 import BlogForm from "./components/layout/BlogForm";
 import EditProfile from "./components/layout/EditProfile";
@@ -53,51 +52,50 @@ import PlacementStatus from "./components/layout/PlacementStatus";
 function App() {
   const [user, setUser] = useState({}); //storing the logged in user
   const [userDetails, setUserDetails] = useState({ name: "" }); //storing the logged in user's details
-  const getUser = async () => {
-    //getting the logged in user from the token
-    try {
-      let token = JSON.parse(localStorage.getItem("userInfo")); //getting the token from local storage
 
-      if (token) {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": `${token}`,
-          },
-        };
-
-        let { data } = await axios.get(
-          "/api/users/getLoggedInUser", //making call to the backend to get the logged in user
-          config
-        );
-
-        setUser(JSON.parse(JSON.stringify(data))); //storing the response into the user
-
-        if (user.type === 0 || user.type === 2) {
-          try {
-            let userdata;
-            userdata = await axios
-              .get(`/api/users/${user.sid}`, config) //making call to the backend to get the user details of the logged in user
-              .then((response) => {
-                userdata = JSON.parse(JSON.stringify(response.data));
-                setUserDetails(userdata); //storing the response into the user details
-              });
-          } catch (e) {
-            console.log(e.message);
-          }
-        } else {
-          setUserDetails({ _id: user.uid });
-        }
-      }
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
   useEffect(() => {
+    const getUser = async () => {
+      //getting the logged in user from the token
+      try {
+        let token = JSON.parse(localStorage.getItem("userInfo")); //getting the token from local storage
+
+        if (token) {
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+              "x-auth-token": `${token}`,
+            },
+          };
+
+          let { data } = await axios.get(
+            "/api/users/getLoggedInUser", //making call to the backend to get the logged in user
+            config
+          );
+
+          setUser(JSON.parse(JSON.stringify(data))); //storing the response into the user
+
+          if (user.type === 0 || user.type === 2) {
+            try {
+              let userdata;
+              userdata = await axios
+                .get(`/api/users/${user.sid}`, config) //making call to the backend to get the user details of the logged in user
+                .then((response) => {
+                  userdata = JSON.parse(JSON.stringify(response.data));
+                  setUserDetails(userdata); //storing the response into the user details
+                });
+            } catch (e) {
+              console.log(e.message);
+            }
+          } else {
+            setUserDetails({ _id: user.uid });
+          }
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
     getUser(); //getting the user
-    console.log("user", user);
-    console.log(userDetails);
-  }, [user.uid, userDetails.name]);
+  }, [user.sid, user.uid, user.type, userDetails.name]);
   const [token, setToken] = useState(
     localStorage.getItem("userInfo") !== ""
       ? localStorage.getItem("userInfo")

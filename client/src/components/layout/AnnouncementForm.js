@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-// import config from "config";
 
 export const AnnouncementForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
-  const userId = useParams().id; //getting user id
 
   const [announcement, setAnnouncement] = useState({ category: "On Campus" }); //setting announcement as empty object
   const [content, setContent] = useState("");
-  const [visibility, setVisibility] = useState("All");
+  const [visibility, setVisibility] = useState("all");
+  const [visibilitySpecific, setVisibilitySpecific] = useState({});
   const history = useHistory();
   const sendAnnouncementNotificationOverMail = async (newAnnouncement) => {
     const config = {
@@ -30,36 +29,49 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   };
   const onSubmit = async (e) => {
     announcement.content = content;
+    announcement.visibility = visibilitySpecific;
     e.preventDefault();
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": `${token}`, //passing token to the request headers
-      },
-    };
+    if (announcement.tags !== undefined) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": `${token}`, //passing token to the request headers
+        },
+      };
 
-    let { data } = await axios.post(
-      `/api/announcements/`, //making backend call to add an announcement
-      announcement,
-      config
-    );
+      let { data } = await axios.post(
+        `/api/announcements/`, //making backend call to add an announcement
+        announcement,
+        config
+      );
 
-    setAnnouncement(JSON.parse(JSON.stringify(data))); //setting announcement with the resonse
-    sendAnnouncementNotificationOverMail(JSON.parse(JSON.stringify(data)));
-    addToast("Announcement Addded Successfully", {
-      appearance: "success",
-      autoDismiss: true,
-      autoDismissTimeout: 2000,
-    });
-    history.push(`/admindashboard`); //redirecting to the admin dahboard
+      setAnnouncement(JSON.parse(JSON.stringify(data))); //setting announcement with the resonse
+      sendAnnouncementNotificationOverMail(JSON.parse(JSON.stringify(data)));
+      addToast("Announcement Addded Successfully", {
+        appearance: "success",
+        autoDismiss: true,
+        autoDismissTimeout: 2000,
+      });
+      history.push(`/admindashboard`); //redirecting to the admin dahboard
+    } else {
+      console.log(visibilitySpecific);
+    }
   };
   const onChange = (e) => {
     //setting announcement on change in announcement details from the form
     if (e.target.name === "visibility") {
       setVisibility(e.target.value);
-      console.log(visibility);
+      if (e.target.value === "all") {
+        setVisibilitySpecific({});
+      }
     }
     setAnnouncement({ ...announcement, [e.target.name]: e.target.value });
+  };
+  const onVisibilityChange = (e) => {
+    setVisibilitySpecific({
+      ...visibilitySpecific,
+      [e.target.name]: e.target.value,
+    });
   };
   const uploadFileHandler = async (e) => {
     //uploading the announcment image
@@ -149,12 +161,41 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="visibiity">Visibiity</label>
-                <select name="visibiity" onChange={onChange}>
+                <label htmlFor="visibility">Visibiity</label>
+                <select name="visibility" onChange={onChange}>
                   <option value="all">All</option>
                   <option value="specific">Specific</option>
                 </select>
               </div>
+              {visibility === "specific" && (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="branch">Branch</label>
+                    <input
+                      type="text"
+                      name="branch"
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="course">Course</label>
+                    <input
+                      type="text"
+                      name="course"
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="passoutYear">Passout Year</label>
+                    <input
+                      type="text"
+                      name="passoutYear"
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+                </div>
+              )}
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea

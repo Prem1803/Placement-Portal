@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 import UserBlogCard from "./blogs/UserBlogCard";
 
 import { getAllUserBlogs } from "../../api/apiBlog";
@@ -11,34 +11,36 @@ const UserDashboard = ({ user, token }) => {
   const [blogs, setBlogs] = useState([]); //setting blogs to empty array
   const history = useHistory();
   const [userDetails, setUserDetails] = useState({});
-  const loadUser = () => {
-    //loading user
-    if (user.sid)
-      getUserInfo(user.sid)
-        .then((data) => {
-          setUserDetails(data); //setting user details with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+
   useEffect(() => {
+    const loadUser = () => {
+      //loading user
+      if (user.sid)
+        getUserInfo(user.sid)
+          .then((data) => {
+            setUserDetails(data); //setting user details with the response
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
     loadUser(); //loading user
-  }, userDetails._id);
-  const loadBlogs = () => {
-    //loading blogs
-    if (userDetails._id !== undefined)
-      getAllUserBlogs(userDetails._id)
-        .then((data) => {
-          setBlogs(data.blogs); //setting blogs with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+  }, []);
+
   useEffect(() => {
+    const loadBlogs = () => {
+      //loading blogs
+      if (userDetails._id !== undefined)
+        getAllUserBlogs(userDetails._id)
+          .then((data) => {
+            setBlogs(data.blogs); //setting blogs with the response
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
     loadBlogs(); //loading blogs
-  }, [blogs.length, userDetails._id]);
+  }, [userDetails._id]);
 
   const addBlog = () => {
     //adding blogs
@@ -256,6 +258,13 @@ const UserDashboard = ({ user, token }) => {
                         <td className="no-content">:</td>
                         <td className="table-content">
                           {userDetails.resumeUrl ? userDetails.resumeUrl : ""}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="table-content">Interests</td>
+                        <td className="no-content">:</td>
+                        <td className="table-content">
+                          {userDetails.interests ? userDetails.interests : ""}
                         </td>
                       </tr>
                       <tr>

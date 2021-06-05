@@ -9,25 +9,24 @@ import "react-quill/dist/quill.snow.css";
 const EditBlog = ({ token, user, userDetails }) => {
   const [blog, setBlog] = useState({}); //setting blog as empty object
   const blogId = useParams().bid; //getting blog id
-  const userId = useParams().id; //getting user id
   const [tags, setTags] = useState(null); //setting tags as null
   const [content, setContent] = useState("");
 
-  const loadBlog = () => {
-    //loading blog
-    getBlogById(blogId)
-      .then((data) => {
-        setBlog(data); //setting blog with the response
-        setTags(data.tags.join()); //setting tags
-        setContent(data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   useEffect(() => {
+    const loadBlog = () => {
+      //loading blog
+      getBlogById(blogId)
+        .then((data) => {
+          setBlog(data); //setting blog with the response
+          setTags(data.tags.join()); //setting tags
+          setContent(data.content);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     loadBlog(); //loading blog
-  }, blog._id);
+  }, []);
   const history = useHistory();
   const { addToast } = useToasts();
 

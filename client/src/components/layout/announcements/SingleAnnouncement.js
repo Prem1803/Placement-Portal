@@ -19,7 +19,7 @@ const SingleAnnouncement = ({ user }) => {
   };
   useEffect(() => {
     loadAnnouncement(); //loading the announcemnt
-  }, announcement);
+  }, []);
   const { title, tags, content, image } = announcement; //extracting the announcement details
   if (Object.keys(user).length !== 0) {
     if (announcement.image)

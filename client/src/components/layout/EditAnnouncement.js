@@ -10,22 +10,24 @@ const EditAnnouncement = ({ token, user }) => {
   const [announcement, setAnnouncement] = useState({}); //setting announcement as empty object
   const announcementId = useParams().bid; //getting announcement id
   const [tags, setTags] = useState(null); //setting tags as null
-  const userId = useParams().id; //getting user id
   const [content, setContent] = useState("");
+  const [visibility, setVisibility] = useState("all");
+  const [visibilitySpecific, setVisibilitySpecific] = useState({});
 
-  const loadAnnouncement = () => {
-    //loading announcement
-    getAnnouncementById(announcementId)
-      .then((data) => {
-        setAnnouncement(data); //setting announcement with the response
-        setTags(data.tags.join()); //setting tags
-        setContent(data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   useEffect(() => {
+    const loadAnnouncement = () => {
+      //loading announcement
+      getAnnouncementById(announcementId)
+        .then((data) => {
+          setAnnouncement(data); //setting announcement with the response
+          setTags(data.tags.join()); //setting tags
+          setVisibility(data.visibility ? "specific" : "all");
+          setContent(data.content);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     loadAnnouncement(); //loading announcement
   }, []);
   const history = useHistory();
@@ -35,6 +37,8 @@ const EditAnnouncement = ({ token, user }) => {
     e.preventDefault();
     announcement.tags = tags;
     announcement.content = content;
+    announcement.visibility = visibilitySpecific;
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -57,8 +61,20 @@ const EditAnnouncement = ({ token, user }) => {
     history.push(`/`);
   };
   const onChange = (e) => {
+    if (e.target.name === "visibility") {
+      setVisibility(e.target.value);
+      if (e.target.value === "all") {
+        setVisibilitySpecific({});
+      }
+    }
     //setting announcement on change in announcement details from the form
     setAnnouncement({ ...announcement, [e.target.name]: e.target.value });
+  };
+  const onVisibilityChange = (e) => {
+    setVisibilitySpecific({
+      ...visibilitySpecific,
+      [e.target.name]: e.target.value,
+    });
   };
   const onTagChange = (e) => {
     //setting tags on change in tags from the form
@@ -160,6 +176,49 @@ const EditAnnouncement = ({ token, user }) => {
                   <option value="Off Campus">Off Campus</option>
                 </select>
               </div>
+              <div className="form-group">
+                <label htmlFor="visibility">Visibiity</label>
+                <select
+                  name="visibility"
+                  onChange={onChange}
+                  value={visibility}
+                >
+                  <option value="all">All</option>
+                  <option value="specific">Specific</option>
+                </select>
+              </div>
+              {visibility === "specific" && (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="branch">Branch</label>
+                    <input
+                      type="text"
+                      name="branch"
+                      value={visibilitySpecific.branch}
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="course">Course</label>
+                    <input
+                      type="text"
+                      name="course"
+                      value={visibilitySpecific.course}
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="passoutYear">Passout Year</label>
+                    <input
+                      type="text"
+                      name="passoutYear"
+                      value={visibilitySpecific.passoutYear}
+                      onChange={onVisibilityChange}
+                    />
+                  </div>
+                </div>
+              )}
               <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <textarea

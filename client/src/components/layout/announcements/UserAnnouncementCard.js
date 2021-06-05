@@ -29,6 +29,7 @@ const UserAnnouncementCard = ({
     //editing the announcement
     history.push(`/announcements/${_id}/edit`); //redirects to the edit page
   };
+  let date = new Date(dateCreated);
 
   return (
     //returns the Annoucement component
@@ -46,8 +47,7 @@ const UserAnnouncementCard = ({
           <Link to={`/announcements/${_id}`}>{title}</Link>
         </h1>
         <div className="announcementCard__subtitle small">
-          <i className="fas fa-calendar-alt mr-2"></i>{" "}
-          {dateCreated.slice(0, 10)}
+          <i className="fas fa-calendar-alt mr-2"></i> {date.toDateString()}
         </div>
         <div className="announcementCard__bar"></div>
         <div className="announcementCard__preview-txt">{description}</div>

@@ -3,7 +3,7 @@ import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementFilter from "./AnnouncementFilter";
 import { getAllOnCampusAnnouncements } from "../../../api/apiAnnouncement";
 
-const OnCampusAnnouncements = ({ user }) => {
+const OnCampusAnnouncements = ({ user, userDetails }) => {
   const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting announcement array as an empty array
   const loadAllAnnouncements = () => {
     // Loads the announcements
@@ -22,12 +22,13 @@ const OnCampusAnnouncements = ({ user }) => {
   useEffect(() => {
     loadAllAnnouncements(); //loading the announcements
   }, []);
-  if (Object.keys(user).length !== 0) {
+  if (Object.keys(user).length !== 0 && (userDetails.name || user.type === 1)) {
     if (filtered !== null)
       return (
         //returns all the filtered announcements with their announcement cards
         <div className="container">
           <h2>On Campus Announcements</h2>
+
           <AnnouncementFilter
             AllAnnouncements={AllAnnouncements}
             loadFiltered={loadFiltered}
@@ -35,12 +36,42 @@ const OnCampusAnnouncements = ({ user }) => {
 
           {filtered &&
             filtered.map((announcement) => {
-              return (
-                <AnnouncementCard
-                  announcement={announcement}
-                  key={announcement._id}
-                />
-              );
+              if (announcement.visibility !== undefined) {
+                if (user.type === 1)
+                  return (
+                    <AnnouncementCard
+                      announcement={announcement}
+                      key={announcement._id}
+                    />
+                  );
+                else {
+                  if (
+                    announcement.visibility.branch
+                      .toUpperCase()
+                      .includes(userDetails.branch.toUpperCase()) &&
+                    announcement.visibility.course
+                      .toUpperCase()
+                      .includes(userDetails.course.toUpperCase()) &&
+                    announcement.visibility.passoutYear.includes(
+                      userDetails.passoutYear
+                    )
+                  )
+                    return (
+                      <AnnouncementCard
+                        announcement={announcement}
+                        key={announcement._id}
+                      />
+                    );
+                  else return false;
+                }
+              } else {
+                return (
+                  <AnnouncementCard
+                    announcement={announcement}
+                    key={announcement._id}
+                  />
+                );
+              }
             })}
         </div>
       );
@@ -56,12 +87,42 @@ const OnCampusAnnouncements = ({ user }) => {
 
           {AllAnnouncements &&
             AllAnnouncements.map((announcement) => {
-              return (
-                <AnnouncementCard
-                  announcement={announcement}
-                  key={announcement._id}
-                />
-              );
+              if (announcement.visibility !== undefined) {
+                if (user.type === 1)
+                  return (
+                    <AnnouncementCard
+                      announcement={announcement}
+                      key={announcement._id}
+                    />
+                  );
+                else {
+                  if (
+                    announcement.visibility.branch
+                      .toUpperCase()
+                      .includes(userDetails.branch.toUpperCase()) &&
+                    announcement.visibility.course
+                      .toUpperCase()
+                      .includes(userDetails.course.toUpperCase()) &&
+                    announcement.visibility.passoutYear.includes(
+                      userDetails.passoutYear
+                    )
+                  )
+                    return (
+                      <AnnouncementCard
+                        announcement={announcement}
+                        key={announcement._id}
+                      />
+                    );
+                  else return false;
+                }
+              } else {
+                return (
+                  <AnnouncementCard
+                    announcement={announcement}
+                    key={announcement._id}
+                  />
+                );
+              }
             })}
         </div>
       );

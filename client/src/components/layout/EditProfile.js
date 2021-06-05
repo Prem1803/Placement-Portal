@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 import { getUserInfo } from "../../api/apiUser";
 import Spinner from "./Spinner";
 
 export const EditProfile = ({ user, userDetails }) => {
   const token = localStorage.getItem("userInfo");
   const { addToast } = useToasts();
-  const userid = useParams().id; //getting user id
 
   const [currentUser, setUser] = useState({}); //setting user
   const {
@@ -33,22 +32,24 @@ export const EditProfile = ({ user, userDetails }) => {
     linkedInUrl,
     resumeUrl,
     contactEmail,
+    interests,
   } = currentUser;
-  const loadUser = () => {
-    //loading user
-    // console.log(user.sid);
-    if (user.sid)
-      getUserInfo(user.sid)
-        .then((data) => {
-          setUser(data); //setting user details with the response
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  };
+
   useEffect(() => {
+    const loadUser = () => {
+      //loading user
+      // console.log(user.sid);
+      if (user.sid)
+        getUserInfo(user.sid)
+          .then((data) => {
+            setUser(data); //setting user details with the response
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    };
     loadUser(); //loading user
-  }, [user]);
+  }, []);
   const onChange = (e) => {
     //setting user on change in user details from the form
     setUser({ ...currentUser, [e.target.name]: e.target.value });
@@ -338,6 +339,16 @@ export const EditProfile = ({ user, userDetails }) => {
                   name="resumeUrl"
                   value={resumeUrl}
                   onChange={onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="interests">Interests</label>
+                <textarea
+                  type="text"
+                  name="interests"
+                  value={interests}
+                  onChange={onChange}
+                  rows={3}
                 />
               </div>
               <div className="form-group">

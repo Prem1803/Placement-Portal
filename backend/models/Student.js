@@ -99,10 +99,20 @@ const StudentSchema = mongoose.Schema({
     required: false,
     default: "",
   },
+  interests: {
+    type: String,
+    required: false,
+    default: "",
+  },
   contactEmail: {
     type: String,
     required: false,
     default: "",
+  },
+  placementStatus: {
+    type: String,
+    required: false,
+    default: "Not Placed",
   },
   dateCreated: { type: Date, default: Date.now() },
 });

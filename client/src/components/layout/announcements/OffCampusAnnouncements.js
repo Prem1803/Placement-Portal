@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AnnouncementCard from "./AnnouncementCard";
 import AnnouncementFilter from "./AnnouncementFilter";
 import { getAllOffCampusAnnouncements } from "../../../api/apiAnnouncement";
-const OffCampusAnnouncements = ({ user }) => {
+const OffCampusAnnouncements = ({ user, userDetails }) => {
   const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting announcement array as an empty array
   const loadAllAnnouncements = () => {
     // Loads the announcements
@@ -34,12 +34,42 @@ const OffCampusAnnouncements = ({ user }) => {
 
           {filtered &&
             filtered.map((announcement) => {
-              return (
-                <AnnouncementCard
-                  announcement={announcement}
-                  key={announcement._id}
-                />
-              );
+              if (announcement.visibility !== undefined) {
+                if (user.type === 1)
+                  return (
+                    <AnnouncementCard
+                      announcement={announcement}
+                      key={announcement._id}
+                    />
+                  );
+                else {
+                  if (
+                    announcement.visibility.branch
+                      .toUpperCase()
+                      .includes(userDetails.branch.toUpperCase()) &&
+                    announcement.visibility.course
+                      .toUpperCase()
+                      .includes(userDetails.course.toUpperCase()) &&
+                    announcement.visibility.passoutYear.includes(
+                      userDetails.passoutYear
+                    )
+                  )
+                    return (
+                      <AnnouncementCard
+                        announcement={announcement}
+                        key={announcement._id}
+                      />
+                    );
+                  else return false;
+                }
+              } else {
+                return (
+                  <AnnouncementCard
+                    announcement={announcement}
+                    key={announcement._id}
+                  />
+                );
+              }
             })}
         </div>
       );
@@ -55,12 +85,42 @@ const OffCampusAnnouncements = ({ user }) => {
 
           {AllAnnouncements &&
             AllAnnouncements.map((announcement) => {
-              return (
-                <AnnouncementCard
-                  announcement={announcement}
-                  key={announcement._id}
-                />
-              );
+              if (announcement.visibility !== undefined) {
+                if (user.type === 1)
+                  return (
+                    <AnnouncementCard
+                      announcement={announcement}
+                      key={announcement._id}
+                    />
+                  );
+                else {
+                  if (
+                    announcement.visibility.branch
+                      .toUpperCase()
+                      .includes(userDetails.branch.toUpperCase()) &&
+                    announcement.visibility.course
+                      .toUpperCase()
+                      .includes(userDetails.course.toUpperCase()) &&
+                    announcement.visibility.passoutYear.includes(
+                      userDetails.passoutYear
+                    )
+                  )
+                    return (
+                      <AnnouncementCard
+                        announcement={announcement}
+                        key={announcement._id}
+                      />
+                    );
+                  else return false;
+                }
+              } else {
+                return (
+                  <AnnouncementCard
+                    announcement={announcement}
+                    key={announcement._id}
+                  />
+                );
+              }
             })}
         </div>
       );

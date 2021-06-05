@@ -17,7 +17,7 @@ const SingleBlog = ({ user }) => {
   };
   useEffect(() => {
     loadBlog(); //loading the blog
-  }, blog);
+  }, []);
   const { title, tags, content, image } = blog; //extracting the blog details
   if (Object.keys(user).length !== 0) {
     if (blog.image)

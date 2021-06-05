@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 export const BlogForm = ({ user, userDetails, token }) => {
   const { addToast } = useToasts();
-  const userId = useParams().id; //getting user id
 
   const [blog, setBlog] = useState({}); //setting blog as empty object
   const [content, setContent] = useState("");

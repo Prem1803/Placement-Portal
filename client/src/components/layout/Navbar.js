@@ -32,7 +32,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               <i className={icon} /> {title}
             </h1>
           </Link>
-          <a
+          <div
             // href="javascript:void(0);"
             className="hamburger"
             onClick={() => {
@@ -54,7 +54,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             }}
           >
             <i id="navicon" className="fa fa-bars" />
-          </a>
+          </div>
           <ul>
             <li>
               <Link to="/">
@@ -226,7 +226,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               <i className={icon} /> {title}
             </h1>
           </Link>
-          <a
+          <div
             // href="javascript:void(0);"
             className="hamburger"
             onClick={() => {
@@ -248,7 +248,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
             }}
           >
             <i id="navicon" className="fa fa-bars" />
-          </a>
+          </div>
 
           <ul>
             <li>
