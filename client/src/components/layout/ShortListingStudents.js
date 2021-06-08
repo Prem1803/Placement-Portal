@@ -10,6 +10,7 @@ const ShortListingStudents = ({ user }) => {
     passoutYear: "",
     cgpa: "",
     branch: "",
+    placementStatus: "",
   });
   const onChange = async (e) => {
     //sets the user on change on the user details
@@ -61,6 +62,14 @@ const ShortListingStudents = ({ user }) => {
         (Number(filters.cgpa) !== NaN &&
           Number(student.cgpa) >= Number(filters.cgpa)) ||
         filters.cgpa === ""
+      );
+    });
+    filteredStudents = await filteredStudents.filter((student) => {
+      return (
+        (filters.placementStatus !== "" &&
+          student.placementStatus.toLowerCase() ===
+            filters.placementStatus.toLowerCase()) ||
+        filters.placementStatus === ""
       );
     });
     setFiltered(filteredStudents); //filtering the students
@@ -128,6 +137,23 @@ const ShortListingStudents = ({ user }) => {
                     <option value="8.5">8.5 and Above</option>
                   </select>
                 </div>
+                <div className="student-filter-option">
+                  <label>Placement Status</label>
+
+                  <select
+                    name="placementStatus"
+                    value={filters.placementStatus}
+                    onChange={onChange}
+                  >
+                    <option value="">All</option>
+                    <option value="Not Placed">Not Placed</option>
+                    <option value="Below 6LPA">Below 6 LPA</option>
+                    <option value="6LPA - 8LPA">6LPA - 8LPA</option>
+                    <option value="8LPA - 12LPA">8LPA - 12LPA</option>
+                    <option value="12LPA - 16LPA">12LPA - 16LPA</option>
+                    <option value="16LPA and Above">16LPA and Above</option>
+                  </select>
+                </div>
                 <div
                   className="student-filter-option"
                   style={{ marginTop: "1.4rem", marginBottom: "0.5rem" }}
@@ -171,6 +197,7 @@ const ShortListingStudents = ({ user }) => {
                       <td>Branch</td>
                       <td>Passout Year</td>
                       <td>CGPA</td>
+                      <td>Placement Status</td>
                       <td style={{ display: "none" }}>Contact Email</td>
                       <td style={{ display: "none" }}>Date of Birth</td>
                       <td style={{ display: "none" }}>Gender</td>
@@ -184,6 +211,7 @@ const ShortListingStudents = ({ user }) => {
                       <td style={{ display: "none" }}>12th Passing Year</td>
                       <td style={{ display: "none" }}>12th Percentage</td>
                       <td style={{ display: "none" }}>Resume</td>
+                      <td style={{ display: "none" }}>Interests</td>
                     </tr>
 
                     {filtered &&
@@ -196,6 +224,7 @@ const ShortListingStudents = ({ user }) => {
                             <td>{student.branch}</td>
                             <td>{student.passoutYear}</td>
                             <td>{student.cgpa}</td>
+                            <td>{student.placementStatus}</td>
                             <td style={{ display: "none" }}>
                               {student.contactEmail}
                             </td>
@@ -232,6 +261,9 @@ const ShortListingStudents = ({ user }) => {
                             </td>
                             <td style={{ display: "none" }}>
                               {student.resumeUrl}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.interests}
                             </td>
                           </tr>
                         );
@@ -298,6 +330,23 @@ const ShortListingStudents = ({ user }) => {
                     <option value="8.5">8.5 and Above</option>
                   </select>
                 </div>
+                <div className="student-filter-option">
+                  <label>Placement Status</label>
+
+                  <select
+                    name="placementStatus"
+                    value={filters.placementStatus}
+                    onChange={onChange}
+                  >
+                    <option value="">All</option>
+                    <option value="Not Placed">Not Placed</option>
+                    <option value="Below 6LPA">Below 6 LPA</option>
+                    <option value="6LPA - 8LPA">6LPA - 8LPA</option>
+                    <option value="8LPA - 12LPA">8LPA - 12LPA</option>
+                    <option value="12LPA - 16LPA">12LPA - 16LPA</option>
+                    <option value="16LPA and Above">16LPA and Above</option>
+                  </select>
+                </div>
                 <div
                   className="student-filter-option"
                   style={{ marginTop: "1.4rem", marginBottom: "0.5rem" }}
@@ -341,6 +390,7 @@ const ShortListingStudents = ({ user }) => {
                       <td>Branch</td>
                       <td>Passout Year</td>
                       <td>CGPA</td>
+                      <td>Placement status</td>
                       <td style={{ display: "none" }}>Contact Email</td>
                       <td style={{ display: "none" }}>Date of Birth</td>
                       <td style={{ display: "none" }}>Gender</td>
@@ -354,6 +404,7 @@ const ShortListingStudents = ({ user }) => {
                       <td style={{ display: "none" }}>12th Passing Year</td>
                       <td style={{ display: "none" }}>12th Percentage</td>
                       <td style={{ display: "none" }}>Resume</td>
+                      <td style={{ display: "none" }}>Interests</td>
                     </tr>
 
                     {students &&
@@ -366,6 +417,7 @@ const ShortListingStudents = ({ user }) => {
                             <td>{student.branch}</td>
                             <td>{student.passoutYear}</td>
                             <td>{student.cgpa}</td>
+                            <td>{student.placementStatus}</td>
                             <td style={{ display: "none" }}>
                               {student.contactEmail}
                             </td>
@@ -402,6 +454,9 @@ const ShortListingStudents = ({ user }) => {
                             </td>
                             <td style={{ display: "none" }}>
                               {student.resumeUrl}
+                            </td>
+                            <td style={{ display: "none" }}>
+                              {student.interests}
                             </td>
                           </tr>
                         );
