@@ -13,3 +13,17 @@ export const getAllAlumni = () => {
     })
     .catch((err) => console.log(err));
 };
+export const getAlumnis = () => {
+  return fetch(`/api/users/alumnis`, {
+    //call is made to backend using axios
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      return response.json(); //resonse is returned
+    })
+    .catch((err) => console.log(err));
+};

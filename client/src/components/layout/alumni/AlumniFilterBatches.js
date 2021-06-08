@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-const AlumniFilterBatches = ({ AllAlumni, loadFiltered }) => {
+const AlumniFilterBatches = ({ AllAlumni, loadFiltered, loadPassoutYear }) => {
   //Filter's the Alumni's
   const text = useRef("");
   const onChange = (e) => {
@@ -7,8 +7,10 @@ const AlumniFilterBatches = ({ AllAlumni, loadFiltered }) => {
       const filtered = AllAlumni.filter((alumni) => {
         return alumni[0].toString().includes(text.current.value.toString());
       });
+      loadPassoutYear(text.current.value.toString());
       loadFiltered(filtered);
     } else {
+      loadPassoutYear(null);
       loadFiltered(null);
     }
   };

@@ -525,6 +525,22 @@ const getAllAlumni = asyncHandler(async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+const getAlumnis = asyncHandler(async (req, res) => {
+  try {
+    const users = await Student.find({}).select(
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+    ); //getting all the students from the database
+    let alumni = [];
+    users.forEach((user) => {
+      if (Number(user.passoutYear) - new Date().getFullYear() < 0) {
+        alumni.push(user);
+      }
+    });
+    res.json(alumni); //returns all the alumnis as the response
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = {
   registerAdmin: registerAdmin,
   registerStudent: registerStudent,
@@ -544,4 +560,5 @@ module.exports = {
   updateUser: updateUser,
   getUserInfo: getUserInfo,
   updateStudent: updateStudent,
+  getAlumnis: getAlumnis,
 };
