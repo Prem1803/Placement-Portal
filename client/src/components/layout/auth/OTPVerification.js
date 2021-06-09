@@ -65,7 +65,7 @@ const OTPVerification = ({ props }) => {
               );
 
               data = JSON.parse(JSON.stringify(data)); //storing the response into the user
-              history.push(`/editProfile`);
+              history.push(`/editprofile`);
               window.location.reload();
             }
           } catch (e) {
