@@ -241,7 +241,7 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res) => {
   try {
     const student = await Student.findById(req.params.id).select(
-      " -cgpa -dob -gender -mobileNo -nationality -address -linkedInUrl -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+      " -cgpa -dob -gender -mobileNo -nationality -address  -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl  -dateCreated "
     ); //getting the student on the basis of the id
     if (student) res.json(student);
     //returning the student as the response
@@ -326,7 +326,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   try {
     const users = await Student.find({})
       .select(
-        "-branch -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th -imgUrl -linkedInUrl -resumeUrl -contactEmail -dateCreated  -course -passoutYear"
+        "-branch -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th -imgUrl -linkedInUrl -resumeUrl -contacEmail -dateCreated  -course -passoutYear"
       )
       .populate("userid", "_id email type")
       .then((result) => {
@@ -501,7 +501,7 @@ const getAllPhDStudents = asyncHandler(async (req, res) => {
 const getAllAlumni = asyncHandler(async (req, res) => {
   try {
     const users = await Student.find({}).select(
-      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl  -dateCreated "
     ); //getting all the students from the database
     let alumni = [];
     users.forEach((user) => {
@@ -528,7 +528,7 @@ const getAllAlumni = asyncHandler(async (req, res) => {
 const getAlumnis = asyncHandler(async (req, res) => {
   try {
     const users = await Student.find({}).select(
-      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -contactEmail -dateCreated "
+      " -cgpa -dob -gender -mobileNo -nationality -address -board10th -passingYear10th -percentage10th -board12th -passingYear12th -percentage12th  -resumeUrl -dateCreated "
     ); //getting all the students from the database
     let alumni = [];
     users.forEach((user) => {
