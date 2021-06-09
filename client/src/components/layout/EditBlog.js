@@ -120,7 +120,7 @@ const EditBlog = ({ token, user, userDetails }) => {
     "color",
   ];
   if (Object.keys(user).length !== 0) {
-    if (blog.userid) {
+    if (blog.title) {
       if (blog.userid === user.sid || blog.userid === user.uid)
         return (
           //returns the blog form

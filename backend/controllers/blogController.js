@@ -67,7 +67,8 @@ const addBlog = asyncHandler(async (req, res) => {
       postedBy,
     });
     if (postedBy === 1) {
-      newBlog.userid = await User.findOne({ type: 1 })._id;
+      const user = await User.findOne({ type: 1 });
+      newBlog.userid = user._id;
     } else {
       newBlog.userid = req.student.id;
     }
@@ -80,9 +81,10 @@ const addBlog = asyncHandler(async (req, res) => {
 //Updating a blog
 const updateBlog = asyncHandler(async (req, res) => {
   let blog = await Blog.findById(req.params.id); //getting the blog which is to be updated
+  console.log(blog.userid, " ", req.user.id);
   if (
     (blog.postedBy === 1 && String(blog.userid) === req.user.id) ||
-    String(blog.userid) === req.student.id
+    (req.student && String(blog.userid) === req.student.id)
   ) {
     //checking if the blog belongs to the  logged in user or not
     const { title, description, content, tags, image, comments } = req.body; //extrating blog details from the request
