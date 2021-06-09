@@ -22,6 +22,7 @@ const EditAnnouncement = ({ token, user }) => {
           setAnnouncement(data); //setting announcement with the response
           setTags(data.tags.join()); //setting tags
           setVisibility(data.visibility ? "specific" : "all");
+          setVisibilitySpecific(data.visibility);
           setContent(data.content);
         })
         .catch((err) => {

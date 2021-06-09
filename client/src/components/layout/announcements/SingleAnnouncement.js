@@ -23,19 +23,21 @@ const SingleAnnouncement = ({ user, userDetails }) => {
   const { title, tags, content, image } = announcement; //extracting the announcement details
   if (Object.keys(user).length !== 0) {
     if (announcement.image) {
+      console.log(announcement.visibility);
       if (
-        announcement.visibility &&
-        ((user.type !== 1 &&
-          announcement.visibility.branch
-            .toUpperCase()
-            .includes(userDetails.branch.toUpperCase()) &&
-          announcement.visibility.course
-            .toUpperCase()
-            .includes(userDetails.course.toUpperCase()) &&
-          announcement.visibility.passoutYear.includes(
-            userDetails.passoutYear
-          )) ||
-          user.type === 1)
+        (announcement.visibility &&
+          ((user.type !== 1 &&
+            announcement.visibility.branch
+              .toUpperCase()
+              .includes(userDetails.branch.toUpperCase()) &&
+            announcement.visibility.course
+              .toUpperCase()
+              .includes(userDetails.course.toUpperCase()) &&
+            announcement.visibility.passoutYear.includes(
+              userDetails.passoutYear
+            )) ||
+            user.type === 1)) ||
+        announcement.visibility === undefined
       )
         return (
           //returns the single announcement component
