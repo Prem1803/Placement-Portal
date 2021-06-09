@@ -43,7 +43,8 @@ const UserFilter = ({ AllUsers, loadFiltered }) => {
       {/* <label>Branch</label> */}
       <select ref={admin} onChange={onChange} style={{ marginBottom: "1rem" }}>
         <option value="">All</option>
-        <option value="2">Admin</option>
+        <option value="2">Admin(Partial Access)</option>
+        <option value="3">Admin(Full Access)</option>
         <option value="0">Non Admin</option>
       </select>
     </form>

@@ -29,6 +29,18 @@ const Management = ({ user }) => {
             </div>
           </div>
         );
+      else if (user.type === 3)
+        //if the logged in user is an admin
+        return (
+          <div className="admincontainer">
+            <div className="adminpanel">
+              <Link to={`/admindashboard/management/students`}>
+                <div className="studentspanelcard" />
+                ShortList Students
+              </Link>
+            </div>
+          </div>
+        );
       else
         return (
           <div className="not-allowed">

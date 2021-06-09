@@ -20,7 +20,7 @@ const AdminDashboard = ({ props, user, userDetails, token }) => {
                 Blogs
               </Link>
 
-              {user.type === 1 && (
+              {(user.type === 1 || user.type === 3) && (
                 <Link to={`/admindashboard/management`}>
                   <div className="managementpanelcard" />
                   Management

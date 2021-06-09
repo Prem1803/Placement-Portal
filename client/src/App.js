@@ -74,7 +74,7 @@ function App() {
 
           setUser(JSON.parse(JSON.stringify(data))); //storing the response into the user
 
-          if (user.type === 0 || user.type === 2) {
+          if (user.type === 0 || user.type === 2 || user.type === 3) {
             try {
               let userdata;
               userdata = await axios

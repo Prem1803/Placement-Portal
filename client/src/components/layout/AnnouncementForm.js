@@ -132,7 +132,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   ];
   if (Object.keys(user).length !== 0) {
     if (user) {
-      if (user.type === 1 || user.type === 2)
+      if (user.type === 1 || user.type === 2 || user.type === 3)
         return (
           //returns the announcement form
           <div className="container">

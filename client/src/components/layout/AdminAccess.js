@@ -25,15 +25,37 @@ const AdminAccess = ({ user, token }) => {
     loadUsers();
   }, []);
 
-  const onChange = async (e) => {
-    var type = 0;
-    if (e.target.checked) {
-      type = 2;
-    } else {
-      type = 0;
-    }
-    var user = { _id: e.target.name, type: type };
+  // const onChange = async (e) => {
+  //   var type = 0;
+  //   if (e.target.checked) {
+  //     type = 2;
+  //   } else {
+  //     type = 0;
+  //   }
+  //   var user = { _id: e.target.name, type: type };
 
+  //   const config = {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "x-auth-token": `${token}`, //passing token to the request headers
+  //     },
+  //   };
+
+  //   await axios.put(
+  //     `/api/users/updateUser`, //making backend call to Edit Profile
+  //     user,
+  //     config
+  //   );
+  //   addToast("Updating User Please Wait", {
+  //     appearance: "success",
+  //     autoDismiss: true,
+  //     autoDismissTimeout: 4000,
+  //   });
+  //   loadUsers();
+  //   setFiltered(null);
+  // };
+  const onChange = async (e) => {
+    const user = { _id: e.target.name, type: e.target.value };
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +104,7 @@ const AdminAccess = ({ user, token }) => {
                           <td>{user.rollNo}</td>
                           <td>{user.userid.email}</td>
                           <td>
-                            <label className="switch">
+                            {/* <label className="switch">
                               <input
                                 type="checkbox"
                                 name={user.userid._id}
@@ -90,7 +112,16 @@ const AdminAccess = ({ user, token }) => {
                                 onChange={onChange}
                               />
                               <span className="slider round"></span>
-                            </label>
+                            </label> */}
+                            <select
+                              name={user.userid._id}
+                              value={user.userid.type}
+                              onChange={onChange}
+                            >
+                              <option value="0">No Access</option>
+                              <option value="2">Partial Access</option>
+                              <option value="3">Complete Access</option>
+                            </select>
                           </td>
                         </tr>
                       );
@@ -121,7 +152,7 @@ const AdminAccess = ({ user, token }) => {
                           <td>{user.rollNo}</td>
                           <td>{user.userid.email}</td>
                           <td>
-                            <label className="switch">
+                            {/* <label className="switch">
                               <input
                                 type="checkbox"
                                 name={user.userid._id}
@@ -129,7 +160,16 @@ const AdminAccess = ({ user, token }) => {
                                 onChange={onChange}
                               />
                               <span className="slider round"></span>
-                            </label>
+                            </label> */}
+                            <select
+                              name={user.userid._id}
+                              value={user.userid.type}
+                              onChange={onChange}
+                            >
+                              <option value="0">No Access</option>
+                              <option value="2">Partial Access</option>
+                              <option value="3">Complete Access</option>
+                            </select>
                           </td>
                         </tr>
                       );

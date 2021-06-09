@@ -269,11 +269,12 @@ const Navbar = ({ title, icon, user, userDetails }) => {
                   <i className="fas fa-user"></i> Admin
                 </Link>
               )}
-              {(user.type === 0 || user.type === 2) && userDetails.name && (
-                <Link to={`/userdashboard`}>
-                  <i className="fas fa-user"></i> {" " + userDetails.name}
-                </Link>
-              )}
+              {(user.type === 0 || user.type === 2 || user.type === 3) &&
+                userDetails.name && (
+                  <Link to={`/userdashboard`}>
+                    <i className="fas fa-user"></i> {" " + userDetails.name}
+                  </Link>
+                )}
             </li>
             <li>
               <button
@@ -339,12 +340,13 @@ const Navbar = ({ title, icon, user, userDetails }) => {
                 <i className="fas fa-user"></i> Admin
               </Link>
             )}
-            {(user.type === 0 || user.type === 2) && userDetails.name && (
-              <Link to={`/userdashboard`}>
-                <i className="fas fa-user"></i>
-                {" " + userDetails.name}
-              </Link>
-            )}
+            {(user.type === 0 || user.type === 2 || user.type === 3) &&
+              userDetails.name && (
+                <Link to={`/userdashboard`}>
+                  <i className="fas fa-user"></i>
+                  {" " + userDetails.name}
+                </Link>
+              )}
           </li>
           <li
             onClick={() => {
@@ -448,7 +450,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               y.classList.toggle("fa-bars");
             }}
           >
-            {(user.type === 1 || user.type === 2) && (
+            {(user.type === 1 || user.type === 2 || user.type === 3) && (
               <Link to={`/admindashboard`}>
                 <i className="fas fa-th-large"></i> Admin Dashboard
               </Link>
@@ -465,11 +467,12 @@ const Navbar = ({ title, icon, user, userDetails }) => {
               y.classList.toggle("fa-bars");
             }}
           >
-            {(user.type === 0 || user.type === 2) && userDetails.name && (
-              <Link to={`/userdashboard`}>
-                <i className="fas fa-th-large"></i> User Dashboard
-              </Link>
-            )}
+            {(user.type === 0 || user.type === 2 || user.type === 3) &&
+              userDetails.name && (
+                <Link to={`/userdashboard`}>
+                  <i className="fas fa-th-large"></i> User Dashboard
+                </Link>
+              )}
           </li>
         </ul>
       </div>

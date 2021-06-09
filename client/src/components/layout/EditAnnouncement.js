@@ -138,7 +138,7 @@ const EditAnnouncement = ({ token, user }) => {
   ];
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
-      if ((user.type === 1 || user.type === 2) && user.uid)
+      if ((user.type === 1 || user.type === 2 || user.type === 3) && user.uid)
         return (
           //returns the announcement form
           <div className="container">

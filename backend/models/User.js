@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
   type: {
     type: Number,
     required: true,
-    default: 0, //1 for admin 0 for students/alumins 2 for students with admin access,
+    default: 0, //1 for admin 0 for students/alumins 2 for students with partial admin access 3 for students with complete admin access,
   },
   dateCreated: { type: Date, default: Date.now() },
 });

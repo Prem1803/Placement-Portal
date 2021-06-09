@@ -109,7 +109,7 @@ const Sidebar = ({ children, user, userDetails, token }) => {
           <div className="dash_content">{children}</div>
         </div>
       );
-    else if (user && user.type === 2)
+    else if (user && (user.type === 2 || user.type === 3))
       // otherwise the user dahboard link is shown
       return (
         <div className="dash_container">

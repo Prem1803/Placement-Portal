@@ -148,7 +148,7 @@ const authUser = asyncHandler(async (req, res) => {
               .status(400)
               .json({ isLoggedIn: false, msg: "Error Occurred" });
           }
-          if (user.type === 0 || user.type === 2)
+          if (user.type === 0 || user.type === 2 || user.type === 3)
             return res.json({ isLoggedIn: true, token: token });
           //returning jwt token as the response
           else return res.json({ isLoggedIn: false, msg: "Error Occurred" });

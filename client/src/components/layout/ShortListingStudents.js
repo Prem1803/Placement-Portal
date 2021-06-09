@@ -79,7 +79,7 @@ const ShortListingStudents = ({ user }) => {
   }, []);
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
-      if (user.type === 1) {
+      if (user.type === 1 || user.type === 3) {
         if (filtered !== null)
           return (
             <div className="container">
