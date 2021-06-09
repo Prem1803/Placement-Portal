@@ -58,7 +58,12 @@ const SingleAnnouncement = ({ user, userDetails }) => {
             >
               <img
                 src={require(`../../../uploads/${image}`).default}
-                style={{ margin: "auto", height: "100%", borderRadius: "1rem" }}
+                style={{
+                  margin: "0 auto",
+                  height: "100%",
+                  maxWidth: "70%",
+                  borderRadius: "1rem",
+                }}
                 alt={title}
               />
             </div>

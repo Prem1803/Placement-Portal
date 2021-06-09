@@ -58,7 +58,7 @@ const addBlog = asyncHandler(async (req, res) => {
   const { title, description, content, tags, image, postedBy } = req.body; //extracting the blog details from the request
   try {
     let newBlog = new Blog({
-      userid: req.student.id,
+      userid: "",
       title,
       description,
       content,
@@ -68,6 +68,8 @@ const addBlog = asyncHandler(async (req, res) => {
     });
     if (postedBy === 1) {
       newBlog.userid = await User.findOne({ type: 1 })._id;
+    } else {
+      newBlog.userid = req.student.id;
     }
     const blog = await newBlog.save(); //new blog is saved
     res.json(blog); //newly created blog is returned as the response
