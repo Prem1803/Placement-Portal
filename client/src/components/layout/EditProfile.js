@@ -11,6 +11,7 @@ export const EditProfile = ({ user, userDetails }) => {
 
   const [currentUser, setUser] = useState({}); //setting user
   const {
+    _id,
     name,
     rollNo,
     branch,
@@ -49,7 +50,7 @@ export const EditProfile = ({ user, userDetails }) => {
           });
     };
     loadUser(); //loading user
-  }, []);
+  }, [userDetails]);
   const onChange = (e) => {
     //setting user on change in user details from the form
     setUser({ ...currentUser, [e.target.name]: e.target.value });
