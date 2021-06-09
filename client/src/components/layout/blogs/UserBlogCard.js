@@ -70,7 +70,8 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
             </span>
             {(user.type === 0 ||
               user.type === 1 ||
-              (user.type === 2 && blog.postedBy === 0)) && (
+              (user.type === 2 && blog.postedBy === 0) ||
+              (user.type === 3 && blog.postedBy === 0)) && (
               <span>
                 <button className="tag tag-purple" onClick={deleteBlog}>
                   <i className="fas fa-trash"></i> Delete
