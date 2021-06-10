@@ -6,12 +6,7 @@ const router = express.Router();
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     //adding the destination of the uploaded image
-    // cb(null, "client/src/uploads");
-    if (process.env.NODE_ENV === "production") {
-      cb(null, "/../client/build/src/uploads");
-    } else {
-      cb(null, "client/src/uploads");
-    }
+    cb(null, "client/src/uploads");
   },
   filename(req, file, cb) {
     cb(
