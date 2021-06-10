@@ -152,6 +152,25 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
                     backgroundColor: "white",
                   }}
                 />
+                {announcement.image && (
+                  <div
+                    style={{
+                      maxHeight: "400px",
+                      maxWidth: "400px",
+                      margin: "0 auto",
+                    }}
+                  >
+                    <img
+                      src={
+                        require(`../../uploads/${announcement.image}`).default
+                      }
+                      style={{
+                        maxHeight: "400px",
+                        maxWidth: "400px",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
               <div className="form-group">
                 <label htmlFor="category">Category</label>

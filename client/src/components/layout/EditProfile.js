@@ -145,6 +145,23 @@ export const EditProfile = ({ user, userDetails }) => {
                     backgroundColor: "white",
                   }}
                 />
+                {imgUrl && (
+                  <div
+                    style={{
+                      maxHeight: "200px",
+                      maxWidth: "200px",
+                      margin: "0 auto",
+                    }}
+                  >
+                    <img
+                      src={require(`../../uploads/${imgUrl}`).default}
+                      style={{
+                        maxHeight: "200px",
+                        maxWidth: "200px",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="form-group">

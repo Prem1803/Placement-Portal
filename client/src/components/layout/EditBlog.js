@@ -147,6 +147,23 @@ const EditBlog = ({ token, user, userDetails }) => {
                     backgroundColor: "white",
                   }}
                 />
+                {blog.image && (
+                  <div
+                    style={{
+                      maxHeight: "400px",
+                      maxWidth: "400px",
+                      margin: "0 auto",
+                    }}
+                  >
+                    <img
+                      src={require(`../../uploads/${blog.image}`).default}
+                      style={{
+                        maxHeight: "400px",
+                        maxWidth: "400px",
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="form-group">
