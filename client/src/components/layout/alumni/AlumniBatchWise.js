@@ -1,11 +1,15 @@
 import React from "react";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 const AlumniBatchWise = ({ user }) => {
   const passoutYear = useParams().passoutYear.toString();
   const location = useLocation();
+  const history = useHistory();
   const alumni = location.state;
+  if (location.state === undefined) {
+    history.push("/alumni");
+  }
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">

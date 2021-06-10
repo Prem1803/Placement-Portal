@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const MTechStudents = ({ user }) => {
   const location = useLocation();
+  const history = useHistory();
+
   const { CSE, ECE, EEE } = location.state;
+  if (location.state === undefined) {
+    history.push("/students");
+  }
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">

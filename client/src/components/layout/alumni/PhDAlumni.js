@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLocation, useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 const PhDAlumni = ({ user }) => {
   const location = useLocation();
+  const history = useHistory();
+
   const passoutYear = useParams().passoutYear.toString();
   const alumni = location.state;
   const cseAlumni = alumni.filter((alumni) => {
@@ -20,6 +22,9 @@ const PhDAlumni = ({ user }) => {
   const asAlumni = alumni.filter((alumni) => {
     return alumni.branch === "AS";
   });
+  if (location.state === undefined) {
+    history.push("/alumni");
+  }
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">
