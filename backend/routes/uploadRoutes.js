@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     //adding the destination of the uploaded image
     // cb(null, "client/src/uploads");
     if (process.env.NODE_ENV === "production") {
-      cb(null, path.resolve(__dirname, "build"));
+      cb(null, "/../client/build/src/uploads");
     } else {
       cb(null, "client/src/uploads");
     }
