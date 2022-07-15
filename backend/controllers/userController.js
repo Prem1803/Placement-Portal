@@ -32,7 +32,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
       //payload for generating the token
       user: { id: user._id, email: user.email, type: user.type },
     };
-    jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
       //token is generated using jwt
       if (err) throw err;
       res.json({ token: token }); //token is returned as the response
@@ -96,7 +96,7 @@ const registerStudent = asyncHandler(async (req, res) => {
         user: { id: user._id, email: user.email, type: user.type },
         student: { id: newStudent._id },
       };
-      jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+      jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
         //token is generated using jwt
         if (err) throw err;
         res.json({ isRegistered: true, token: token }); //token is returned as the response
@@ -141,7 +141,7 @@ const authUser = asyncHandler(async (req, res) => {
           student: { id: student._id },
         };
 
-        jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
           //generating jwt token
           if (err) {
             return res
@@ -183,7 +183,7 @@ const authAdmin = asyncHandler(async (req, res) => {
           user: { id: user._id, email: user.email, type: user.type },
         };
 
-        jwt.sign(payload, config.get("jwtSecret"), (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, (err, token) => {
           //generating jwt token
           if (err) {
             return res

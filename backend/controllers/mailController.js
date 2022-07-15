@@ -9,8 +9,8 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "prem.test.email@gmail.com",
-        pass: "premkumar@123456",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
     let students = await User.find({ type: 0 });
@@ -57,8 +57,8 @@ const sendOTP = asyncHandler(async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "prem.test.email@gmail.com",
-        pass: "premkumar@123456",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
     if (student) {
@@ -90,14 +90,14 @@ const contactFormSubmission = asyncHandler(async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "prem.test.email@gmail.com",
-        pass: "premkumar@123456",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
     if (category === "General Query")
       transporter.sendMail({
         from: name + " <prem.test.email@gmail.com>",
-        to: "prem.test.email@gmail.com",
+        to: process.env.EMAIL,
         subject: "Contact Form Submission: " + category,
         text:
           "Name:" +
@@ -122,7 +122,7 @@ const contactFormSubmission = asyncHandler(async (req, res) => {
     else
       transporter.sendMail({
         from: name + " <prem.test.email@gmail.com>",
-        to: "prem.test.email@gmail.com",
+        to: process.env.EMAIL,
         subject: "Contact Form Submission: " + category,
         text:
           "Name:" +
@@ -157,8 +157,8 @@ const sendOTPToResetPassword = asyncHandler(async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "prem.test.email@gmail.com",
-        pass: "premkumar@123456",
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
       },
     });
     if (student) {
