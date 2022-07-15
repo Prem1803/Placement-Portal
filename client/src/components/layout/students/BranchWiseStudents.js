@@ -14,10 +14,8 @@ const BranchWiseStudents = ({ user, userDetails }) => {
           students.map((student) => {
             return (
               <Link
-                to={{
-                  pathname: `/students/${course}/${branch}/${student[0]}`,
-                  state: student[1],
-                }}
+                to={`/students/${course}/${branch}/${student[0]}`}
+                state={student[1]}
                 key={student[0]}
               >
                 <div className="studentspanelcard" />

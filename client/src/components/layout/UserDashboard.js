@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import UserBlogCard from "./blogs/UserBlogCard";
 
 import { getAllUserBlogs } from "../../api/apiBlog";
@@ -9,7 +9,7 @@ import { getUserInfo } from "../../api/apiUser";
 const UserDashboard = ({ user, token }) => {
   // const userid = useParams().id; //getting userid
   const [blogs, setBlogs] = useState([]); //setting blogs to empty array
-  const history = useHistory();
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
@@ -44,15 +44,15 @@ const UserDashboard = ({ user, token }) => {
 
   const addBlog = () => {
     //adding blogs
-    history.push({ pathname: `/addBlog`, state: { postedBy: 0 } }); //redirects to add blog page
+    navigate({ to: `/addBlog`, state: { postedBy: 0 } }); //redirects to add blog page
   };
   const editProfile = () => {
     //edit profile
-    history.push(`/editProfile`); //redirects to edit profile page
+    navigate(`/editProfile`); //redirects to edit profile page
   };
   const changePassword = () => {
-    history.push({
-      pathname: "/changepassword",
+    navigate({
+      to: "/changepassword",
       state: {
         email: user.email,
       },

@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const Contact = ({ token, user, userDetails }) => {
   const { addToast } = useToasts();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   //Contact us page component
   const [message, setMessage] = useState({
@@ -51,7 +51,7 @@ const Contact = ({ token, user, userDetails }) => {
         autoDismiss: true,
         autoDismissTimeout: 2000,
       });
-      history.push("/");
+      navigate("/");
     } else {
       addToast("Failed to Submit the contact form", {
         appearance: "alert",

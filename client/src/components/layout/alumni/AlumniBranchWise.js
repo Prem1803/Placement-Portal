@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 import AlumniCard from "./AlumniCard";
 import AlumniFilter from "./AlumniFilter";
 const AlumniBranchWise = ({ user }) => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   let course = useParams().course.toString();
   if (course === "btech") course = "BTech";
   else if (course === "mtech") course = "MTech";
@@ -17,8 +17,8 @@ const AlumniBranchWise = ({ user }) => {
   const loadFiltered = (filtered) => {
     setFiltered(filtered); //filtering the alumni's
   };
-  if (location.state === undefined) {
-    history.push("/alumni");
+  if (!location.state) {
+    navigate("/alumni");
   }
   if (Object.keys(user).length !== 0) {
     if (filtered !== null)

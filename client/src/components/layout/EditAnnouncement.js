@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { getAnnouncementById } from "../../api/apiAnnouncement";
 import Spinner from "./Spinner";
@@ -31,7 +31,7 @@ const EditAnnouncement = ({ token, user }) => {
     };
     loadAnnouncement(); //loading announcement
   }, []);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addToast } = useToasts();
 
   const onSubmit = async (e) => {
@@ -59,7 +59,7 @@ const EditAnnouncement = ({ token, user }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the home page
-    history.push(`/`);
+    navigate(`/`);
   };
   const onChange = (e) => {
     if (e.target.name === "visibility") {

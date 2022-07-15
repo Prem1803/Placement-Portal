@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { getUserInfo } from "../../api/apiUser";
 import Spinner from "./Spinner";
 
@@ -55,7 +55,7 @@ export const EditProfile = ({ user, userDetails }) => {
     //setting user on change in user details from the form
     setUser({ ...currentUser, [e.target.name]: e.target.value });
   };
-  const history = useHistory();
+  const navigate = useNavigate();
   const onSubmit = async (e) => {
     console.log(currentUser);
     e.preventDefault();
@@ -100,7 +100,7 @@ export const EditProfile = ({ user, userDetails }) => {
         autoDismiss: true,
         autoDismissTimeout: 2000,
       });
-      history.push(`/`); //redirecting to the home page
+      navigate(`/`); //redirecting to the home page
       window.location.reload();
     }
   };

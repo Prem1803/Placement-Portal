@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 import StudentCard from "./StudentCard";
 import StudentFilter from "./StudentFilter";
 const BatchWiseStudents = ({ user }) => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   let course = useParams().course.toString();
   if (course === "btech") course = "BTech";
   else if (course === "mtech") course = "MTech";
@@ -18,7 +18,7 @@ const BatchWiseStudents = ({ user }) => {
     setFiltered(filtered); //filtering the students
   };
   if (students === undefined) {
-    history.push("/students");
+    navigate("/students");
   }
   if (Object.keys(user).length !== 0) {
     if (filtered !== null)

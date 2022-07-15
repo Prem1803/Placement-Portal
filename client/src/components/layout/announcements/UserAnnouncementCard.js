@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { deleteAnnouncementById } from "../../../api/apiAnnouncement";
 
@@ -9,7 +9,7 @@ const UserAnnouncementCard = ({
   token,
 }) => {
   const { addToast } = useToasts();
-  const history = useHistory();
+  const navigate = useNavigate();
   const deleteAnnouncement = () => {
     //for deleting the announcement
     deleteAnnouncementById(_id, token)
@@ -19,7 +19,7 @@ const UserAnnouncementCard = ({
           autoDismiss: true,
           autoDismissTimeout: 2000,
         });
-        history.push(`/`); //redirects to the homepage after deleting the announcement
+        navigate(`/`); //redirects to the homepage after deleting the announcement
       })
       .catch((err) => {
         console.log(err);
@@ -27,7 +27,7 @@ const UserAnnouncementCard = ({
   };
   const editAnnouncement = () => {
     //editing the announcement
-    history.push(`/announcements/${_id}/edit`); //redirects to the edit page
+    navigate(`/announcements/${_id}/edit`); //redirects to the edit page
   };
   let date = new Date(dateCreated);
 

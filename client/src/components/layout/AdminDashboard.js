@@ -2,7 +2,7 @@ import React from "react";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 
-const AdminDashboard = ({ props, user, userDetails, token }) => {
+const AdminDashboard = ({ user, userDetails, token }) => {
   if (Object.keys(user).length !== 0) {
     if (user.uid) {
       if (user.type !== 0)

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { deleteProjectById } from "../../../api/apiProject";
 const UserProjectCard = ({
@@ -25,7 +25,7 @@ const UserProjectCard = ({
     setActive(!isActive);
   };
   const { addToast } = useToasts();
-  const history = useHistory();
+  const navigate = useNavigate();
   const deleteProject = () => {
     deleteProjectById(_id, token) //delets the project
       .then((data) => {
@@ -34,14 +34,14 @@ const UserProjectCard = ({
           autoDismiss: true,
           autoDismissTimeout: 2000,
         });
-        history.push(`/users/${userDetails._id}`); //redirects to the user page
+        navigate(`/users/${userDetails._id}`); //redirects to the user page
       })
       .catch((err) => {
         console.log(err);
       });
   };
   const editProject = () => {
-    history.push(`/users/${userDetails._id}/projects/${_id}/edit`); //redirects to the edit project page
+    navigate(`/users/${userDetails._id}/projects/${_id}/edit`); //redirects to the edit project page
   };
 
   return (

@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import SideBar from "./components/layout/Sidebar";
@@ -119,306 +119,253 @@ function App() {
             resetToken={resetToken}
           />
           <SideBar user={user} userDetails={userDetails} token={token}>
-            <Switch>
-              <Route exact path="/" component={Home} />
+            <Routes>
+              <Route path="/" element={<Home />} />
               {/*Renders the home page*/}
               <Route
-                exact
                 path="/contact"
-                render={() => (
+                element={
                   <Contact
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               {/*Renders the contact page*/}
               <Route
-                exact
                 path="/register"
-                render={() => (
-                  <Register user={user} userDetails={userDetails} />
-                )}
+                element={<Register user={user} userDetails={userDetails} />}
               />
               {/*Renders the student register page*/}
               <Route
-                exact
                 path="/login"
-                render={() => <Login user={user} userDetails={userDetails} />}
+                element={<Login user={user} userDetails={userDetails} />}
               />
               {/*Renders the student login page*/}
               <Route
-                exact
                 path="/admin"
-                render={() => (
-                  <AdminLogin user={user} userDetails={userDetails} />
-                )}
+                element={<AdminLogin user={user} userDetails={userDetails} />}
               />
               {/*Renders the admin login page*/}
               <Route
-                exact
                 path="/blogs"
-                render={() => <Blogs user={user} userDetails={userDetails} />}
+                element={<Blogs user={user} userDetails={userDetails} />}
               />
               {/*Renders the Blogs page*/}
               <Route
-                exact
                 path="/students"
-                render={() => (
-                  <Students user={user} userDetails={userDetails} />
-                )}
+                element={<Students user={user} userDetails={userDetails} />}
               />
               {/*Renders the all students page*/}
               <Route
-                exact
                 path="/alumni"
-                render={() => <Alumni user={user} userDetails={userDetails} />}
+                element={<Alumni user={user} userDetails={userDetails} />}
               />
               {/*Renders the all alumni's page*/}
-              {/* <Route exact path="/projects" component={Projects} /> */}
+              {/* <Route  path="/projects" element={<Projects/>} /> */}
               {/*Renders the all projects page*/}
               <Route
-                exact
                 path="/announcements"
-                render={() => (
+                element={
                   <Announcements user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/forgotpassword"
-                render={() => (
+                element={
                   <ForgotPassword user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/changepassword"
-                render={() => (
+                element={
                   <ChangePassword user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/students/btech"
-                render={() => (
+                element={
                   <BTechStudents user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/students/mtech"
-                render={() => (
+                element={
                   <MTechStudents user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/students/phd"
-                render={() => (
-                  <PhDStudents user={user} userDetails={userDetails} />
-                )}
+                element={<PhDStudents user={user} userDetails={userDetails} />}
               />
               <Route
-                exact
                 path="/students/:course/:branch"
-                render={() => (
+                element={
                   <BranchWiseStudents user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/students/:course/:branch/:passoutYear"
-                render={() => (
+                element={
                   <BatchWiseStudents user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/alumni/:passoutYear"
-                render={() => (
+                element={
                   <AlumniBatchWise user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/alumni/:passoutYear/btech"
-                render={() => (
-                  <BTechAlumni user={user} userDetails={userDetails} />
-                )}
+                element={<BTechAlumni user={user} userDetails={userDetails} />}
               />
               <Route
-                exact
                 path="/alumni/:passoutYear/mtech"
-                render={() => (
-                  <MTechAlumni user={user} userDetails={userDetails} />
-                )}
+                element={<MTechAlumni user={user} userDetails={userDetails} />}
               />
               <Route
-                exact
                 path="/alumni/:passoutYear/phd"
-                render={() => (
-                  <PhDAlumni user={user} userDetails={userDetails} />
-                )}
+                element={<PhDAlumni user={user} userDetails={userDetails} />}
               />
               <Route
-                exact
                 path="/alumni/:passoutYear/:course/:branch"
-                render={() => (
+                element={
                   <AlumniBranchWise user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/announcements/oncampus"
-                render={() => (
+                element={
                   <OnCampusAnnouncements
                     user={user}
                     userDetails={userDetails}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/announcements/offcampus"
-                render={() => (
+                element={
                   <OffCampusAnnouncements
                     user={user}
                     userDetails={userDetails}
                   />
-                )}
+                }
               />
 
               {/*Renders the all announcement page*/}
               <Route
-                exact
                 path="/blogs/:id"
-                render={() => (
-                  <SingleBlog user={user} userDetails={userDetails} />
-                )}
+                element={<SingleBlog user={user} userDetails={userDetails} />}
               />
               {/*Renders the single blog page*/}
               <Route
-                exact
                 path="/announcements/:id"
-                render={() => (
+                element={
                   <SingleAnnouncement user={user} userDetails={userDetails} />
-                )}
+                }
               />
               {/*Renders the single announcemnet page*/}
               <Route
-                exact
                 path="/userdashboard/"
-                render={() => (
+                element={
                   <UserDashboard
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/verify"
-                render={() => (
+                element={
                   <OTPVerification user={user} userDetails={userDetails} />
-                )}
+                }
               />
               {/*Renders the user dashboard page*/}
               <Route
-                exact
                 path="/admindashboard"
-                render={() => (
+                element={
                   <AdminDashboard
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               {/*Renders the admin dashboard page*/}
               <Route
-                exact
                 path="/admindashboard/announcements"
-                render={() => (
+                element={
                   <AdminAnnouncements
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/admindashboard/blogs"
-                render={() => (
+                element={
                   <AdminBlogs
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/admindashboard/management/students"
-                render={() => (
+                element={
                   <ShortlistingStuents user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/admindashboard/management/"
-                render={() => (
-                  <Management user={user} userDetails={userDetails} />
-                )}
+                element={<Management user={user} userDetails={userDetails} />}
               />
               <Route
-                exact
                 path="/admindashboard/management/manageaccount"
-                render={() => (
+                element={
                   <ManageAdminAccount user={user} userDetails={userDetails} />
-                )}
+                }
               />
               <Route
-                exact
                 path="/admindashboard/management/admins"
-                render={() => (
+                element={
                   <AdminAccess
                     user={user}
                     token={token}
                     userDetails={userDetails}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/admindashboard/management/placements"
-                render={() => (
+                element={
                   <PlacementStatus
                     user={user}
                     token={token}
                     userDetails={userDetails}
                   />
-                )}
+                }
               />
               <Route
-                exact
                 path="/users/:id"
-                render={() => (
+                element={
                   <UserProfile
                     user={user}
                     userDetails={userDetails}
                     token={token}
                   />
-                )}
+                }
               />
               {/*Renders the user profile page*/}
               {/* <Route
-                exact
+                
                 path="/users/:id/projects/:pid/edit"
-                render={() => (
+                element={(
                   <EditProject
                     userDetails={userDetails}
                     token={token}
@@ -428,9 +375,9 @@ function App() {
               /> */}
               {/*Renders the edit project page*/}
               {/* <Route
-                exact
+                
                 path="/users/:id/addProject"
-                render={() => (
+                element={(
                   <ProjectForm
                     userDetails={userDetails}
                     token={token}
@@ -440,67 +387,62 @@ function App() {
               /> */}
               {/*Renders the add project page*/}
               <Route
-                exact
                 path="/addblog"
-                render={() => (
+                element={
                   <BlogForm
                     userDetails={userDetails}
                     token={token}
                     user={user}
                   />
-                )}
+                }
               />
               {/*Renders the add Blog page*/}
               <Route
-                exact
                 path="/addannouncement"
-                render={() => (
+                element={
                   <AnnouncementForm
                     userDetails={userDetails}
                     token={token}
                     user={user}
                   />
-                )}
+                }
               />
               {/*Renders the add announcement page*/}
               <Route
-                exact
                 path="/blogs/:bid/edit"
-                render={() => (
+                element={
                   <EditBlog
                     userDetails={userDetails}
                     token={token}
                     user={user}
                   />
-                )}
+                }
               />
               {/*Renders the edit blog page*/}
               <Route
-                exact
                 path="/announcements/:bid/edit"
-                render={() => (
+                element={
                   <EditAnnouncement
                     userDetails={userDetails}
                     token={token}
                     user={user}
                   />
-                )}
+                }
               />
               {/*Renders the edit announcement page*/}
               <Route
-                exact
                 path="/editprofile"
-                render={() => (
+                element={
                   <EditProfile
                     userDetails={userDetails}
                     token={token}
                     user={user}
                   />
-                )}
+                }
               />
               {/*Renders the edit profile page*/}
-              <Route component={PageNotFound} />
-            </Switch>
+              <Route element={<PageNotFound />} />
+            </Routes>
           </SideBar>
         </BrowserRouter>
       </ToastProvider>

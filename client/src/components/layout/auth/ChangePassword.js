@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { useToasts } from "react-toast-notifications";
 
 const ChangePassword = ({ user }) => {
   const { addToast } = useToasts();
 
   const [password, setPassword] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const { email } = location.state;
   const onPasswordChange = (e) => {
@@ -32,7 +32,7 @@ const ChangePassword = ({ user }) => {
         autoDismissTimeout: 2000,
       });
       localStorage.removeItem("userInfo");
-      history.push("/login");
+      navigate("/login");
       window.location.reload();
     } else {
       addToast("Sorry Unable to Change the Password", {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -13,7 +13,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
   const [content, setContent] = useState("");
   const [visibility, setVisibility] = useState("all");
   const [visibilitySpecific, setVisibilitySpecific] = useState({});
-  const history = useHistory();
+  const navigate = useNavigate();
   const sendAnnouncementNotificationOverMail = async (newAnnouncement) => {
     const config = {
       headers: {
@@ -52,7 +52,7 @@ export const AnnouncementForm = ({ user, userDetails, token }) => {
         autoDismiss: true,
         autoDismissTimeout: 2000,
       });
-      history.push(`/admindashboard`); //redirecting to the admin dahboard
+      navigate(`/admindashboard`); //redirecting to the admin dahboard
     } else {
       console.log(visibilitySpecific);
     }

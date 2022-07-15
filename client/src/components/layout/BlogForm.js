@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -11,7 +11,7 @@ export const BlogForm = ({ user, userDetails, token }) => {
   const [blog, setBlog] = useState({}); //setting blog as empty object
   const [content, setContent] = useState("");
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const onSubmit = async (e) => {
@@ -39,7 +39,7 @@ export const BlogForm = ({ user, userDetails, token }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the dahboard
-    history.push(`/`);
+    navigate(`/`);
   };
   const onChange = (e) => {
     //setting blog on change in blog details from the form

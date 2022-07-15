@@ -1,13 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Spinner from "./Spinner";
 
 const ManageAdminAccount = ({ user }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const changePassword = () => {
-    history.push({
-      pathname: "/changepassword",
+    navigate({
+      to: "/changepassword",
       state: {
         email: user.email,
       },

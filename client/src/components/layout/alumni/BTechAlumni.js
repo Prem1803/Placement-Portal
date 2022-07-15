@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useHistory, useLocation, useParams } from "react-router";
+import { useNavigate, useLocation, useParams } from "react-router";
 
 const BTechAlumni = ({ user }) => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const passoutYear = useParams().passoutYear.toString();
   const alumni = location.state;
@@ -17,34 +17,19 @@ const BTechAlumni = ({ user }) => {
   const eeeAlumni = alumni.filter((alumni) => {
     return alumni.branch === "EEE";
   });
-  if (location.state === undefined) {
-    history.push("/alumni");
+  if (!location.state) {
+    navigate("/alumni");
   }
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">
-        <Link
-          to={{
-            pathname: `/alumni/${passoutYear}/btech/cse`,
-            state: cseAlumni,
-          }}
-        >
+        <Link to={`/alumni/${passoutYear}/btech/cse`} state={cseAlumni}>
           <div className="csepanelcard" />
         </Link>
-        <Link
-          to={{
-            pathname: `/alumni/${passoutYear}/btech/ece`,
-            state: eceAlumni,
-          }}
-        >
+        <Link to={`/alumni/${passoutYear}/btech/ece`} state={eceAlumni}>
           <div className="ecepanelcard" />
         </Link>
-        <Link
-          to={{
-            pathname: `/alumni/${passoutYear}/btech/eee`,
-            state: eeeAlumni,
-          }}
-        >
+        <Link to={`/alumni/${passoutYear}/btech/eee`} state={eeeAlumni}>
           <div className="eeepanelcard" />
         </Link>
       </div>

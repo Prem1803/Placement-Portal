@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 const Navbar = ({ title, icon, user, userDetails }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addToast } = useToasts();
 
   const logoutUser = () => {
@@ -15,7 +15,7 @@ const Navbar = ({ title, icon, user, userDetails }) => {
       autoDismiss: true,
       autoDismissTimeout: 2000,
     });
-    history.push("/"); //redirecting to the homepage
+    navigate("/"); //redirecting to the homepage
 
     window.location.reload();
   };

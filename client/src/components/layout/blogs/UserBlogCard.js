@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { deleteBlogById } from "../../../api/apiBlog";
 
 const UserBlogCard = ({ blog, userDetails, token, user }) => {
   const { _id, image, tags, title, description } = blog; //extracting blog details
   const { addToast } = useToasts();
-  const history = useHistory();
+  const navigate = useNavigate();
   const deleteBlog = () => {
     deleteBlogById(_id, token) //deleting blog
       .then((data) => {
@@ -16,7 +16,7 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
           autoDismissTimeout: 2000,
         });
         //redirection after deleting blog
-        history.push(`/`);
+        navigate(`/`);
       })
       .catch((err) => {
         console.log(err);
@@ -24,8 +24,8 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
   };
   const editBlog = () => {
     //redirets to edit blog page
-    if (userDetails._id) history.push(`/blogs/${_id}/edit`);
-    else history.push(`/blogs/${_id}/edit`);
+    if (userDetails._id) navigate(`/blogs/${_id}/edit`);
+    else navigate(`/blogs/${_id}/edit`);
   };
 
   return (

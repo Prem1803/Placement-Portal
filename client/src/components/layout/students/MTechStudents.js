@@ -1,31 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useHistory, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 const MTechStudents = ({ user }) => {
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const { CSE, ECE, EEE } = location.state;
-  if (location.state === undefined) {
-    history.push("/students");
-  }
+  const [CSE, setCSE] = useState([]);
+  const [ECE, setECE] = useState([]);
+  const [EEE, setEEE] = useState([]);
+  useEffect(() => {
+    if (location.state) {
+      setCSE(location.state.CSE);
+      setECE(location.state.ECE);
+      setEEE(location.state.EEE);
+    }
+  }, [location, location.state]);
+
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">
-        <Link
-          to={{ pathname: `/students/mtech/cse`, state: Object.entries(CSE) }}
-        >
+        <Link to={`/students/mtech/cse`} state={Object.entries(CSE)}>
           <div className="csepanelcard" />
         </Link>
-        <Link
-          to={{ pathname: `/students/mtech/ece`, state: Object.entries(ECE) }}
-        >
+        <Link to={`/students/mtech/ece`} state={Object.entries(ECE)}>
           <div className="ecepanelcard" />
         </Link>
-        <Link
-          to={{ pathname: `/students/mtech/eee`, state: Object.entries(EEE) }}
-        >
+        <Link to={`/students/mtech/eee`} state={Object.entries(EEE)}>
           <div className="eeepanelcard" />
         </Link>
       </div>

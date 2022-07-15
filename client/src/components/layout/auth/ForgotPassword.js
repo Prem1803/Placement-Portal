@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 const ForgotPassword = () => {
   const [isOTPSent, setIsOTPSent] = useState(false);
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
     }
   };
   const [password, setPassword] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onPasswordChange = (e) => {
     setPassword(e.target.value);
@@ -104,7 +104,7 @@ const ForgotPassword = () => {
         autoDismiss: true,
         autoDismissTimeout: 2000,
       });
-      history.push("/login");
+      navigate("/login");
     } else {
       addToast("Sorry Unable to Reset the Password", {
         appearance: "error",

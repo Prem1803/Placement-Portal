@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { useDispatch } from "react-redux";
 import { register } from "../../../actions/userActions";
 import { useLocation } from "react-router-dom";
-const OTPVerification = ({ props }) => {
+const OTPVerification = () => {
   const { addToast } = useToasts();
   const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { name, email, rollNo, branch, course, passoutYear, password } =
     location.state;
   const [otp, setOtp] = useState({
@@ -65,7 +65,7 @@ const OTPVerification = ({ props }) => {
               );
 
               data = JSON.parse(JSON.stringify(data)); //storing the response into the user
-              history.push(`/editprofile`);
+              navigate(`/editprofile`);
               window.location.reload();
             }
           } catch (e) {

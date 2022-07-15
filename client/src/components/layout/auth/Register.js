@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
 
@@ -15,7 +15,7 @@ const Register = () => {
     password: "",
     password2: "",
   }); //setting the user details to empty strings
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     name,
     email,
@@ -113,9 +113,9 @@ const Register = () => {
       //     autoDismiss: true,
       //     autoDismissTimeout: 2000,
       //   });
-      //   history.push("/verify"); //redirects to the Verification Page on successfull register
+      //   navigate("/verify"); //redirects to the Verification Page on successfull register
 
-      //   // history.push("/"); //redirects to the homepage on successfull register
+      //   // navigate("/"); //redirects to the homepage on successfull register
       //   window.location.reload();
       // } else {
       //   addToast("Registration Failed This Email is Already Taken", {
@@ -142,8 +142,8 @@ const Register = () => {
           autoDismiss: true,
           autoDismissTimeout: 2000,
         });
-        history.push({
-          pathname: "/verify",
+        navigate({
+          to: "/verify",
           state: {
             name: user.name,
             rollNo: user.rollNo,

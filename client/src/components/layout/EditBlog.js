@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { getBlogById } from "../../api/apiBlog";
 import Spinner from "./Spinner";
@@ -27,7 +27,7 @@ const EditBlog = ({ token, user, userDetails }) => {
     };
     loadBlog(); //loading blog
   }, []);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addToast } = useToasts();
 
   const onSubmit = async (e) => {
@@ -53,7 +53,7 @@ const EditBlog = ({ token, user, userDetails }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the home page
-    history.push(`/`);
+    navigate(`/`);
   };
   const onChange = (e) => {
     //setting blog on change in blog details from the form

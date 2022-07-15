@@ -145,7 +145,8 @@ const Alumni = ({ user }) => {
               filtered.reverse().map((alumni) => {
                 return (
                   <Link
-                    to={{ pathname: `/alumni/${alumni[0]}`, state: alumni[1] }}
+                    to={`/alumni/${alumni[0]}`}
+                    state={alumni[1]}
                     key={alumni[0]}
                   >
                     <div className="alumnipanelcard" />
@@ -177,7 +178,8 @@ const Alumni = ({ user }) => {
               alumni.reverse().map((alumni) => {
                 return (
                   <Link
-                    to={{ pathname: `/alumni/${alumni[0]}`, state: alumni[1] }}
+                    to={`/alumni/${alumni[0]}`}
+                    state={alumni[1]}
                     key={alumni[0]}
                   >
                     <div className="alumnipanelcard" />

@@ -1733,7 +1733,7 @@ i.right {
   width: 100%;
 }
 .main-banner {
-  background-image: url(https://designforuminternational.com/wp-content/uploads/2018/08/Slider-2-21.jpg);
+  background-image: url("https://designforuminternational.com/wp-content/uploads/2018/08/Slider-2-21.jpg");
   background-position: 100%;
   background-size: cover;
   background-repeat: no-repeat;

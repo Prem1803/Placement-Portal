@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { getAllAnnouncements } from "../../api/apiAnnouncement";
 import UserAnnouncementCard from "./announcements/UserAnnouncementCard";
 
 import Spinner from "./Spinner";
 
-const AdminAnnouncements = ({ props, user, userDetails, token }) => {
+const AdminAnnouncements = ({ user, userDetails, token }) => {
   const [AllAnnouncements, setAllAnnouncements] = useState([]); //setting the announcements as an empty array
   const loadAllAnnouncements = () => {
     // Get the information from the database
@@ -22,11 +22,11 @@ const AdminAnnouncements = ({ props, user, userDetails, token }) => {
     loadAllAnnouncements(); //loading all the announcements
   }, []);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const addAnnouncement = () => {
     //adding announcements
-    history.push(`/addannouncement`); //redirects to the add announcement page
+    navigate(`/addannouncement`); //redirects to the add announcement page
   };
   if (Object.keys(user).length !== 0) {
     if (user.uid) {

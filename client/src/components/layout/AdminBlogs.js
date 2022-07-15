@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import UserBlogCard from "./blogs/UserBlogCard";
 import Spinner from "./Spinner";
 import { getAllAdminBlogs } from "../../api/apiBlog";
 
-const AdminBlogs = ({ props, user, userDetails, token }) => {
+const AdminBlogs = ({ user, userDetails, token }) => {
   const [blogs, setBlogs] = useState([]); //setting blogs array as an empty array
 
   useEffect(() => {
@@ -20,10 +20,10 @@ const AdminBlogs = ({ props, user, userDetails, token }) => {
     };
     loadBlogs(); //loading all the blogs
   }, []);
-  const history = useHistory();
+  const navigate = useNavigate();
   const addBlog = () => {
     //adding blogs
-    history.push({ pathname: `/addBlog`, state: { postedBy: 1 } }); //redirects to the add blog page
+    navigate({ to: `/addBlog`, state: { postedBy: 1 } }); //redirects to the add blog page
   };
   if (Object.keys(user).length !== 0) {
     if (user.uid) {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Adminlogin } from "../../../actions/userActions";
 import { useToasts } from "react-toast-notifications";
@@ -15,14 +15,14 @@ const AdminLogin = () => {
     //sets the user on change on the user details
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addToast } = useToasts();
   const onSubmit = async (e) => {
     //submitting the form to logging in the admin
     e.preventDefault();
     const isLoggedIn = await dispatch(Adminlogin(email, password)); //ckecking if the admin is logged in or not
     if (isLoggedIn) {
-      history.push("/"); //redirects to the homepage on successfull login
+      navigate("/"); //redirects to the homepage on successfull login
 
       addToast("Logged In Successfully", {
         appearance: "success",

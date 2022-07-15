@@ -47,13 +47,13 @@ const Students = ({ user }) => {
   if (Object.keys(user).length !== 0)
     return (
       <div className="studentcontainer studentpanel">
-        <Link to={{ pathname: `/students/btech`, state: btechStudents }}>
+        <Link to={`/students/btech`} state={btechStudents}>
           <div className="btechpanelcard" />
         </Link>
-        <Link to={{ pathname: `/students/mtech`, state: mtechStudents }}>
+        <Link to={`/students/mtech`} state={mtechStudents}>
           <div className="mtechpanelcard" />
         </Link>
-        <Link to={{ pathname: `/students/phd`, state: phdStudents }}>
+        <Link to={`/students/phd`} state={phdStudents}>
           <div className="phdpanelcard" />
         </Link>
       </div>

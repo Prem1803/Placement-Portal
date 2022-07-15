@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useToasts } from "react-toast-notifications";
 import { getProjectById } from "../../api/apiProject";
 import Spinner from "./Spinner";
@@ -25,7 +25,7 @@ const EditProject = ({ token, userDetails }) => {
   useEffect(() => {
     loadProject(); //loading project
   }, []);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { addToast } = useToasts();
 
   const onSubmit = async (e) => {
@@ -50,7 +50,7 @@ const EditProject = ({ token, userDetails }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the dash board
-    history.push(`/userdashboard/${userDetails._id}`);
+    navigate(`/userdashboard/${userDetails._id}`);
   };
   const onChange = (e) => {
     //setting project on change in project details from the form

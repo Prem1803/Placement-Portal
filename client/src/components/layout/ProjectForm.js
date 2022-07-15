@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Spinner from "./Spinner";
 
 export const ProjectForm = ({ user, token, userDetails }) => {
   const { addToast } = useToasts();
   const userId = useParams().id; //getting user id
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const [project, setProject] = useState({}); //setting project as empty object
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export const ProjectForm = ({ user, token, userDetails }) => {
       autoDismissTimeout: 2000,
     });
     //redirecting to the dahboard
-    history.push(`/userdashboard/`);
+    navigate(`/userdashboard/`);
   };
   const onChange = (e) => {
     //setting project on change in project details from the form
