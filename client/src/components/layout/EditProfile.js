@@ -106,9 +106,9 @@ export const EditProfile = ({ user, userDetails }) => {
   };
   const uploadFileHandler = async (e) => {
     //uploading the user image
-    const file = e.target.files[0];
+    // const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", e.target.files[0]);
 
     try {
       const config = {
@@ -122,7 +122,7 @@ export const EditProfile = ({ user, userDetails }) => {
         formData,
         config
       );
-      currentUser.imgUrl = data.slice(data.indexOf("image"));
+      currentUser.imgUrl = data;
     } catch (error) {
       console.error(error);
     }
@@ -154,7 +154,7 @@ export const EditProfile = ({ user, userDetails }) => {
                     }}
                   >
                     <img
-                      src={require(`../../uploads/${imgUrl}`).default}
+                      src={imgUrl}
                       style={{
                         maxHeight: "200px",
                         maxWidth: "200px",

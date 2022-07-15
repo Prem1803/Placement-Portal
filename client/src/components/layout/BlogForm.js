@@ -63,7 +63,9 @@ export const BlogForm = ({ user, userDetails, token }) => {
         formData,
         config
       );
-      blog.image = data.slice(data.indexOf("image"));
+      console.log(data);
+
+      blog.image = data;
     } catch (error) {
       console.error(error);
     }
@@ -132,7 +134,7 @@ export const BlogForm = ({ user, userDetails, token }) => {
                     }}
                   >
                     <img
-                      src={require(`../../uploads/${blog.image}`).default}
+                      src={blog.image}
                       style={{
                         maxHeight: "400px",
                         maxWidth: "400px",

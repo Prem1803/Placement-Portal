@@ -87,7 +87,8 @@ const StudentSchema = mongoose.Schema({
   imgUrl: {
     type: String,
     required: false,
-    default: "image-1617535773762.jpg",
+    default:
+      "https://res.cloudinary.com/dhfw6jmp9/image/upload/v1657878026/images_qcxcsn.jpg",
   },
   linkedInUrl: {
     type: String,

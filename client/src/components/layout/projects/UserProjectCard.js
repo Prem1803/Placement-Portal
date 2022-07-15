@@ -53,7 +53,7 @@ const UserProjectCard = ({
             <img
               style={{ height: "200px" }}
               className="activator"
-              src={require(`../../../uploads/${image}`).default}
+              src={image}
               alt={name}
             />
           </div>

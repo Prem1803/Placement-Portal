@@ -99,7 +99,7 @@ const EditAnnouncement = ({ token, user }) => {
         formData,
         config
       );
-      announcement.image = data.slice(data.indexOf("image"));
+      announcement.image = data;
     } catch (error) {
       console.error(error);
     }
@@ -174,9 +174,7 @@ const EditAnnouncement = ({ token, user }) => {
                     }}
                   >
                     <img
-                      src={
-                        require(`../../uploads/${announcement.image}`).default
-                      }
+                      src={announcement.image}
                       style={{
                         maxHeight: "400px",
                         maxWidth: "400px",

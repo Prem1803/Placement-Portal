@@ -35,11 +35,7 @@ const UserAnnouncementCard = ({
     //returns the Annoucement component
     <div className="announcementCard blue">
       <Link className="announcementCard__img_link" to={`/announcements/${_id}`}>
-        <img
-          className="announcementCard__img"
-          src={require(`../../../uploads/${image}`).default}
-          alt={title}
-        />
+        <img className="announcementCard__img" src={image} alt={title} />
       </Link>
 
       <div className="announcementCard__text">

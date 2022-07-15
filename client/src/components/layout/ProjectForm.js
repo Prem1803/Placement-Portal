@@ -57,7 +57,7 @@ export const ProjectForm = ({ user, token, userDetails }) => {
         formData,
         config
       );
-      project.image = data.slice(data.indexOf("image"));
+      project.image = data;
     } catch (error) {
       console.error(error);
     }

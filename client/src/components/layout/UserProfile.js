@@ -72,10 +72,7 @@ const UserProfile = ({ user }) => {
                             textAlign: "center",
                             margin: "0 auto",
                           }}
-                          src={
-                            require(`../../uploads/${userDetails.imgUrl}`)
-                              .default
-                          }
+                          src={userDetails.imgUrl}
                           alt={userDetails.name}
                         />
                       </td>

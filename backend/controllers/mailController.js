@@ -8,6 +8,9 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
     const { announcement } = req.body;
     let transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD,
@@ -56,6 +59,9 @@ const sendOTP = asyncHandler(async (req, res) => {
     const { student, otp } = req.body;
     let transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD,
@@ -89,6 +95,9 @@ const contactFormSubmission = asyncHandler(async (req, res) => {
     const { name, email, subject, category, content } = req.body;
     let transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD,
@@ -156,6 +165,9 @@ const sendOTPToResetPassword = asyncHandler(async (req, res) => {
     const { student, otp } = req.body;
     let transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD,

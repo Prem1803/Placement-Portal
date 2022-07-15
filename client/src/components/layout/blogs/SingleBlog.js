@@ -41,7 +41,7 @@ const SingleBlog = ({ user }) => {
             }}
           >
             <img
-              src={require(`../../../uploads/${image}`).default}
+              src={image}
               style={{
                 margin: "0 auto",
                 height: "100%",

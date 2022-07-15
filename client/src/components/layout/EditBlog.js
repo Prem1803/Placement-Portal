@@ -81,7 +81,7 @@ const EditBlog = ({ token, user, userDetails }) => {
         formData,
         config
       );
-      blog.image = data.slice(data.indexOf("image"));
+      blog.image = data;
     } catch (error) {
       console.error(error);
     }
@@ -156,7 +156,7 @@ const EditBlog = ({ token, user, userDetails }) => {
                     }}
                   >
                     <img
-                      src={require(`../../uploads/${blog.image}`).default}
+                      src={blog.image}
                       style={{
                         maxHeight: "400px",
                         maxWidth: "400px",

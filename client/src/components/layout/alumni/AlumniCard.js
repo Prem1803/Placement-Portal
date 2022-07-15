@@ -19,11 +19,7 @@ const AlumniCard = ({
     <div className="developer-card " style={{ textAlign: "center" }}>
       <div className="developer-header">
         <Link to={`/users/${_id}`}>
-          <img
-            className="developer-profile-img"
-            src={require(`../../../uploads/${imgUrl}`).default}
-            alt={name}
-          />
+          <img className="developer-profile-img" src={imgUrl} alt={name} />
         </Link>
         {/*  Image of the Alumni */}
       </div>

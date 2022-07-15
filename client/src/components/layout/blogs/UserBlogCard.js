@@ -32,7 +32,7 @@ const UserBlogCard = ({ blog, userDetails, token, user }) => {
     //returns the blog car
     <div className="blog-card">
       <div className="blog-card-header">
-        <img src={require(`../../../uploads/${image}`).default} alt={title} />
+        <img src={image} alt={title} />
       </div>
 
       <div className="blog-card-body">
