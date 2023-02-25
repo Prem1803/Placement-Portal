@@ -5,6 +5,7 @@ const db = process.env.MONGOURI;
 //Connecting to mongodb atlas
 const connectDB = async () => {
   try {
+    mongoose.set("strictQuery", false);
     await mongoose.connect(db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

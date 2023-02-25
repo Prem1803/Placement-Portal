@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getUserInfo } from "../../api/apiUser";
 import Spinner from "./Spinner";
 

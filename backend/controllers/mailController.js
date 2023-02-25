@@ -19,7 +19,7 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
     let students = await User.find({ type: 0 });
     students.forEach((student) => {
       transporter.sendMail({
-        from: "Admin@Tnp NIT Delhi <prem.test.email@gmail.com>",
+        from: `Admin@Tnp NIT Delhi <${process.env.EMAIL}>`,
         to: student.email,
         subject: "New Announcement ",
         text:
@@ -34,7 +34,7 @@ const sendAnnouncementNotification = asyncHandler(async (req, res) => {
     students = await User.find({ type: 2 });
     students.forEach((student) => {
       transporter.sendMail({
-        from: "Admin@Tnp NIT Delhi <prem.test.email@gmail.com>",
+        from: `Admin@Tnp NIT Delhi <${process.env.EMAIL}>`,
         to: student.email,
         subject: "New Announcement ",
         text:
@@ -69,7 +69,7 @@ const sendOTP = asyncHandler(async (req, res) => {
     });
     if (student) {
       transporter.sendMail({
-        from: "Admin@Tnp NIT Delhi <prem.test.email@gmail.com>",
+        from: `Admin@Tnp NIT Delhi <${process.env.EMAIL}>`,
         to: student,
         subject: "Verify your Email",
         text:
@@ -105,7 +105,7 @@ const contactFormSubmission = asyncHandler(async (req, res) => {
     });
     if (category === "General Query")
       transporter.sendMail({
-        from: name + " <prem.test.email@gmail.com>",
+        from: name + ` ${process.env.EMAIL}`,
         to: process.env.EMAIL,
         subject: "Contact Form Submission: " + category,
         text:
@@ -130,7 +130,7 @@ const contactFormSubmission = asyncHandler(async (req, res) => {
       });
     else
       transporter.sendMail({
-        from: name + " <prem.test.email@gmail.com>",
+        from: name + ` ${process.env.EMAIL}`,
         to: process.env.EMAIL,
         subject: "Contact Form Submission: " + category,
         text:
@@ -175,7 +175,7 @@ const sendOTPToResetPassword = asyncHandler(async (req, res) => {
     });
     if (student) {
       transporter.sendMail({
-        from: "Admin@Tnp NIT Delhi <prem.test.email@gmail.com>",
+        from: `Admin@Tnp NIT Delhi <${process.env.EMAIL}>`,
         to: student,
         subject: "Reset Your Password",
         text:

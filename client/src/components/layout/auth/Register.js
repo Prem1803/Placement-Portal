@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
 
@@ -142,8 +142,7 @@ const Register = () => {
           autoDismiss: true,
           autoDismissTimeout: 2000,
         });
-        navigate({
-          to: "/verify",
+        navigate("/verify", {
           state: {
             name: user.name,
             rollNo: user.rollNo,
@@ -153,7 +152,8 @@ const Register = () => {
             course: user.course,
             passoutYear: user.passoutYear,
           },
-        }); //redirects to the Verification Page on successfull register
+        });
+        //redirects to the Verification Page on successfull register
       } else {
         addToast("Registration Failed This Email is Already Taken", {
           appearance: "error",

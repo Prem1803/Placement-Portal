@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { useDispatch } from "react-redux";
 import { register } from "../../../actions/userActions";

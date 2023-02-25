@@ -1,6 +1,0 @@
-
-{
-    "Comment1":"Here all the global variables will be stored",
-    "mongoURI":"mongodb+srv://Prem:1234@cluster0.ogpfp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret":"Software Engineering Project"
-}

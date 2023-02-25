@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import UserBlogCard from "./blogs/UserBlogCard";
 
 import { getAllUserBlogs } from "../../api/apiBlog";
@@ -44,15 +44,14 @@ const UserDashboard = ({ user, token }) => {
 
   const addBlog = () => {
     //adding blogs
-    navigate({ to: `/addBlog`, state: { postedBy: 0 } }); //redirects to add blog page
+    navigate(`/addBlog`, { state: { postedBy: 0 } }); //redirects to add blog page
   };
   const editProfile = () => {
     //edit profile
     navigate(`/editProfile`); //redirects to edit profile page
   };
   const changePassword = () => {
-    navigate({
-      to: "/changepassword",
+    navigate("/changepassword", {
       state: {
         email: user.email,
       },

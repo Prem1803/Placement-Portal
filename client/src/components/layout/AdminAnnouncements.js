@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getAllAnnouncements } from "../../api/apiAnnouncement";
 import UserAnnouncementCard from "./announcements/UserAnnouncementCard";
 

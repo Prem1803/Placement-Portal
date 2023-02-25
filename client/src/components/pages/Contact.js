@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Contact = ({ token, user, userDetails }) => {
   const { addToast } = useToasts();

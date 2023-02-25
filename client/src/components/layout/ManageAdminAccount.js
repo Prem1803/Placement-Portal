@@ -1,13 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 
 const ManageAdminAccount = ({ user }) => {
   const navigate = useNavigate();
 
   const changePassword = () => {
-    navigate({
-      to: "/changepassword",
+    navigate("/changepassword", {
       state: {
         email: user.email,
       },

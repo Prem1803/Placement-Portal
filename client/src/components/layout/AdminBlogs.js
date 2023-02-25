@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import UserBlogCard from "./blogs/UserBlogCard";
 import Spinner from "./Spinner";
 import { getAllAdminBlogs } from "../../api/apiBlog";
@@ -23,7 +23,7 @@ const AdminBlogs = ({ user, userDetails, token }) => {
   const navigate = useNavigate();
   const addBlog = () => {
     //adding blogs
-    navigate({ to: `/addBlog`, state: { postedBy: 1 } }); //redirects to the add blog page
+    navigate(`/addBlog`, { state: { postedBy: 1 } }); //redirects to the add blog page
   };
   if (Object.keys(user).length !== 0) {
     if (user.uid) {

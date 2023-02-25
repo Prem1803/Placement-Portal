@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
